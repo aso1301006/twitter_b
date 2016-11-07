@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+body{
+width:auto;
+hight:auto;
+margin: auto ;
+background:#F0FFFF;
+}
+
+.main{
+background-color:#FFF;
+width:80%;
+hight:auto;
+margin:auto;
+margin-top:10px;
+border-radius:5px;
+border:solid 1px #AAA;
+overflow:hidden;
+}
+
+#home_button{
+	float:left;
+	padding:5px;
+}
+
+#system_name{
+	float:left;
+	padding:5px;
+	margin-left:30%;
+}
+
+#user_info{
+	float:right;
+	margin-right:5px;
+}
+
+.icon{
+	float:left;
+	padding:5px;
+	marign-right:10%;
+}
+
+.info{
+	padding:5px;
+	margin-top:5px;
+}
+
+.border{
+	width:95%;
+	margin:3.5em auto 5px auto;
+	border: solid 1px #CCC;
+}
