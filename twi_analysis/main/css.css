@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+div
+#search{
+	float:left;
+	text-align: center;
+}
+#reload{
+	float:right;
+}
