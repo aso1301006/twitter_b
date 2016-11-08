@@ -5,7 +5,7 @@ define("Consumer_Key", "vfQ2SASQcoLdl1cqdwmMOD2yJ");
 define("Consumer_Secret", "zspEuzKLR1QgraXnqaZOXxBBgTSSa0dOwyWpUYHLWnvjND7eqa");
 
 //Callback URL
-define('Callback', 'http://localhost/twitter_anarysis/collback.php');
+define('Callback', 'http://localhost/twi_anarysis/login/collback.php');
 
 //ライブラリを読み込む
 require "twitteroauth/autoload.php";
