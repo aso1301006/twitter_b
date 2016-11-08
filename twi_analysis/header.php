@@ -30,7 +30,7 @@ $t_icon=$_SESSION['profile_image_url_https'];
 
 		<div id="user_info">
 			<div class="icon">
-			<img src="<?php echo $t_icon;?>" alt="user_icon" width="50px" height="50px"></img>
+			<img src="<?php echo $t_icon;?>" alt="user_icon" width="50px" height="50px"	style="border:solid 1px #AAA;"></img>
 			</div>
 
 			<div class="info">
@@ -38,4 +38,4 @@ $t_icon=$_SESSION['profile_image_url_https'];
 			</div>
 		</div>
 
-		<div class="border" style="margin-top:5%;"></div>
+		<div class="border" style="margin-top:5.5%;"></div>
