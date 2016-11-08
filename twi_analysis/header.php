@@ -29,7 +29,7 @@ session_start();
 
 		<div id="user_info">
 			<div class="icon">
-				<img src="img/motoi.png" alt="user_icon" width="50px" height="50px"></img>
+				<a href=""><img src="img/motoi.png" alt="user_icon" width="50px" height="50px"></img></a>
 			</div>
 
 			<div class="info">
@@ -37,4 +37,4 @@ session_start();
 			</div>
 		</div>
 
-		<div class="border"></div>
+		<div class="border" style="margin-top:5%;"></div>
