@@ -4,6 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="login.css"></link>
 <title>login_approval</title>
+
+<!--
+function error(){       //ID又はパスワードの不一致アラート
+	window.confirm('IDまたはパスワードが間違っています。再度入力してください。')
+}
+ -->
+
+
 </head>
 <body>
 <div class="main">
@@ -11,8 +19,28 @@
 $id=$_POST['id'];
 $pw=$_POST['pw'];
 
-$id;
-$pw;
+//include 'DB.php';
+
+/*
+$sql = "SELECT * FROM user WHERE id = ?";
+$data = $pdo->prepare($sql);
+$data->execute(array($id));//要らないかも？
+
+
+//----繰り返しでSERECTでとってきた値を表示----------
+while($row = $data ->fetch(PDO::FETCH_ASSOC)){
+	$D_id = $row['user_id'];
+	$D_pw=$row['user_pw'];
+}
+*/
+
+//メールアドレスとパスワードで認証
+if($id == $D_id){
+	if($pw == $D_pw){
+		$_SESSION['user_id']=$D_id;
+		header('location: index.php');
+	}else{error();}
+}else {error();}
 ?>
 </div>
 </body>
