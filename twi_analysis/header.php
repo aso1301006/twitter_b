@@ -1,13 +1,14 @@
 <?php
 session_start();
 
-$t_id=$_SESSION['screen_name'];
-$t_name=$_SESSION['name'];
-$t_icon=$_SESSION['profile_image_url_https'];
-
-//ログインしていないorセッションが切れた場合------------
-	if($t_id==null){
-		header("Location: login/login.php");
+//twitter承認していないorセッションが切れた場合------------
+	if($_SESSION['screen_name']==null){
+		header("Location: http://localhost/twitter_anarysis/login/login.php");
+	}
+	else{
+		$t_id=$_SESSION['screen_name'];
+		$t_name=$_SESSION['name'];
+		$t_icon=$_SESSION['profile_image_url_https'];
 	}
 ?>
 
