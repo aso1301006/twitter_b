@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="word.css"></link>
+<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/back_button.css"></link>
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
 <title>単語比較グラフ</title>
 </head>
@@ -41,7 +42,7 @@
 
 <div class="main">
 <div id="header2">
-	<div class="general-button">
+	<div class="general-button" style="float: left; margin: 10px;">
 		<div class="button-content">
 			<span class="button-text">戻る</span>
 		</div>
