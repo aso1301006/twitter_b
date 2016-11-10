@@ -9,8 +9,6 @@
 <body>
 <?php
 // include ('../header.php'); ヘッダー
-include ("/../jpgraph-4.0.1/src/jpgraph.php");
-include ("/../jpgraph-4.0.1/src/jpgraph_pie.php");
 ?>
 <?php
 //テスト用の値
