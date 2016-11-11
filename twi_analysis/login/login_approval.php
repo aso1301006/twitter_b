@@ -39,7 +39,8 @@ if($id == $D_id){
 	if($pw == $D_pw){
 		$_SESSION['user_id']=$D_id;
 		header('location: index.php');
-	}else{error();}
+	}else{error();
+	}
 }else {error();}
 ?>
 </div>

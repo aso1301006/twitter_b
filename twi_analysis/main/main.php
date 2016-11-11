@@ -52,7 +52,7 @@ include ('../header.php');
 <div class="main">
 
 	<div id="search" align="right">
-		<img src="../img/search_you.png" alt="分析" width=55% height=100% onClick="location.href=''"></img>
+		<img src="../img/search_you.png" alt="分析" width=55% height=100% onClick="location.href='../your_page/your_page.php'"></img>
 	</div>
 
 	<div id="relaod" align="right">
