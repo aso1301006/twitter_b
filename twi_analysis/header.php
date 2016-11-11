@@ -5,7 +5,7 @@ session_start();
 
 //ログインしていないorセッションが切れた場合------------
 	if($_SESSION['screen_name']==null){
-		header("Location: http://localhost/twitter_anarysis/login/login.php");
+		header("Location: http://localhost/twi_analysis/login/login.php");
 	}
 	else{
 		$t_id=$_SESSION['screen_name'];
