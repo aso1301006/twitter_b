@@ -24,11 +24,11 @@ session_start();
 <body>
 	<div class="main">
 		<div id="home_button">
-			<a href="http://localhost/twitter_anarysis/main/main.php"><img src="http://localhost/twitter_anarysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
+			<a href="http://localhost/twitter_anarysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
 		</div>
 
 		<div id="system_name">
-			<img src="http://localhost/twitter_anarysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
+			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
 		</div>
 
 		<div id="user_info">
