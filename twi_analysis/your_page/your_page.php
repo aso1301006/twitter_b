@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="your_page.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twitter_anarysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="http://localhost/twitter_analysis/css/css.css"></link>
 <title>あなたページ</title>
 </head>
 <body>
