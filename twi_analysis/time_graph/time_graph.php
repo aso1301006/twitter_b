@@ -6,6 +6,9 @@
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/back_button.css"></link>
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
 <title>時間比較グラフ</title>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 <?php
@@ -13,44 +16,49 @@ include ('../header.php');
 ?>
 <?php
 //テスト用の値
-	//時間
-	$time = '1日の比較';
-	$week = '一週間の比較';
 
-
-	$i = 1;
-	$current = $time;
-	$left = '<div id="left" class="week_sel" style="float: left;">';
-	$left .= '<img src="http://localhost/twi_analysis/img/week_arrow02.png" alt="左" width="80px" height="50px" />';
-	$left .= '<h2>'.$time.'</h2></div>';
-	$middle = '<div id="middle" class="week_sel">';
-	$middle .= '<h2>'.$current.'</h2></div>';
-	$right = '<div id="right" class="week_sel" style="float: right;">';
-	$right .= '<img src="http://localhost/twi_analysis/img/week_arrow01.png" alt="右" width="80px" height="50px" />';
-	$right .= '<h2>'.$week.'</h2></div>';
-	if($i < 1){
-		$select = $left.$middle;
-	}
-	else{
-		$select = $middle.$right;
-	}
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
 	//例：<img src="test.php?parameter1=aaa&parameter2=bbb" alt="テスト"/>
 ?>
-<div class="main">
+<div class="main" style="width: 800px;">
 <div id="header2">
 	<div class="general-button" style="float: left; margin: 10px;">
 		<div class="button-content">
 			<span class="button-text">戻る</span>
 		</div>
 	</div>
-	<h1>時間で比較</h1>
+	<h1>時間での比較</h1>
 	<div class="clear" />
-	<div id="week_select">
-		<?php echo $select;?>
-	</div><!-- Fin_week_select -->
+	<div id="time_select">
+			<?php
+				$jud = 0;
+				if($jud == 0){
+					echo '<div class="time_sel_img" style="float: left;">';
+					echo '<input type="image" src="http://localhost/twi_analysis/img/week_arrow02.png" alt="左" width="80px" height="50px" />';
+					echo '<h2>1日で比較</h2></div>';
+					echo '<div class="time_sel" style="float: right;" />';
+				}
+				else{
+					echo '<div class="time_sel_img" style="float: right;">';
+					echo '<img src="http://localhost/twi_analysis/img/week_arrow01.png" alt="右" width="80px" height="50px" />';
+					echo '<h2>1週間で比較</h2></div>';
+					echo '<div class="time_sel" style="float: left;" />';
+				}
+			?>
+		</div><!-- Fin_time_sel -->
+		<div id="middle" class="time_sel">
+			<?php
+				if($jud == 0){
+					echo '<h2>1週間の比較</h2>';
+				}
+				else{
+					echo '<h2>1日の比較</h2>';
+				}
+			?>
+		</div>
+	</div><!-- Fin_time_select -->
 	<div class="clear" />
 </div><!-- Fin_header2 -->
 
@@ -59,7 +67,7 @@ include ('../header.php');
 </div><!-- Fin_line_graph -->
 
 <div id="table" style="text-align: center">
-<div id="table_left" class="table" style="border: medium solid #ff0000;">
+<div id="table_left" class="table" style="border: medium solid #ff0000; width: 300px">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
 		<a style="cursor:pointer;">クリックでポジティブ</a>

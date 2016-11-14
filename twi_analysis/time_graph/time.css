@@ -12,16 +12,28 @@ h2{
 .clear {
 	clear:both; /*floatÇÃâèú*/
 }
-#week_select{
+#time_select{
 	text-align:	center;
 }
-.week_sel{
+.time_sel{
 	text-align: center;
 	width: 150px;
 	display: inline-block;
 	vertical-align: top;
 	margin: 5px 0px;
 	padding: 10px;
+}
+.time_sel_img{
+	text-align: center;
+	width: 150px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px 0px;
+	padding: 10px;
+}
+img:hover{
+	border:10px solid #333;
+	margin: 10px;
 }
 .table{
 	text-align: center;

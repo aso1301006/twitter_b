@@ -14,10 +14,13 @@ $graph->SetScale("textlin");
 
 $graph->SetMargin(40,20,20,60);
 
-$graph->title->Set("Timing a graph");
-$graph->footer->right->Set('Timer (ms): ');
-$graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
-$graph->footer->SetTimer($timer);
+// $graph->title->Set("Timing a graph");
+// $graph->footer->right->Set('Timer (ms): ');
+// $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
+// $graph->footer->SetTimer($timer);
+$title = mb_convert_encoding("タイトル", "UTF-8", "auto");
+$graph->title->Set($title);
+$graph->title->SetFont(FF_MINCHO);
 
 // Create the linear plot
 $lineplot=new LinePlot($ydata);
@@ -28,12 +31,17 @@ $lineplot2=new LinePlot($ydata2);
 $graph->Add($lineplot);
 $graph->Add($lineplot2);
 
-$graph->xaxis->title->Set("X-title");
-$graph->yaxis->title->Set("Y-title");
+// $graph->xaxis->title->Set("X-title");
+// $graph->yaxis->title->Set("Y-title");
+$graph->xaxis->title->Set(mb_convert_encoding("横軸x", "UTF-8", "auto"));
+$graph->yaxis->title->Set(mb_convert_encoding("縦軸y", "UTF-8", "auto"));
 
-$graph->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+// $graph->title->SetFont(FF_FONT1,FS_BOLD);
+// $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
+// $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD)
+$graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
+$graph->yaxis->title->SetFont(FF_MINCHO);
+$graph->xaxis->title->SetFont(FF_MINCHO);;
 
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
