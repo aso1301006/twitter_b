@@ -22,7 +22,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
 </head>
 <body>
-	<div class="main">
+	<div class="header">
 		<div id="home_button">
 			<a href="http://localhost/twitter_anarysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
 		</div>
@@ -43,3 +43,4 @@ session_start();
 
 		<div class="border" style="margin-top:5.5%;"></div>
 </div>
+<Span Style="Font-Size:5em"><br/></Span>

@@ -24,9 +24,10 @@ $(function() {
 	include '../DB_test.php';
 //表示する年について
 
-	if(){
+// 	if(){
 
-	}else{	$year=date('y');}
+// 	}else{
+$year=date('y');
 
 
 ?>
