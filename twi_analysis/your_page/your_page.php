@@ -69,6 +69,10 @@ $today = date("Y年m月d日");
 		<div id="week_button">
 			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="40%" height="40%"></img></a>
 		</div>
+
+		<div id="advice_button">
+			<a href="../seibun/seibun.php"><img src="../img/advice.png" alt="advice_link" width="37%" height="37%"></img></a>
+		</div>
 <!-- ---------- -->
 
 <!-- 左配置のボタンたち -->
