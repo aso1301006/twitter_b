@@ -2,14 +2,28 @@
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<link rel="stylesheet" href="flickity.min.css"></link>
 <link rel="stylesheet" type="text/css" href="week.css"></link>
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/back_button.css"></link>
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="flickity.pkgd.min.js"></script>
+<script type="text/javascript">
+$(function(){
+$('.main-gallery').flickity({
+	cellAlign: 'left',
+	wrapAround: true,
+	contain: true,
+	wrapAround: true,
+	pageDots: false
+});
+});
+</script>
 <title>曜日比較グラフ</title>
 </head>
 <body>
 <?php
-// include ('../header.php'); ヘッダー
+include ('../header.php');
 ?>
 <?php
 //テスト用の値
@@ -24,23 +38,7 @@
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
 	//例：<img src="test.php?parameter1=aaa&parameter2=bbb" alt="テスト"/>
 ?>
-<div class="main"> <!-- テスト用に作成。ページ完成後はincludeを適用して削除する -->
-	<div id="home_button">
-		<a href="http://localhost/twi_analysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px" /></a>
-	</div>
-	<div id="system_name">
-		<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
-	</div>
-	<div id="user_info">
-		<div class="icon">
-			<img src="http://localhost/twi_analysis/img/motoi.png" alt="user_icon" width="50px" height="50px"	style="border:solid 1px #AAA;"></img>
-		</div>
-		<div class="info">
-			<a>@test_twitter</a><br/><a><font size="5em">John Doe</font></a>
-		</div>
-	</div>
-	<div class="border" style="margin-top:5.5%;" />
-</div>
+
 
 <div class="main">
 <div id="header2">
@@ -49,26 +47,27 @@
 			<span class="button-text">戻る</span>
 		</div>
 	</div>
-	<h1>曜日との比較</h1>
+	<h1>曜日ごとの比較</h1>
 	<div class="clear" />
 	<div id="week_select">
 		<div id="left" class="week_sel" style="float: left;">
-			<img src="http://localhost/twi_analysis/img/week_arrow02.png" alt="左" width="80px" height="50px" />
+			<img src="../img/week_arrow02.png" alt="左" width="80px" height="50px" />
 			<?php echo '<h2>'.$prev.'</h2>';?>
 		</div>
 		<div id="middle" class="week_sel">
 			<?php echo '<h2>'.$week.'</h2>';?>
 		</div>
 		<div id="right" class="week_sel" style="float: right;">
-			<img src="http://localhost/twi_analysis/img/week_arrow01.png" alt="右" width="80px" height="50px" />
+			<img src="../img/week_arrow01.png" alt="右" width="80px" height="50px" />
 			<?php echo '<h2>'.$next.'</h2>';?>
 		</div>
 	</div><!-- Fin_week_select -->
 	<div class="clear" />
 </div><!-- Fin_header2 -->
 
-<div id="line_graph" class="graph" style="text-align: center">
-	<img src="line_graph.php" alt="折れ線グラフ" />
+<div class="main-gallery">
+	<img src="line_graph.php" alt="折れ線グラフ" height="600" width="1100" class="gallery-cell"/>
+	<img src="../time_graph/line_graph.php" alt="" height="600" width="1100" class="gallery-cell"/>
 </div><!-- Fin_line_graph -->
 
 <div id="table" style="text-align: center">

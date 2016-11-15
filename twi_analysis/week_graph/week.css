@@ -30,3 +30,6 @@ h2{
 	vertical-align: top;
 	margin-top: 10px;
 }
+#main-gallery{
+	position:absolute;
+}
