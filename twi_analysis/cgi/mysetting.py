@@ -3,7 +3,6 @@
 
 from pymongo import MongoClient
 
-
 # 使わないのでとりあえずコメントアウト
 # KEYS = {  # 自分のアカウントで入手したキーを下記に記載
 #     'consumer_key': '**********',

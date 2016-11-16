@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import mysetting
-# import sys
 tweetdata = mysetting.tweetdata
 nega_pogi = mysetting.nega_pogi
 
@@ -44,6 +43,7 @@ def get_score(word_list):
     return score / float(word_count) if word_count != 0. else 0.
 
 
+# 感情値を算出するべきものだけ抽出
 for d in tweetdata.find({'mecabed': True, 'emotion': {'$ne': True}}, {
     '_id': 1, 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
 }):

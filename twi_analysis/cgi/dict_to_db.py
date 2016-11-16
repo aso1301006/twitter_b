@@ -3,7 +3,6 @@
 
 import codecs
 import mysetting
-# import sys
 nega_pogi = mysetting.nega_pogi
 
 

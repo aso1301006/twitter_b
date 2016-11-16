@@ -5,7 +5,6 @@ import MeCab
 import mysetting
 from collections import defaultdict
 import unicodedata
-# import sys
 tweetdata = mysetting.tweetdata
 
 
@@ -31,7 +30,6 @@ def mecab_analysis(sentence):
     return result_dict
 
 
-# pdb.set_trace()
 # mecabedがtrueのものはすでに分解されているので除外する
 for d in tweetdata.find({'mecabed': {'$ne': True}}, {
     '_id': 1, 'id': 1, 'text': 1, 'noun': 1,
@@ -69,11 +67,3 @@ for d in tweetdata.find({'mecabed': {'$ne': True}}, {
                              '$push': {'adverb': {'$each': adverb_list}}})
     # 形態素解析済みのツイートにMecabedフラグの追加
     tweetdata.update({'_id': d['_id']}, {'$set': {'mecabed': True}})
-
-# twitter_text = sys.argv[1].decode('utf-8')
-# dictionary = mecab_analysis(twitter_text)
-# print u"原文：%s" % twitter_text
-# for k, v in dictionary.items():
-#     print "[%s]" % k
-#     for d in v:
-#         print d
