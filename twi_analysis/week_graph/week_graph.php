@@ -11,9 +11,10 @@
 <script type="text/javascript">
 $(function(){
 $('.main-gallery').flickity({
-	cellAlign: 'left',
+	cellAlign: 'center',
 	wrapAround: true,
 	contain: true,
+	 pageDots: true,
 	wrapAround: true,
 	pageDots: false
 });
@@ -28,9 +29,9 @@ include ('../header.php');
 <?php
 //テスト用の値
 	//週
-	$prev = '日曜日';
-	$week = '月曜日';
-	$next = '火曜日';
+// 	$prev = '日曜日';
+// 	$week = '月曜日';
+// 	$next = '火曜日';
 	//単語
 	$word = '楽しい';
 
@@ -49,25 +50,14 @@ include ('../header.php');
 	</div>
 	<h1>曜日ごとの比較</h1>
 	<div class="clear" />
-	<div id="week_select">
-		<div id="left" class="week_sel" style="float: left;">
-			<img src="../img/week_arrow02.png" alt="左" width="80px" height="50px" />
-			<?php echo '<h2>'.$prev.'</h2>';?>
-		</div>
-		<div id="middle" class="week_sel">
-			<?php echo '<h2>'.$week.'</h2>';?>
-		</div>
-		<div id="right" class="week_sel" style="float: right;">
-			<img src="../img/week_arrow01.png" alt="右" width="80px" height="50px" />
-			<?php echo '<h2>'.$next.'</h2>';?>
-		</div>
 	</div><!-- Fin_week_select -->
 	<div class="clear" />
 </div><!-- Fin_header2 -->
 
 <div class="main-gallery">
-	<img src="line_graph.php" alt="折れ線グラフ" height="600" width="1100" class="gallery-cell"/>
-	<img src="../time_graph/line_graph.php" alt="" height="600" width="1100" class="gallery-cell"/>
+	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
+	<img src="../time_graph/line_graph.php" alt="" class="gallery-cell"/>
+	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
 </div><!-- Fin_line_graph -->
 
 <div id="table" style="text-align: center">
