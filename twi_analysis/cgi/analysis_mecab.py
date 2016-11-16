@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import MeCab as mc
-from pymongo import MongoClient
+import MeCab
+import mysetting
 from collections import defaultdict
 import unicodedata
 # import sys
+tweetdata = mysetting.tweetdata
 
 
 # mecab 形態素分解
 def mecab_analysis(sentence):
-    t = mc.Tagger('-Ochasen')
+    t = MeCab.Tagger('-Ochasen')
     sentence = sentence.replace('\n', ' ')
     text = sentence.encode('utf-8')
     node = t.parseToNode(text)
@@ -30,11 +31,7 @@ def mecab_analysis(sentence):
     return result_dict
 
 
-connect = MongoClient('localhost', 27017)
-db = connect.twi_analysis
-# tweetdata = db.tweetdata　←実際のテーブルは未定義なのでコメントアウト
-tweetdata = db.test
-
+# pdb.set_trace()
 # mecabedがtrueのものはすでに分解されているので除外する
 for d in tweetdata.find({'mecabed': {'$ne': True}}, {
     '_id': 1, 'id': 1, 'text': 1, 'noun': 1,
