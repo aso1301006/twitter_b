@@ -1,5 +1,7 @@
+//チェックボックスごとに判定する
 
-function checked(){
+
+function checked1(){
 	var checker1 = document.forms.form1.check1.checked;
 	var checker2 = document.forms.form1.check2.checked;
 	var checker3 = document.forms.form1.check3.checked;

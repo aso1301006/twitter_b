@@ -75,11 +75,11 @@
 </div>
 
 <form id="form1">
-	<input type="checkbox" id="check1" value=""checked="checked"onclick="checked4()"/>青
-	<input type="checkbox" id="check2" value=""checked="checked"onclick="checked4()"/>黄
-	<input type="checkbox" id="check3" value=""checked="checked"onclick="checked4()"/>緑
-	<input type="checkbox" id="check4" value=""checked="checked"onclick="checked4()"/>赤
-	<input type="checkbox" id="check5" value=""checked="checked"onclick="checked4()"/>黒
+	<input type="checkbox" id="check1" value=""checked="checked"onclick="checked1()"/>青
+	<input type="checkbox" id="check2" value=""checked="checked"onclick="checked1()"/>黄
+	<input type="checkbox" id="check3" value=""checked="checked"onclick="checked1()"/>緑
+	<input type="checkbox" id="check4" value=""checked="checked"onclick="checked1()"/>赤
+	<input type="checkbox" id="check5" value=""checked="checked"onclick="checked1()"/>黒
 </form>
 </div><!-- Fin_line_graph -->
 </div><!-- Fin_main -->
