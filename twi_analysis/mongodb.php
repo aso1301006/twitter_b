@@ -1,24 +1,3 @@
-<?php
-
-// MongoDBクライアントの作成
-$mongo = new MongoClient("35.162.58.174:27017");
-
-// データベースの選択
-$db = $mongo->selectDB("twi_analysis");
-
-// コレクションの選択
-$collection = $db->selectCollection("tweetdata");
-
-//データ挿入
-// $collection->insert(array("twi_id" => "1", "text" => "日本語化のテスト", "create_at" => "2016.11.16"));
-// $collection->insert(array("twi_id" => "2", "text" => "test", "create_at" => "2016.11.16"));
-// $collection->insert(array("twi_id" => "3", "text" => "日本語化", "create_at" => "2016.11.16"));
-// $collection->insert(array("twi_id" => "3", "text" => "日本語化", "create_at" => "2016.11.16"));
-
-//データ取得
-$acquisition = $collection->find();
-
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -26,33 +5,24 @@ $acquisition = $collection->find();
 </head>
 <body>
 <?php
-echo "mongoのステータス<br>";
-var_dump($mongo);
-echo "<br><br>";
+include 'DBManager.php';
 
-echo "データベースのリスト<br>";
-var_dump($mongo->listDBs());
-echo "<br><br>";
-
-echo "データベースの情報<br>";
-var_dump($db);
-echo "<br><br>";
-
-echo "コレクションの情報<br>";
-var_dump($collection);
-echo "<br><br>";
-
-echo "データの数:";
-print $collection->count();
-echo "<br><br>";
-
-echo 'データ表示';
-foreach ( $acquisition as $id => $value )
-{
-    echo "$id: ";
-    var_dump( $value );
+echo 'ツイートデータ全件取得';
+$all_tweets = tweets_all_search();
+foreach ($all_tweets as $key => $value){
+	var_dump($value);
 }
-echo "<br><br>";
+echo '-------------------------------------------------------------';
+
+echo 'ユーザデータ1件取得';
+$user_name = user_search(array('screen_id'=>'6clover_1301003'));
+foreach ($user_name as $key => $value){
+	var_dump($value);
+}
+echo '-------------------------------------------------------------';
+
+echo 'ツイート1件挿入';
+$insert =tweets_one_insert(array('negapozi'=>-0.999, 'text'=>'インサート1件', 'create_at'=>date('Y年　m月　d日')));
 ?>
 </body>
 </html>
