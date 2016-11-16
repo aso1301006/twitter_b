@@ -3,11 +3,11 @@ session_start();
 
 if(!isset($_SESSION['access_token'])){
 
-	header('Location: http://localhost/twitter_anarysis/login/login.php');
+	header('Location: http://localhost/twitter_analysis/login/login.php');
 
 }else{
 	//twitterとの連携が承認されていれば自動でmain.phpへ
-	header('Location: http://localhost/twitter_anarysis/main/main.php');
+	header('Location: http://localhost/twitter_analysis/main/main.php');
 }
 
 
