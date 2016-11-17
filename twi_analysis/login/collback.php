@@ -44,16 +44,16 @@ if($_SESSION['oauth_token'] == $_GET['oauth_token'] and $_GET['oauth_verifier'])
 	$collection = $db->selectCollection("user_data");
 
 	//連番生成する----
-	$res = $collection->find();   //全件取得
+//	$res = $collection->find();   //全件取得
 //	$doc = array("user_id"=> 1);  //user_idで昇順
 //	$res->sort($doc);            //
-    $res->limit(1);               //一件のみを取得
+//    $res->limit(1);               //一件のみを取得
 
-	$auto_no=$res;            //最新のuser_idに＋1
+//	$auto_no=$res;            //最新のuser_idに＋1
 //	var_dump ($res);
 
 	//インサート
-	$collection->insert(array("user_id" => $auto_no, "user_name" => $_SESSION['name'], "screen_id" => $_SESSION['screen_name'], "profile_image" => $_SESSION['profile_image_url_https']));
+//	$collection->insert(array("user_id" => $auto_no, "user_name" => $_SESSION['name'], "screen_id" => $_SESSION['screen_name'], "profile_image" => $_SESSION['profile_image_url_https']));
 //DB追加終了
 
 
