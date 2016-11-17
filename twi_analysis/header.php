@@ -1,11 +1,11 @@
 <?php
-session_start();
+//session_start();
 
 
 
 //ログインしていないorセッションが切れた場合------------
 	if($_SESSION['screen_name']==null){
-		header("Location: http://localhost/twitter_anarysis/login/login.php");
+		header("Location: http://localhost/twi_analysis/login/login.php");
 	}
 	else{
 		$t_id=$_SESSION['screen_name'];
@@ -19,16 +19,16 @@ session_start();
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="http://localhost/twitter_anarysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
 </head>
 <body>
 	<div class="header">
 		<div id="home_button">
-			<a href="http://localhost/twitter_anarysis/main/main.php"><img src="http://localhost/twitter_anarysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
+			<a href="http://localhost/twi_analysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
 		</div>
 
 		<div id="system_name">
-			<img src="http://localhost/twitter_anarysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
+			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
 		</div>
 
 		<div id="user_info">
