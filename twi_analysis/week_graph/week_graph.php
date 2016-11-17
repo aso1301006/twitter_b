@@ -11,10 +11,11 @@
 <script type="text/javascript">
 $(function(){
 $('.main-gallery').flickity({
-	cellAlign: 'center',
-	wrapAround: true,
+	cellAlign: 'center', // 各画像（セル）の基準位置をしていできます。デフォルトはcenter。
+	wrapAround: true, // trueで無限スライダーになります。
 	contain: true,
 	 pageDots: true,
+	 prevNextButtons: true,
 	wrapAround: true,
 	pageDots: false
 });
@@ -45,26 +46,21 @@ include ('../header.php');
 <div id="header2">
 	<div class="general-button" style="float: left; margin: 10px;">
 		<div class="button-content">
-			<span class="button-text">戻る</span>
+				<form action="../your_page/your_page.php" method="post">
+				<input type="submit"value="戻る">
+				</form>
 		</div>
 	</div>
 	<h1>曜日ごとの比較</h1>
 	<div class="clear" />
-	</div><!-- Fin_week_select -->
 	<div class="clear" />
 </div><!-- Fin_header2 -->
 
-<div class="main-gallery">
-	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
-	<img src="line_graph.php" alt="" class="gallery-cell"/>
-	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
-</div><!-- Fin_line_graph -->
-
-<div id="table" style="text-align: center">
-<div id="table_left" class="table" style="border: medium solid #ff0000;">
+<div id="table">
+<div id="table_first" class="table" style="border: medium solid #ff0000;">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">クリックでポジティブ</a>
+		<a style="cursor:pointer;">1週目</a>
 	</div>
 	<!--// 折りたたみ -->
 
@@ -78,12 +74,12 @@ include ('../header.php');
 		</div>
 	</div>
 	<!--// 折りたたまれ -->
-</div><!-- Fin_table_left -->
-
-<div id="table_right" class="table" style="border: medium solid #0080ff;">
+</div><!-- Fin_table_first -->
+<p style="margin-bottom:1em;"></p>
+<div id="table_second" class="table" style="border: medium solid #0080ff;">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('yyy').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">クリックでネガティブ</a>
+		<a style="cursor:pointer;">2週目</a>
 	</div>
 	<!--// 折りたたみ -->
 
@@ -97,8 +93,14 @@ include ('../header.php');
 		</div>
 	</div>
 	<!--// 折りたたまれ -->
-</div><!-- Fin_table_right -->
-</div>
+</div><!-- Fin_table_second -->
+</div><!--  Fin_table -->
+
+<div class="main-gallery">
+	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
+	<img src="../time_graph/line_graph.php" alt="" class="gallery-cell"/>
+	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
+</div><!-- Fin_line_graph -->
 </div><!-- Fin_main -->
 </body>
 </html>
