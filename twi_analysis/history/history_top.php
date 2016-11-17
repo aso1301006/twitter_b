@@ -16,7 +16,7 @@
 
 <div class="main">
 <?php
-include '../header.php';
+include ('../header.php');
 
 if(isset($_POST["rireki"])){
 $year=$_POST["rireki"];

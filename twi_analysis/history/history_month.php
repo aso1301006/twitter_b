@@ -17,7 +17,7 @@ $name = $_POST['1'];
 ?>
 <div class="main">
 <?php
-include 'header.php';
+include ('../header.php');
 ?>
 
 
