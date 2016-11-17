@@ -56,7 +56,7 @@ include ('../header.php');
 
 <div class="main-gallery">
 	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
-	<img src="../time_graph/line_graph.php" alt="" class="gallery-cell"/>
+	<img src="line_graph.php" alt="" class="gallery-cell"/>
 	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
 </div><!-- Fin_line_graph -->
 

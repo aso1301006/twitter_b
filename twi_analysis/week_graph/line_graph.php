@@ -9,7 +9,7 @@ $timer = new JpgTimer();
 $timer->Push();
 
 // Create the graph. These two calls are always required
-$graph = new Graph(300,200);
+$graph = new Graph(700,400);
 $graph->SetScale("textlin");
 
 $graph->SetMargin(40,20,20,60);
