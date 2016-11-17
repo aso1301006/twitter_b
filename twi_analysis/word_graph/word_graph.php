@@ -33,7 +33,7 @@ $x=$collection->count();
 echo $x;
 
 //  検索条件(WHERE key = '1234567')
-$where = array('id' => "3");
+$where = array('twi_id' => "3");
 //  ソート条件を指定する(ORDER BY lastdate DESC, lasttime DESC)
 //  ソート条件は-1でDESC, 1でASC
 $order_by = array('create_at' => -1);
@@ -47,7 +47,7 @@ $cursor->limit(1);
 //  カーソルからデータを取得する
 $result = $cursor->next();
 
-var_dump($result);
+var_dump(iterator_to_array($cursor));
 
 
 ?>

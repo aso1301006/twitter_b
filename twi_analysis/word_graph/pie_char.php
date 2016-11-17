@@ -2,7 +2,7 @@
 include ("/../jpgraph-4.0.1/src/jpgraph.php");
 include ("/../jpgraph-4.0.1/src/jpgraph_pie.php");
 
-//円グラフ
+/* //円グラフ
 //DB接続
 $pdo = new PDO('mysql:host=localhost;dbname=test1', 'root','');
 //SQL実行
@@ -13,11 +13,11 @@ $i=0;
 while ($row = $result->fetch(PDO::FETCH_NUM)) {
 	$deta[$i]=$row[0];
 	$i++;
-}
+} */
 
 
-//$data = array(40,60,21,33);
-$data=array($deta[0],$deta[1],$deta[2],$deta[3]);
+$data = array(40,60,21,33);
+//$data=array($deta[0],$deta[1],$deta[2],$deta[3]);
 
 $graph = new PieGraph(400,300);
 
