@@ -45,17 +45,18 @@
 	left:15%;
 	top:80%;
 	position: absolute;
+	width:20%;
 }
 
 #word_button{
-	right:0%;
-	top:35%;
+	left:73%;
+	top:30%;
 	position: absolute;
 }
 
 #week_button{
-	right:4%;
-	top:65%;
+	left:63%;
+	top:57%;
 	position: absolute;
 }
 

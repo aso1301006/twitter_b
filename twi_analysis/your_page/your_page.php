@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="your_page.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twitter_analysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="http://localhost/twitter_anarysis/css/css.css"></link>
 <title>あなたページ</title>
 </head>
 <body>
@@ -63,11 +63,11 @@ $today = date("Y年m月d日");
 
 <!-- 右配置のボタンたち -->
 		<div id="word_button">
-			<a href="../word/word.php"><img src="../img/word_button.png" alt="word_link" width="40%" height="40%" ></img></a>
+			<a href="../word/word.php"><img src="../img/word_button.png" alt="word_link" width="43%" height="43%" ></img></a>
 		</div>
 
 		<div id="week_button">
-			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="40%" height="40%"></img></a>
+			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="37%" height="37%"></img></a>
 		</div>
 
 		<div id="advice_button">
@@ -81,7 +81,7 @@ $today = date("Y年m月d日");
 		</div>
 
 		<div id="history_button">
-			<a href="../history/history_top.php"><img src="../img/走る.png" alt="word_link" width="12%" height="12%"></img>
+			<a href="../history/history_top.php"><img src="../img/走る.png" alt="word_link" width="50%" height="12%"></img>
 			</a>
 		</div>
 <!-- ---------- -->
