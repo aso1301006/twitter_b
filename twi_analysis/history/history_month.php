@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="stylesheet" type="text/css" media="screen" href="history_year.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="css/back_button.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/back_button.css" />
 <title>タイトル</title>
 </head>
 

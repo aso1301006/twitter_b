@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="stylesheet" type="text/css" media="screen" href="layout.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="css/back_button.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/back_button.css" />
 <title>タイトル</title>
 </head>
 
@@ -16,7 +16,7 @@
 
 <div class="main">
 <?php
-include 'header.php';
+include '../header.php';
 
 if(isset($_POST["rireki"])){
 $year=$_POST["rireki"];
@@ -53,7 +53,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　1月" name="1" style="margin-left:80px">
 </p>
-<input  type="image" src="images/1.png" name="1">
+<input  type="image" src="../img/1.png" name="1">
 </form>
 </div>
 
@@ -66,7 +66,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　2月" name="1">
 </p>
-<input type="image" src="images/2.png" name="2" >
+<input type="image" src="../img/2.png" name="2" >
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -75,7 +75,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　3月" name="1">
 </p>
-<input type="image" src="images/3.png" name="3">
+<input type="image" src="../img/3.png" name="3">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -84,7 +84,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　4月" name="1">
 </p>
-<input type="image" src="images/4.png" name="4">
+<input type="image" src="../img/4.png" name="4">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -93,7 +93,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　5月" name="1">
 </p>
-<input type="image" src="images/5.png" name="5">
+<input type="image" src="../img/5.png" name="5">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -102,7 +102,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　6月" name="1">
 </p>
-<input type="image" src="images/6.png" name="6">
+<input type="image" src="../img/6.png" name="6">
 </form>
 </div>
 <span style="font-size:1em"><br/></span>
@@ -116,7 +116,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　7月" name="1">
 </p>
-<input  type="image" src="images/7.png" name="7">
+<input  type="image" src="../img/7.png" name="7">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -125,7 +125,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　8月" name="1">
 </p>
-<input type="image" src="images/8.png" name="8">
+<input type="image" src="../img/8.png" name="8">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -134,7 +134,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　9月" name="1">
 </p>
-<input type="image" src="images/9.png" name="9">
+<input type="image" src="../img/9.png" name="9">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -143,7 +143,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　10月" name="1">
 </p>
-<input type="image" src="images/10.png" name="10">
+<input type="image" src="../img/10.png" name="10">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -152,7 +152,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　11月" name="1">
 </p>
-<input type="image" src="images/11.png" name="11">
+<input type="image" src="../img/11.png" name="11">
 </form>
 </div>
 <span style="font-size:2em"><br/></span>
@@ -161,7 +161,7 @@ $year=$_POST["rireki"];
 <p>
 <input type="hidden" value="2016年　12月" name="1">
 </p>
-<input type="image" src="images/12.png" name="12">
+<input type="image" src="../img/12.png" name="12">
 </form>
 </div>
 </div><!--右半分  -->
