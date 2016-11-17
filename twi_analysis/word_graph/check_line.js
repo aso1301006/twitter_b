@@ -27,7 +27,7 @@ if (checker1 == false) {//1=F
 				else{Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data4=true\">");}//F F T F T
 			}
 			else{//4=T
-				if (checker5 == false) {Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data4=true\">");}//F F T F T
+				if (checker5 == false) {Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data5=true\">");}//F F T T F
 				else{Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true\">");}//F F T T T
 			}
 		}
@@ -39,14 +39,14 @@ if (checker1 == false) {//1=F
 				else{Element.update(item,"<img src=\"line_graph.php?data1=true&data3=true&data4=true\">");}//F T F F T
 			}
 			else{//4=T
-				if (checker5 == false) {Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data3=true&data5=true\">");}//F F F T F
+				if (checker5 == false) {Element.update(item,"<img src=\"line_graph.php?data1=true&data3=true&data5=true\">");}//F T F T F
 				else{Element.update(item,"<img src=\"line_graph.php?data1=true&data3=true\">");}//F T F T T
 	 			}
 		}
 	 	else{//3=T
 	 		if(checker4 == false){//4=F
-	 			if(checker5 == false){Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data4=true&data5=true\">");}//F F T F F
-	 			else{Element.update(item,"<img src=\"line_graph.php?data1=true&data2=true&data4=true\">");}//F F T F T
+	 			if(checker5 == false){Element.update(item,"<img src=\"line_graph.php?data1=true&data4=true&data5=true\">");}//F T T F F
+	 			else{Element.update(item,"<img src=\"line_graph.php?data1=true&data4=true\">");}//F T T F T
 	 		}
 	 		else{//4=T
 	 			if (checker5 == false) {Element.update(item,"<img src=\"line_graph.php?data1=true&data5=true\">");}//F T T T F

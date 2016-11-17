@@ -23,6 +23,13 @@ $bar1 = new BarPlot($data);
 $bar1->value->SetFormatCallback("cbFmtPercentage");
 $bar1->value->Show();
 
+$labels = array('単語①', '単語②', '単語3', '単語4', '単語5');
+$graph->xaxis->SetFont(FF_GOTHIC);
+$graph->xaxis->SetTickLabels($labels);
+
+$graph->yaxis->title->SetFont(FF_MINCHO,FS_NORMAL,10);
+$graph->yaxis->title->Set("ツイート数");
+
 // Add the plot to the graph
 $graph->Add($bar1);
 
