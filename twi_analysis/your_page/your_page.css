@@ -2,20 +2,21 @@
 
 #page_title{
 	float:left;
-	margin-left:40%;
-	margin-right:20%;
+	margin-left:35%;
+	margin-right:10%;
 	color:#555;
+	width:30%;
 }
 
 #today{
 	font-size:1.4em;
 	padding:5px;
-	margin:25px 10px auto auto;
+	margin:4% auto auto 15%;
 }
 
 #comment{
-	margin-left:4em;
-	margin-top:-28em;
+	margin-left:6%;
+	margin-top:-42%;
 	position: relative;
 	float:left;
 }
@@ -23,8 +24,8 @@
 #comment_text{
 	font-size:1.3em;
 	float:left;
-	top:35px;
-	left:42px;
+	top:32%;
+	left:4%;
 	position: absolute;
 }
 
