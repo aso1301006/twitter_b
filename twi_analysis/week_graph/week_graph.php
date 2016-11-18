@@ -60,31 +60,57 @@ include ('../header.php');
 <div id="table_first" class="table" style="border: medium solid #ff0000;">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">1週目</a>
+		<a style="cursor:pointer;">1週目ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
 	</div>
 	<!--// 折りたたみ -->
 
 	<!-- 折りたたまれ -->
-	<div id="xxxxx" style="display:none;clear:both;">
+	<div id="xxxxx" style="display:none;">
 		<div onclick="obj=document.getElementById('01_p').style; obj.display=(obj.display=='none')?'block':'none';">
-			<a style="cursor:pointer;">01時</a>
+			<a style="cursor:pointer;">
+			<div id="point" style='border:solid 1px #AAA'>
+				<div class="row">
+					<div class="time">時間</div>
+					<div class="posi">ポジティブ</div>
+					<div class="posi">値</div>
+					<div class="nega">ネガティブ</div>
+					<div class="nega">値</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">3.00</div>
+					<div>いいね</div>
+					<div>0.5</div>
+					<div>駄目ね</div>
+					<div>-0.7</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">4.00</div>
+					<div>良い</div>
+					<div>0.4</div>
+					<div>悪い</div>
+					<div>-0.5</div>
+				</div>
+			</div>
+			</a>
 		</div>
-		<div id="01_p" style="display:none;clear:both;">
+		<div id="01_p" style="display:none;">
 			01時のテーブル
 		</div>
 	</div>
 	<!--// 折りたたまれ -->
 </div><!-- Fin_table_first -->
-<p style="margin-bottom:1em;"></p>
+
 <div id="table_second" class="table" style="border: medium solid #0080ff;">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('yyy').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">2週目</a>
+		<a style="cursor:pointer;">2週目ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
 	</div>
 	<!--// 折りたたみ -->
 
 	<!-- 折りたたまれ -->
-	<div id="yyy" style="display:none;clear:both;">
+	<div id="yyy" style="display:none;">
 		<div onclick="obj=document.getElementById('01_n').style; obj.display=(obj.display=='none')?'block':'none';">
 			<a style="cursor:pointer;">01時</a>
 		</div>
@@ -97,9 +123,13 @@ include ('../header.php');
 </div><!--  Fin_table -->
 
 <div class="main-gallery">
-	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
-	<img src="../time_graph/line_graph.php" alt="" class="gallery-cell"/>
-	<img src="line_graph.php" alt="折れ線グラフ" class="gallery-cell"/>
+	<img src="line_graph.php" alt="月曜日" class="gallery-cell"/>
+	<img src="line_graph2.php" alt="火曜日" class="gallery-cell"/>
+	<img src="line_graph3.php" alt="水曜日" class="gallery-cell"/>
+	<img src="line_graph4.php" alt="木曜日" class="gallery-cell"/>
+	<img src="line_graph5.php" alt="金曜日" class="gallery-cell"/>
+	<img src="line_graph6.php" alt="土曜日" class="gallery-cell"/>
+	<img src="line_graph7.php" alt="日曜日" class="gallery-cell"/>
 </div><!-- Fin_line_graph -->
 </div><!-- Fin_main -->
 </body>
