@@ -1,6 +1,9 @@
 <?php
 include '../Authentication.php';
 include '../DBManager.php';
+session_start();
+
+header("Content-type: text/plain; charset=UTF-8");
 
 //処理制限時間を無期限に
 set_time_limit(0);
@@ -21,7 +24,7 @@ $params_a = array();
 // 	ユーザーid
 $params_a['user_id'] = $user_id;
 // 	取得件数 1から200まで
-$params_a['count'] = '200';
+$params_a['count'] = '2';
 // 	ユーザー情報を除外するのか
 $params_a['trim_user'] = 'false';
 
@@ -53,6 +56,9 @@ $params_a['trim_user'] = 'false';
 
 // }
 //echo($count);
-header( "http://localhost/twi_analysis/your_page/your_page.php" ) ;
-exit ;
+//header( "Location: /http://localhost/twi_analysis/your_page/your_page.php" );
+//exit ;
 ?>
+<script type="text/javascript">
+window.location.href = 'http://localhost/twi_analysis/your_page/your_page.php';
+</script>
