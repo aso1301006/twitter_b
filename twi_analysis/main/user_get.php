@@ -13,7 +13,8 @@
 <body>
 <div id="load" align="center">
 	<img src="../img/ajax-loader.gif"alt="Now Loading..." />	<!--ローディング画像-->
-	<h2>ツイート情報を取得しています・・・・</h2>
+	<h2>最新ツイート情報を取得しています・・・・</h2>
+	<h3>(最大取得数3,200ツイート取得に約10分ほどかかります)</h3>
 </div>
 </body>
 </html>
