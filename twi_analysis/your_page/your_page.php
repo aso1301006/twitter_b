@@ -9,25 +9,28 @@
 <body>
 <?php
 session_start();
-	include '../header.php';
-//	include '../DB.php';
-
-/*
-	$sql = "SELECT * FROM user WHERE id = ?";
-	$data = $pdo->prepare($sql);
-	$data->execute(array($id));//要らないかも？
+include '../header.php';
+include '../mongodb.php';
 
 
-	//----繰り返しでSERECTでとってきた値を表示----------
-	while($row = $data ->fetch(PDO::FETCH_ASSOC)){
-		$negapozi = $row['negapozi'];
-	}
-*/
-$negapozi = 0.3;
-$kind;
-$color;
 //今日の日付取得
-$today = date("Y年m月d日");
+$today = date("y年m月d日");
+$count=0;
+$sum=0;
+$negapozi=0;
+
+//ネガポジ値計算
+	$select=$tweets->find(array("user_id"=>$_SESSION['id'],"t_time" => new MongoRegex("/".$today."/")));
+
+	foreach ($select as $res) {
+		$sum=$sum + ($res['negapozi']);
+		$count=$count + 1;
+	}
+//今日のツイートがない場合
+if(!($count == null)){
+	$ave=$sum/$count;
+	$negapozi=round($ave,3);
+}
 ?>
 
 	<div class="main">
@@ -41,15 +44,15 @@ $today = date("Y年m月d日");
 			if($negapozi == 0){
 				echo "<img src='../img/人_黒.png' alt='people' width='30%' height='30%'></img>";
 				$kind="平常";
-				$color="#F00";
+//				$color="#F00";
 			}elseif ($negapozi > 0){
 				echo "<img src='../img/人_赤.png' alt='people' width='30%' height='30%'></img>";
 				$kind="ポジティブ";
-				$color="#F00";
+//				$color="#F00";
 			}else {
 				echo "<img src='../img/人_青.png' alt='people' width='30%' height='30%'></img>";
 				$kind="ネガティブ";
-				$color="#00F";
+//				$color="#00F";
 			}
 		?>
 		</div>
@@ -57,7 +60,7 @@ $today = date("Y年m月d日");
 
 <!-- ネガポジ表示部分 -->
 		<div id="comment">
-			<img src="../img/hukidasi.png" alt="comment" width="25%" height="25%"></img>
+			<img src="../img/hukidasi.png" alt="comment" width="28%" height="25%"></img>
 			<a id="comment_text"><?php echo $kind;?>です！<br/>ネガポジ度：<?php echo $negapozi;?></a>
 		</div>
 <!-- ---------------  -->
@@ -68,7 +71,7 @@ $today = date("Y年m月d日");
 		</div>
 
 		<div id="week_button">
-			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="37%" height="37%"></img></a>
+			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="35%" height="35%"></img></a>
 		</div>
 
 		<div id="advice_button">
