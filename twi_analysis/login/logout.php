@@ -15,6 +15,6 @@ if (isset($_COOKIE["PHPSESSID"])) {
 //セッションを破棄する
 session_destroy();
 
-echo "<p>ログアウトしました。</p>";
+//echo "<p>ログアウトしました。</p>";
 
-echo "<a href='index.php'>はじめのページへ</a>";
+header('location: Welcome.html');
