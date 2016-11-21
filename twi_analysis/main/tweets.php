@@ -4,7 +4,6 @@ include '../DBManager.php';
 session_start();
 
 $start = microtime(true);//処理開始時間
-
 set_time_limit(0);//処理制限時間を無期限に
 
 //ユーザid
@@ -56,6 +55,7 @@ for($count;$count<$limit_tweets;){
 	}catch (Exception $e){
 		break;
 	}
+
 }
 $end = microtime(true);//処理終了時間[
 $time = s2h($end - $start);//秒数を時分秒に変換
