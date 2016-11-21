@@ -17,4 +17,4 @@ session_destroy();
 
 //echo "<p>ログアウトしました。</p>";
 
-header('location: Welcome.html');
+header('location: https://twitter.com/');
