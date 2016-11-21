@@ -43,21 +43,27 @@ def get_score(word_list):
     return score / float(word_count) if word_count != 0. else 0.
 
 
-# 感情値を算出するべきものだけ抽出
-for d in tweetdata.find({'mecabed': True, 'emotion': {'$ne': True}}, {
-    '_id': 1, 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
-}):
-    # id は邪魔なので変数に退避して削除する
-    db_id = d['_id']
-    del d['_id']
+if __name__ == '__main__':
+    # 感情値を算出するべきものだけ抽出
+    for d in tweetdata.find({'mecabed': True, 'emotion': {'$ne': True}}, {
+        '_id': 1, 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
+    }):
+        # _id は邪魔なので変数に退避して削除する
+        db_id = d['_id']
+        del d['_id']
 
-    # 形態素解析で分解された単語に感情値を追加した辞書を取得
-    point_list = get_emotion(d)
-    # 感情値の平均値を算出する
-    total_score = get_score(point_list)
+        # 形態素解析で分解された単語に感情値を追加した辞書を取得
+        point_list = get_emotion(d)
+        # 感情値の平均値を算出する
+        total_score = get_score(point_list)
 
-    for k, v in point_list.items():
-        tweetdata.update({'_id': db_id}, {'$set': {k: v}})
-    # 感情値を算出したというフラグを追加
-    tweetdata.update({'_id': db_id}, {'$set': {'emotion': True}})
-    tweetdata.update({'_id': db_id}, {'$set': {'emotion_point': total_score}})
+        for k, v in point_list.items():
+            tweetdata.update({'_id': db_id}, {'$set': {k: v}})
+        # 感情値を算出したというフラグを追加
+        tweetdata.update(
+            {'_id': db_id}, {'$set': {'emotion': True}})
+        tweetdata.update(
+            {'_id': db_id}, {'$set': {'emotion_point': total_score}})
+    print "success"
+
+print "finish"
