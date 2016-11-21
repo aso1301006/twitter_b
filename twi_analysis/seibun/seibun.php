@@ -3,12 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="seibun.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twitter_anarysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 <title>助言</title>
 </head>
 <body>
 <?php
-$tw_id="weaver_1116";
+session_start();
+$tw_id= $_SESSION['id'];
 
 
 
