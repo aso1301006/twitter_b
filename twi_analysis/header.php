@@ -33,7 +33,13 @@
 
 		<div id="user_info">
 			<div class="icon">
-			<img src="<?php echo $t_icon;?>" alt="user_icon" width="50px" height="50px"	style="border:solid 1px #AAA;"></img>
+				<ul id="fade-in" class="dropmenu">
+					<li><a href="#"><img src="<?php echo $t_icon;?>" alt="user_icon" width="50px" height="50px"	style="border:solid 1px #AAA;"></img></a>
+						<ul>
+							<li><a href="http://localhost/twi_analysis/login/logout.php">ログアウト</a></li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 
 			<div class="info">
