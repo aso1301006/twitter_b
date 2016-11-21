@@ -13,14 +13,13 @@ $(function(){
 $('.main-gallery').flickity({
 	cellAlign: 'center', // 各画像（セル）の基準位置をしていできます。デフォルトはcenter。
 	wrapAround: true, // trueで無限スライダーになります。
-	contain: true,
-	 pageDots: true,
-	 prevNextButtons: true,
-	wrapAround: true,
-	pageDots: false
+	contain: true, // trueでラッパー内に収まるようにスライドします。
+	wrapAround: true, // trueで無限スライダーになります。
+	pageDots: false // falseで下のドットを非表示にします。
 });
 });
 </script>
+
 <title>曜日比較グラフ</title>
 </head>
 <body>
@@ -29,10 +28,6 @@ include ('../header.php');
 ?>
 <?php
 //テスト用の値
-	//週
-// 	$prev = '日曜日';
-// 	$week = '月曜日';
-// 	$next = '火曜日';
 	//単語
 	$word = '楽しい';
 
@@ -47,7 +42,7 @@ include ('../header.php');
 	<div class="general-button" style="float: left; margin: 10px;">
 		<div class="button-content">
 				<form action="../your_page/your_page.php" method="post">
-				<input type="submit"value="戻る">
+				<input type="submit"value="戻る"></input>
 				</form>
 		</div>
 	</div>
