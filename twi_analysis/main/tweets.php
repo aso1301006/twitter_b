@@ -3,8 +3,9 @@ include '../Authentication.php';
 include '../DBManager.php';
 session_start();
 
-//処理制限時間を無期限に
-set_time_limit(0);
+$start = microtime(true);//処理開始時間
+
+set_time_limit(0);//処理制限時間を無期限に
 
 //ユーザid
 $user_id = $_SESSION['id'];
@@ -19,8 +20,15 @@ $params_a['count'] = '200';
 // 	ユーザー情報を除外するのか
 $params_a['trim_user'] = 'false';
 
-$count = 0;
-$limit_tweets = 3200;
+$j = tweets_search(array("user_id"=>$user_id),array("user_id"=>1));//tweetsdataDBにユーザidが入っているか検索
+foreach ($j as $val){$jud = $val['user_id'];}
+if(isset($jud)){//2回目以降は最大3,200件取得
+	$limit_tweets = 3200;
+}else{//1回目は1,000件取得
+	$limit_tweets = 1000;
+}
+
+$count = 0;//ツイート保存回数
 for($count;$count<$limit_tweets;){
 	//古いツイートidを取得している場合
 	if(isset($max_id)){
@@ -41,12 +49,38 @@ for($count;$count<$limit_tweets;){
 				tweets_one_insert(array('_id'=>$id,'text'=>$text,'created_at'=>$date,'user_id'=>$user_id));
 				$count++;
 			}
+			else{
+				break 2;
+			}
 		}
 	}catch (Exception $e){
 		break;
 	}
 }
-echo '<h2>取得ツイート数：'.$count.'件</h2>';
+$end = microtime(true);//処理終了時間[
+$time = s2h($end - $start);//秒数を時分秒に変換
+echo '<h2>取得ツイート数：'.$count.'件</h2><bt />';
+echo "<h2>処理時間：".$time."</h2><br />";
+
+// //残り時間、残り回数
+// $request_url_L = 'https://api.twitter.com/1.1/application/rate_limit_status.json' ;		// エンドポイント
+// $params_a_L = array();
+// $limit = Authentication($request_url_L, $params_a_L);
+// echo '残り'.$limit['resources']['statuses']['/statuses/user_timeline']['remaining'].'回<br />';
+// echo 'リセット時間'.date('Y年m月d日(D)H時i分s秒',$limit['resources']['statuses']['/statuses/user_timeline']['reset']);
+
+function s2h($seconds) {//秒数を時分秒へ変換
+	$hours = floor($seconds / 3600);//時
+	$minutes = floor(($seconds / 60) % 60);//分
+	$seconds = $seconds % 60;//秒
+
+	$hms = sprintf("%02d時間%02d分%02d秒", $hours, $minutes, $seconds);
+
+	return $hms;
+
+}
+
+//http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q12145747642
 ?>
 <script type="text/javascript">
 function move(){

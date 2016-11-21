@@ -7,14 +7,14 @@
 <script type="text/javascript">
 	$(function(){
 		$("#load").load("./tweets.php");
-	})
+	});
 </script>
 </head>
 <body>
 <div id="load" align="center">
 	<img src="../img/ajax-loader.gif"alt="Now Loading..." />	<!--ローディング画像-->
 	<h2>最新ツイート情報を取得しています・・・・</h2>
-	<h3>(最大取得数3,200ツイート取得に約10分ほどかかります)</h3>
+	<h3>(最大3,200ツイート取得する場合、10分以上かかる場合があります)</h3>
 </div>
 </body>
 </html>
