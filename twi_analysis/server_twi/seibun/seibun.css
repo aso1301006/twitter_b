@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+
+#page_title{
+	margin-top:2%;
+	text-align:center;
+	color:#555;
+	font-size:2em;
+}
+#Dr_mind{
+	margin-left:3%;
+	margin-top:3%;
+	float:left;
+}
+.seibun{
+	margin-top:10%;
+	position:relative;
+	left:10%;
+	top:20%;
+
+}
+#table{
+	left:5%;
+	tex-align:right;
+	border:solid 1px #555;
+}
+
+.advice{
+	clear:none;
+	top:10%;
+	bottom:5%;
+}
