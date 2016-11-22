@@ -1,15 +1,14 @@
 <?php
-//session_start();
 function Authentication($request_url, $params_a){
 	// 設定
 	// APIキー
-	$api_key = 'uerrAJifb1sHjwMKOctuJI0r7' ;
+	$api_key = 'vfQ2SASQcoLdl1cqdwmMOD2yJ' ;
 	// APIシークレット
-	$api_secret = 'xd5CAqPQn6f3YFYKPJLUcV97e5qRnuEZjjCVSibgIBOsR0YtoL' ;
+	$api_secret = 'zspEuzKLR1QgraXnqaZOXxBBgTSSa0dOwyWpUYHLWnvjND7eqa' ;
 	// アクセストークン
-	$access_token = $_SESSION['access_token'];
+	$access_token = $_SESSION['access_token']["oauth_token"] ;
 	// アクセストークンシークレット
-	$access_token_secret = $_SESSION['oauth_token_secret'];
+	$access_token_secret = $_SESSION['access_token']["oauth_token_secret"] ;
 	// エンドポイント
 	$request_url;
 	//メソッド 読み取り「GET」 書き込み「POST」
