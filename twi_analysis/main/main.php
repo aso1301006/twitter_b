@@ -1,5 +1,6 @@
 <?php
-session_start();
+//session_start();
+include ('../header.php');
 include'../Authentication.php';
 
 	//処理制限時間を無期限に
@@ -25,7 +26,7 @@ include'../Authentication.php';
 	// 	パラメータA (オプション)ユーザタイムライン用
 	$params_a_T = array();
 	// 	ユーザーID (どちらか必須)
-	$params_a_T['user'] = $user_id;
+// 	$params_a_T['user'] = $user_id;
 	// 	スクリーンネーム (どちらか必須)
 	$params_a_T['screen_name'] = $screen_name;
 	// 	取得件数 1から199まで
@@ -62,9 +63,6 @@ function reload(){
 </script>
 </head>
 <body>
-<?php
-include ('../header.php');
-?>
 <div class="main">
 
 	<div id="search" align="right">

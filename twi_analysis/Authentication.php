@@ -1,4 +1,5 @@
 <?php
+//session_start();
 function Authentication($request_url, $params_a){
 	// 設定
 	// APIキー
@@ -6,9 +7,9 @@ function Authentication($request_url, $params_a){
 	// APIシークレット
 	$api_secret = 'xd5CAqPQn6f3YFYKPJLUcV97e5qRnuEZjjCVSibgIBOsR0YtoL' ;
 	// アクセストークン
-	$access_token = '791505177299726336-DKMuYT9XInvVlYnDWPgxksx2g5GevbJ' ;
+	$access_token = $_SESSION['access_token'];
 	// アクセストークンシークレット
-	$access_token_secret = 'Ii4yDoVCbdnwbPCQCGNiK5Z6RLNikPfsizbsWI9ayQ0dg' ;
+	$access_token_secret = $_SESSION['oauth_token_secret'];
 	// エンドポイント
 	$request_url;
 	//メソッド 読み取り「GET」 書き込み「POST」
