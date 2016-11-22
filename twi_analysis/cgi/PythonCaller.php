@@ -21,15 +21,17 @@
 		    exec($fullPath, $this->outPara, $returnPara);
 		    if($this->returnPara === 0){
 			    echo '<PRE>';
-			    var_dump($this->fullPath);
+			    var_dump($this->filePath);
+			    var_dump($fullPath);
 			    var_dump($this->outPara);
 			    echo '<PRE>';
 		    }
 		    else{
-		    	echo 'エラーが発生しました：' + $this->outPara;
+		    	echo 'エラーが発生しました：' + $returnPara;
 		    }
 		}
 	}
+
 	$path = "./analysis_mecab.py";
 	$test = new PythonCaller($path);
 	$test->call();

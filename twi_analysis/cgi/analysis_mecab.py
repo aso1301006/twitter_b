@@ -43,6 +43,7 @@ if __name__ == '__main__':
 
         # 品詞毎にフィールド分けして入れ込んでいく
         for k in res.keys():
+            # まとめることができたのでコメントアウト
             # if k == u'形容詞':  # adjective
             #     adjective_list = []
             #     for w in res[k]:
@@ -87,7 +88,7 @@ if __name__ == '__main__':
             elif k == u'副詞':
                 pos = "adverb"
             elif k == u"その他":
-                pos = u"etc"
+                pos = u"undefined"
 
             tweetdata.update({'_id': d['_id']}, {
                 '$push': {pos: {'$each': word_list}}
