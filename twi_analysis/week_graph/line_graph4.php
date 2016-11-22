@@ -19,7 +19,7 @@ $graph->SetMargin(40,20,20,60);
 // $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
 // $graph->footer->SetTimer($timer);
 
-$title = mb_convert_encoding("月曜日", "UTF-8", "auto");
+$title = mb_convert_encoding("木曜日", "UTF-8", "auto");
 $graph->title->Set($title);
 $graph->title->SetFont(FF_MINCHO);
 
