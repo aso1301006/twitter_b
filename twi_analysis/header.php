@@ -1,11 +1,11 @@
 <?php
-//session_start();
+session_start();
 
 
 
 //ログインしていないorセッションが切れた場合------------
-	if($_SESSION['screen_name']==null){
-		header("Location: http://localhost/twi_analysis/login/login.php");
+if(!isset($_SESSION['access_token'])){
+	header('Location: http://localhost/twi_analysis/login/Welcome.html');
 	}
 	else{
 		$t_id=$_SESSION['screen_name'];
@@ -15,7 +15,6 @@
 ?>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
