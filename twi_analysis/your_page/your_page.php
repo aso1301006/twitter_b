@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="your_page.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 <title>あなたページ</title>
 </head>
 <body>
@@ -14,6 +14,7 @@ include '../mongodb.php';
 
 
 //今日の日付取得
+//$today = "2016年11月18日";
 $today = date("y年m月d日");
 $count=0;
 $sum=0;
@@ -31,6 +32,9 @@ if(!($count == null)){
 	$ave=$sum/$count;
 	$negapozi=round($ave,3);
 }
+//echo "合計".$sum;
+//echo "件数".$count;
+//echo "平均".$ave;
 ?>
 
 	<div class="main">
@@ -67,11 +71,11 @@ if(!($count == null)){
 
 <!-- 右配置のボタンたち -->
 		<div id="word_button">
-			<a href="../word/word.php"><img src="../img/word_button.png" alt="word_link" width="43%" height="43%" ></img></a>
+			<a href="../word_graph/word_graph.php"><img src="../img/word_button.png" alt="word_link" width="40%" height="40%" class="float1"></img></a>
 		</div>
 
 		<div id="week_button">
-			<a href="../week/week.php"><img src="../img/week_button.png" alt="word_link" width="35%" height="35%"></img></a>
+			<a href="../week_graph/week_graph.php"><img src="../img/week_button.png" alt="word_link" width="39%" height="39%" class="float2"></img></a>
 		</div>
 
 		<div id="advice_button">
@@ -81,7 +85,7 @@ if(!($count == null)){
 
 <!-- 左配置のボタンたち -->
 		<div id="time_button">
-			<a href="../time/time.php"><img src="../img/time_button.png" alt="word_link" width="40%" height="40%"></img></a>
+			<a href="../time_graph/time_graph.php"><img src="../img/time_button.png" alt="word_link" width="40%" height="40%" class="float1"></img></a>
 		</div>
 
 		<div id="history_button">
@@ -89,7 +93,7 @@ if(!($count == null)){
 			</a>
 		</div>
 <!-- ---------- -->
-
+		<Span Style="Font-Size:3pt"><br></Span>
 	</div>
 </body>
 </html>

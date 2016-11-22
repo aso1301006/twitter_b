@@ -44,7 +44,7 @@
 
 #history_button{
 	left:15%;
-	top:80%;
+	top:77%;
 	position: absolute;
 	width:20%;
 }
@@ -57,12 +57,35 @@
 
 #week_button{
 	left:63%;
-	top:57%;
+	top:50%;
 	position: absolute;
 }
 
 #advice_button{
 	left:77%;
-	top:75%;
+	top:73%;
 	position: absolute;
+}
+
+@keyframes moveimg {
+	0% { left: 0px; top: 0px;}
+	10% { left: 0px; top: 3px;}
+	20% { left: 0px; top: 6px;}
+	30% { left: 0px; top: 9px;}
+	40% { left: 0px; top: 12px;}
+	50% { left: 0px; top: 15px;}
+	60% { left: 0px; top: 12px;}
+	70% { left: 0px; top: 9px;}
+	80% { left: 0px; top: 6px; }
+	90% { left: 0px; top: 3px;}
+	100% { left: 0px; top: 0px; }
+}
+
+.float1{
+	animation: moveimg 2s infinite;
+	position: relative;
+}
+.float2{
+	animation: moveimg 3s infinite;
+	position: relative;
 }
