@@ -79,6 +79,18 @@ include ('../header.php');
 </div><!-- Fin_header2 -->
 
 <div id="table">
+<form>
+<select name="">
+<option value="mon" selected>月曜日</option>
+<option value="tue">火曜日</option>
+<option value="wed">水曜日</option>
+<option value="thu">木曜日</option>
+<option value="fri">金曜日</option>
+<option value="sat">土曜日</option>
+<option value="sun">日曜日</option>
+</select>
+
+<br><br>
 <div id="table_first" class="table" style="border: medium solid #ff0000;">
 	<!-- 折りたたみ -->
 	<div onclick="obj=document.getElementById('xxxxx').style; obj.display=(obj.display=='none')?'block':'none';">
