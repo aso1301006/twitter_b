@@ -4,22 +4,47 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" href="flickity.min.css"></link>
 <link rel="stylesheet" type="text/css" href="week.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/back_button.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/back_button.css"></link>
 <link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="flickity.pkgd.min.js"></script>
+<script src="vanilla.js"></script>
 <script type="text/javascript">
+function frameClick() {
+    document.location.href = "../your_page/your_page.php";
+  }
+
 $(function(){
 $('.main-gallery').flickity({
 	cellAlign: 'center', // 各画像（セル）の基準位置をしていできます。デフォルトはcenter。
 	wrapAround: true, // trueで無限スライダーになります。
 	contain: true, // trueでラッパー内に収まるようにスライドします。
-	wrapAround: true, // trueで無限スライダーになります。
-	pageDots: false // falseで下のドットを非表示にします。
+	pageDots: true, // falseで下のドットを非表示にします。
+	prevNextButtons: true,
 });
+});
+
+//jQuery
+function listener(/* parameters */) {
+  console.log('eventName happened');
+}
+// bind event listener
+// $carousel.on( 'eventName.flickity', listener );
+// $carousel.on( 'scroll.flickity', function( event, progress ) {
+//   console.log( 'Flickity scrolled ' + progress * 100 + '%' )
+// })
+
+$carousel.on( 'scroll.flickity', function( event, progress ) {
+  progress = Math.max( 0, Math.min( 1, progress ) );
+  $progressBar.width( progress * 100 + '%' );
+});
+// unbind event listener
+$carousel.off( 'eventName.flickity', listener );
+// bind event listener to trigger once. note ONE not ON
+$carousel.one( 'eventName.flickity', function() {
+  console.log('eventName happened just once');
 });
 </script>
-
 <title>曜日比較グラフ</title>
 </head>
 <body>
@@ -28,6 +53,10 @@ include ('../header.php');
 ?>
 <?php
 //テスト用の値
+	//週
+// 	$prev = '日曜日';
+// 	$week = '月曜日';
+// 	$next = '火曜日';
 	//単語
 	$word = '楽しい';
 
@@ -39,13 +68,11 @@ include ('../header.php');
 
 <div class="main">
 <div id="header2">
-	<div class="general-button" style="float: left; margin: 10px;">
-		<div class="button-content">
-				<form action="../your_page/your_page.php" method="post">
-				<input type="submit"value="戻る"></input>
-				</form>
+		<div class="general-button" onclick="frameClick();" style="float: left; margin: 10px;">
+			<div class="button-content">
+				<span class="button-text">戻る</span>
+			</div>
 		</div>
-	</div>
 	<h1>曜日ごとの比較</h1>
 	<div class="clear" />
 	<div class="clear" />
@@ -90,9 +117,7 @@ include ('../header.php');
 			</div>
 			</a>
 		</div>
-		<div id="01_p" style="display:none;">
-			01時のテーブル
-		</div>
+
 	</div>
 	<!--// 折りたたまれ -->
 </div><!-- Fin_table_first -->
@@ -107,14 +132,124 @@ include ('../header.php');
 	<!-- 折りたたまれ -->
 	<div id="yyy" style="display:none;">
 		<div onclick="obj=document.getElementById('01_n').style; obj.display=(obj.display=='none')?'block':'none';">
-			<a style="cursor:pointer;">01時</a>
-		</div>
-		<div id="01_n" style="display:none;clear:both;">
-			01時のテーブル
+			<a style="cursor:pointer;">
+			<div id="point" style='border:solid 1px #AAA'>
+				<div class="row">
+					<div class="time">時間</div>
+					<div class="posi">ポジティブ</div>
+					<div class="posi">値</div>
+					<div class="nega">ネガティブ</div>
+					<div class="nega">値</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">5.00</div>
+					<div>楽しい</div>
+					<div>0.9</div>
+					<div>疲れた</div>
+					<div>-0.3</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">6.00</div>
+					<div>面白い</div>
+					<div>0.6</div>
+					<div>つらい</div>
+					<div>-0.8</div>
+				</div>
+			</div>
+			</a>
 		</div>
 	</div>
 	<!--// 折りたたまれ -->
 </div><!-- Fin_table_second -->
+
+<div id="table_third" class="table" style="border: medium solid #ffff00;">
+	<!-- 折りたたみ -->
+	<div onclick="obj=document.getElementById('zzzzz').style; obj.display=(obj.display=='none')?'block':'none';">
+		<a style="cursor:pointer;">3週目ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
+	</div>
+	<!--// 折りたたみ -->
+
+	<!-- 折りたたまれ -->
+	<div id="zzzzz" style="display:none;">
+		<div onclick="obj=document.getElementById('01_a').style; obj.display=(obj.display=='none')?'block':'none';">
+			<a style="cursor:pointer;">
+			<div id="point" style='border:solid 1px #AAA'>
+				<div class="row">
+					<div class="time">時間</div>
+					<div class="posi">ポジティブ</div>
+					<div class="posi">値</div>
+					<div class="nega">ネガティブ</div>
+					<div class="nega">値</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">3.00</div>
+					<div>いいね</div>
+					<div>0.5</div>
+					<div>駄目ね</div>
+					<div>-0.7</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">4.00</div>
+					<div>良い</div>
+					<div>0.4</div>
+					<div>悪い</div>
+					<div>-0.5</div>
+				</div>
+			</div>
+			</a>
+		</div>
+
+	</div>
+	<!--// 折りたたまれ -->
+</div><!-- Fin_table_third -->
+
+<div id="table_forth" class="table" style="border: medium solid #7cfc00;">
+	<!-- 折りたたみ -->
+	<div onclick="obj=document.getElementById('zzz').style; obj.display=(obj.display=='none')?'block':'none';">
+		<a style="cursor:pointer;">4週目ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
+	</div>
+	<!--// 折りたたみ -->
+
+	<!-- 折りたたまれ -->
+	<div id="zzz" style="display:none;">
+		<div onclick="obj=document.getElementById('01_b').style; obj.display=(obj.display=='none')?'block':'none';">
+			<a style="cursor:pointer;">
+			<div id="point" style='border:solid 1px #AAA'>
+				<div class="row">
+					<div class="time">時間</div>
+					<div class="posi">ポジティブ</div>
+					<div class="posi">値</div>
+					<div class="nega">ネガティブ</div>
+					<div class="nega">値</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">3.00</div>
+					<div>いいね</div>
+					<div>0.5</div>
+					<div>駄目ね</div>
+					<div>-0.7</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">4.00</div>
+					<div>良い</div>
+					<div>0.4</div>
+					<div>悪い</div>
+					<div>-0.5</div>
+				</div>
+			</div>
+			</a>
+		</div>
+
+	</div>
+	<!--// 折りたたまれ -->
+</div><!-- Fin_table_forth -->
+<div style="height:400px; background-color:orange"></div>
 </div><!--  Fin_table -->
 
 <div class="main-gallery">
