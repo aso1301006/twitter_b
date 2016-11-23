@@ -14,9 +14,13 @@
 
 <body>
 
-<div class="main">
+
 <?php
+//session_start();
 include ('../header.php');
+echo "<div class='main'>";
+$tw_id=$_SESSION['id'];
+
 
 if(isset($_POST["rireki"])){
 $year=$_POST["rireki"];
