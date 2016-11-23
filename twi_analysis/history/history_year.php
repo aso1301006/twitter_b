@@ -14,11 +14,9 @@
 <body>
 <?php
 $name = $_POST['2016'];
-?>
-<div class="main">
-<?php
 include ('../header.php');
 ?>
+<div class="main">
 
 <span style="font-size:2em"><br/></span>
 <div class="left">
