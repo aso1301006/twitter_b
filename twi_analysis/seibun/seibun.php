@@ -8,7 +8,8 @@
 </head>
 <body>
 <?php
-session_start();
+//session_start();
+include '../header.php';
 $tw_id= $_SESSION['id'];
 
 
@@ -21,7 +22,7 @@ $tw_id= $_SESSION['id'];
 
 
 
-include '../header.php';
+
 
 	$week_weak = "月";
 	$nega_time="2";
