@@ -23,11 +23,11 @@ if(!isset($_SESSION['access_token'])){
 <body>
 	<div class="header">
 		<div id="home_button">
-			<a href="http://localhost/twi_analysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px"></a>
+			<a href="http://localhost/twi_analysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="50px" height="50px"></a>
 		</div>
 
 		<div id="system_name">
-			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
+			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名"width="40%></img>
 		</div>
 
 		<div id="user_info">
@@ -46,6 +46,6 @@ if(!isset($_SESSION['access_token'])){
 			</div>
 		</div>
 
-		<div class="border" style="margin-top:5.5%;"></div>
+		<div class="border" style="margin-top:6%;"></div>
 </div>
-<Span Style="Font-Size:4em"><br/></Span>
+<Span Style="Font-Size:5em"><br/></Span>
