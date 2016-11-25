@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 define("Consumer_Key", "vfQ2SASQcoLdl1cqdwmMOD2yJ");
 define("Consumer_Secret", "zspEuzKLR1QgraXnqaZOXxBBgTSSa0dOwyWpUYHLWnvjND7eqa");

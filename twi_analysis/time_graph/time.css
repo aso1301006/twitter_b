@@ -31,14 +31,41 @@ h2{
 	margin: 5px 0px;
 	padding: 10px;
 }
-img:hover{
-	border:10px solid #333;
-	margin: 10px;
-}
 .table{
-	text-align: center;
-	width: 40%;
+	height: 100%
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 10px;
+
+}
+.main-gallery{
+	float:right;
+	width:75%;
+}
+#table{
+	float:left;
+	width: 25%;
+}
+#point{
+	width:98%;
+	margin: 0 auto;
+	display:table;
+}
+.row{
+	display:table-row;
+}
+.row>div{
+	display:table-cell;
+	border:0.1px solid;
+}
+.time{
+	background-color:gold;
+}
+.day{
+	background-color:gold;
+}
+.posi{
+	background-color:LightSalmon;
+}
+.nega{
+	background-color:CornFlowerBlue;
 }
