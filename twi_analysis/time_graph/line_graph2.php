@@ -18,7 +18,7 @@ $graph->img->SetMargin(40,60,20,60);
 // $graph->footer->right->Set('Timer (ms): ');
 // $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
 // $graph->footer->SetTimer($timer);
-$title = mb_convert_encoding("一日の比較", "UTF-8", "auto");
+$title = mb_convert_encoding("一週間の比較", "UTF-8", "auto");
 $graph->title->Set($title);
 $graph->title->SetFont(FF_MINCHO);
 
@@ -38,7 +38,7 @@ $graph->Add($lineplot2);
 
 // $graph->xaxis->title->Set("X-title");
 // $graph->yaxis->title->Set("Y-title");
-$graph->xaxis->title->Set(mb_convert_encoding("時間", "UTF-8", "auto"));
+$graph->xaxis->title->Set(mb_convert_encoding("曜日", "UTF-8", "auto"));
 $graph->yaxis->title->Set(mb_convert_encoding("ネガポジ値", "UTF-8", "auto"));
 
 // $graph->title->SetFont(FF_FONT1,FS_BOLD);
@@ -55,4 +55,3 @@ $graph->SetShadow();
 
 // Display the graph
 $graph->Stroke();
-?>

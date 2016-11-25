@@ -29,6 +29,7 @@ $(function(){
 <body>
 <?php
 include ('../header.php');
+include ('../DBManager.php');
 ?>
 <?php
 //テスト用の値
