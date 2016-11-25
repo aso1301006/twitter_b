@@ -10,21 +10,26 @@
 <?php
 //session_start();
 include '../header.php';
-include '../mongodb.php';
+include '../DBManager.php';
 
 
 //今日の日付取得
 //$today = "2016年11月18日";
 $today = date("y年m月d日");
+$year = date("y");
+$month = date("m");
+$day = date("d");
+
+
 $count=0;
 $sum=0;
 $negapozi=0;
 
 //ネガポジ値計算
-	$select=$tweets->find(array("user_id"=>$_SESSION['id'],"t_time" => new MongoRegex("/".$today."/")));
+	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"day" =>$day));
 
 	foreach ($select as $res) {
-		$sum=$sum + ($res['negapozi']);
+		$sum=$sum + ($res['emotion_point']);
 		$count=$count + 1;
 	}
 //今日のツイートがない場合
@@ -71,11 +76,11 @@ if(!($count == null)){
 
 <!-- 右配置のボタンたち -->
 		<div id="word_button">
-			<a href="../word_graph/word_graph.php"><img src="../img/word_button.png" alt="word_link" width="40%" height="40%" class="float1"></img></a>
+			<a href="../word_graph/word_graph.php"><img src="../img/word_button.png" alt="word_link" width="40%" height="40%" class="float2"></img></a>
 		</div>
 
 		<div id="week_button">
-			<a href="../week_graph/week_graph.php"><img src="../img/week_button.png" alt="word_link" width="39%" height="39%" class="float2"></img></a>
+			<a href="../week_graph/week_graph.php"><img src="../img/week_button.png" alt="word_link" width="39%" height="39%" class="float1"></img></a>
 		</div>
 
 		<div id="advice_button">
