@@ -1,11 +1,11 @@
 <?php
-// session_start();
+session_start();
 
 
 
 //ログインしていないorセッションが切れた場合------------
 if(!isset($_SESSION['access_token'])){
-	header('Location: login/Welcome.html');
+	header('Location: ../login/Welcome.html');
 	}
 	else{
 		$t_id=$_SESSION['screen_name'];

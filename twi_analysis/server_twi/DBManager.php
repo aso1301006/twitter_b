@@ -1,6 +1,6 @@
 <?php
 // MongoDBクライアントの作成
-$mongo = new MongoClient("35.162.58.174:27017");
+$mongo = new MongoClient();
 
 // データベースの選択
 $db = $mongo->selectDB("twi_analysis");
@@ -15,7 +15,7 @@ function tweets_search($where = null,$select = null,$sort = null){//ツイート
 
 	//データ取得
 	if(empty($where) and empty($select) and empty($sort)){//select,where,orderbyが指定
-		$acquisition = $collection->find($where,$select)->sort($sort);
+		$acquisition = $collection->find();
 	}
 	elseif(empty($where) and empty($select)){//昇順・降順のみ指定
 		$acquisition = $collection->find()->sort($sort);
@@ -36,7 +36,7 @@ function tweets_search($where = null,$select = null,$sort = null){//ツイート
 		$acquisition = $collection->find($where,$select);
 	}
 	else{//条件なしで全件取得
-		$acquisition = $collection->find();
+		$acquisition = $collection->find($where,$select)->sort($sort);
 	}
 	//返り値
 	return $acquisition;
@@ -65,7 +65,7 @@ function user_search($where = null,$select = null){//ユーザー情報取得
 
 	//データ取得
 	if(empty($where) and empty($select)){//select,whereが指定
-		$acquisition = $collection->find($where,$select);
+		$acquisition = $collection->find();
 	}
 	elseif(empty($where)){//selectのみ指定
 		$acquisition = $collection->find(array(),$select);
@@ -74,7 +74,7 @@ function user_search($where = null,$select = null){//ユーザー情報取得
 		$acquisition = $collection->find($where);
 	}
 	else{//条件なしで全件取得
-		$acquisition = $collection->find();
+		$acquisition = $collection->find($where,$select);
 	}
 
 	//返り値

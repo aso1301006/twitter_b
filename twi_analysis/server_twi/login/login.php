@@ -6,6 +6,7 @@ define("Consumer_Secret", "zspEuzKLR1QgraXnqaZOXxBBgTSSa0dOwyWpUYHLWnvjND7eqa");
 
 //Callback URL
 define('Callback', 'http://35.162.58.174/twitter_b/twi_analysis/login/collback.php');
+// define('Callback', 'http://localhost/twi_analysis/login/collback.php');
 
 //ライブラリを読み込む
 require "twitteroauth/autoload.php";
