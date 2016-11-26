@@ -11,6 +11,11 @@ from pymongo import MongoClient
 #     'access_secret': '**********',
 # }
 
+# PHP に返す用途で表示する文字列の定数
+RETURN_STRING_SUCCESS = "Success"
+RETURN_STRING_ERROR = "Error"
+RETURN_STRING_FINISH = "Finish"
+
 # twitter = None
 connect = None
 db = None

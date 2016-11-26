@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import mysetting
+import time
 tweetdata = mysetting.tweetdata
 nega_pogi = mysetting.nega_pogi
 
@@ -44,26 +45,35 @@ def get_score(word_list):
 
 
 if __name__ == '__main__':
-    # 感情値を算出するべきものだけ抽出
-    for d in tweetdata.find({'mecabed': True, 'emotion': {'$ne': True}}, {
-        '_id': 1, 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
-    }):
-        # _id は邪魔なので変数に退避して削除する
-        db_id = d['_id']
-        del d['_id']
+    try:
+        start = time.time()
+        # 感情値を算出するべきものだけ抽出
+        for d in tweetdata.find({'mecabed': True, 'emotion': {'$ne': True}}, {
+            '_id': 1, 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
+        }):
+            # _id は邪魔なので変数に退避して削除する
+            db_id = d['_id']
+            del d['_id']
 
-        # 形態素解析で分解された単語に感情値を追加した辞書を取得
-        point_list = get_emotion(d)
-        # 感情値の平均値を算出する
-        total_score = get_score(point_list)
+            # 形態素解析で分解された単語に感情値を追加した辞書を取得
+            point_list = get_emotion(d)
+            # 感情値の平均値を算出する
+            total_score = get_score(point_list)
 
-        for k, v in point_list.items():
-            tweetdata.update({'_id': db_id}, {'$set': {k: v}})
-        # 感情値を算出したというフラグを追加
-        tweetdata.update(
-            {'_id': db_id}, {'$set': {'emotion': True}})
-        tweetdata.update(
-            {'_id': db_id}, {'$set': {'emotion_point': total_score}})
-    print "success"
+            for k, v in point_list.items():
+                tweetdata.update({'_id': db_id}, {'$set': {k: v}})
+            # 感情値を算出したというフラグを追加
+            tweetdata.update(
+                {'_id': db_id}, {'$set': {'emotion': True}})
+            tweetdata.update(
+                {'_id': db_id}, {'$set': {'emotion_point': total_score}})
+    except Exception as e:
+        print "Exception:" + e.message
+    except:
+        print mysetting.RETURN_STRING_ERROR
+    else:
+        print mysetting.RETURN_STRING_SUCCESS
 
-print "finish"
+print mysetting.RETURN_STRING_FINISH
+elapsed_time = time.time() - start
+print "elapsed_time:{0}".format(elapsed_time) + "[sec]"
