@@ -39,14 +39,20 @@ class PythonCaller{
 	}
 
 	public function parseOutPara($outpara){
-		$controlString = array_splice($outpara, 0, 1);  // 0番目から1つ取り出し代入、引数の配列は詰める
+		// 0番目から1つ取り出し代入、引数の配列は取り出した分詰める
+		$controlString = array_splice($outpara, 0, 1);
 		$returnArray = array();
-		switch ($controlString[0]) {  // 配列で返される可能性が高いので、添え字指定がいるかも
+		switch ($controlString[0]) {
 			case 'Success':
 				foreach ($outpara as $value) {
-					if(!$this->isTime && $value=='Finish'){
-						// 時刻表示をしない設定にしていて、かつ表示が終わっていれば
-						break;
+					if($value == 'Finish'){
+						// 時刻表示をする設定にしていれば繰り返しを続ける
+						if($this->isTime){
+							continue;
+						}
+						else{
+							break;
+						}
 					}
 					$returnArray = $value;
 				}

@@ -1,12 +1,13 @@
 <?php
-	include('PythonCaller.php');
-
 	$html_content = "";
 	if(isset($_GET['filename'])){
+		$path = $_GET['filename'];
+
+//---------------------- ここから必要 ------------------------
+		include('PythonCaller.php');
+		// $path = "analysis_mecab.py";  // 呼び出したいPythonへのパスを記述
+		$caller = new PythonCaller($path);
 		try{
-			// $path = "./analysis_mecab.py";
-			$path = $_GET['filename'];
-			$caller = new PythonCaller($path);
 			$isExec = $caller->call();
 			if(isExec){
 				$html_content = ($caller->getParsedPara());
@@ -21,6 +22,7 @@
 		catch(Exception $e){
 			$html_content = $e->getMessage();
 		}
+//----------------------- ここまで必要 ------------------------
 	}
 ?>
 
