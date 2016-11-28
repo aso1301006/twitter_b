@@ -27,7 +27,7 @@ if(!isset($_SESSION['access_token'])){
 		</div>
 
 		<div id="system_name">
-			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名"width="40%></img>
+			<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名"width="40%"></img>
 		</div>
 
 		<div id="user_info">
