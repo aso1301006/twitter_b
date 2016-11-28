@@ -3,7 +3,7 @@
 class PythonCaller{
 	private $args;
 	private $parsedPara;
-	private $filePath;
+	private $filePath = "";
 	private $isTime = true;  // 実行時間を表示するか
 
 	public function __construct($path, $args = array()){
@@ -76,13 +76,17 @@ class PythonCaller{
 	}
 
 	public function call(){
-		// $outPara = array();  // 出力値は配列に追加される形になるので毎回初期化する
+		// パスが指定されていなければ実行を終了する
+		if($this->filePath == ""){
+			return false;
+		}
 	    $fullPath = 'python '. $this->filePath;
 	    if($this->args != array()){
 	    	$p = implode(" ", $this->args);
 	    	$fullPath .= " ". $p;
 	    }
 	    $fullPath .= ' 2>&1';  // エラー出力を標準出力にすることで $outPara に代入できる
+
 	    exec($fullPath, $outPara, $returnPara);
 
 	    if($returnPara == 0){
