@@ -33,11 +33,43 @@ include ('../DBManager.php');
 ?>
 <?php
 //テスト用の値
-
+$year = date('Y');
+$month = date('m');
+$date = date('d');
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
 	//例：<img src="test.php?parameter1=aaa&parameter2=bbb" alt="テスト"/>
+?>
+<?php
+echo $year;
+echo $month;
+echo $date;
+
+try{
+$j = tweets_search(array("year"=>$year));
+foreach ($j as $val){
+	$hour = $val['hour'];
+
+// 	echo array_key($val);
+// 	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(1);
+// 	$i=0;
+// 	foreach ($select as $day =>$value) {
+// 		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
+// 		$i++;
+// 	}
+
+	$select=tweets_search(array("year" =>$year,"month" =>$month,"day" =>$date));
+	$i=0;
+	foreach ($select as $day =>$value) {
+		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
+		$i++;
+	}
+ }
+}
+catch (Exception $e){
+	echo '捕捉した例外: ',  $e->getMessage(), "\n";
+}
 ?>
 <div class="main">
 <div id="header2">
