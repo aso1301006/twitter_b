@@ -10,6 +10,7 @@
 <script src="flickity.pkgd.min.js"></script>
 <script src="vanilla.js"></script>
 <script type="text/javascript">
+//戻るボタン
 function frameClick() {
     document.location.href = "../your_page/your_page.php";
   }
@@ -44,12 +45,16 @@ $carousel.off( 'eventName.flickity', listener );
 $carousel.one( 'eventName.flickity', function() {
   console.log('eventName happened just once');
 });
+
+
+
 </script>
 <title>曜日比較グラフ</title>
 </head>
 <body>
 <?php
 include ('../header.php');
+include '../DBManager.php';
 ?>
 <?php
 //テスト用の値
@@ -59,6 +64,54 @@ include ('../header.php');
 // 	$next = '火曜日';
 	//単語
 	$word = '楽しい';
+
+//echo $word;
+$year=date("Y");
+$month=date("m");
+
+$youbi_select= "Mon";
+if(isset($_POST['youbi_select'])){
+	$youbi_select=$_POST['youbi_select'];
+}
+
+switch ($youbi_select){
+	case "Mon":
+		$select_week ="月曜日";
+		break;
+	case "Tue":
+		$select_week ="火曜日";
+		break;
+	case "Wed":
+		$select_week ="水曜日";
+		break;
+	case "Thu":
+		$select_week ="木曜日";
+		break;
+	case "Fri":
+		$select_week ="金曜日";
+		break;
+	case "Sat":
+		$select_week ="土曜日";
+		break;
+	case "Sun":
+		$select_week ="日曜日";
+		break;
+}
+
+//DB
+$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(1);
+$i=0;
+foreach ($select as $day =>$value) {
+	$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
+	$i++;
+}
+//print_r($retu_day);
+
+
+
+
+
+
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
@@ -79,17 +132,23 @@ include ('../header.php');
 </div><!-- Fin_header2 -->
 
 <div id="table">
-<form>
-<select name="">
-<option value="mon" selected>月曜日</option>
-<option value="tue">火曜日</option>
-<option value="wed">水曜日</option>
-<option value="thu">木曜日</option>
-<option value="fri">金曜日</option>
-<option value="sat">土曜日</option>
-<option value="sun">日曜日</option>
-</select>
+<form action="week_graph.php" method="post" name="youbi">
+	<select name="youbi_select" onChange="this.form.submit()">
+		<option selected>曜日選択</option>
+		<option value="Mon">月曜日</option>
+		<option value="Tue">火曜日</option>
+		<option value="Wed">水曜日</option>
+		<option value="Thu">木曜日</option>
+		<option value="Fri">金曜日</option>
+		<option value="Sat">土曜日</option>
+		<option value="Sun">日曜日</option>
+	</select>
+</form>
+<?php
 
+echo "<a id='week_select'><font size='4em'>　　　".$select_week."</font></a>";
+
+?>
 <br><br>
 <div id="table_first" class="table" style="border: medium solid #ff0000;">
 	<!-- 折りたたみ -->
@@ -112,7 +171,7 @@ include ('../header.php');
 				</div>
 
 				<div class='row'>
-					<div class="time">3.00</div>
+					<div class="time">3:00</div>
 					<div>いいね</div>
 					<div>0.5</div>
 					<div>駄目ね</div>
@@ -120,7 +179,7 @@ include ('../header.php');
 				</div>
 
 				<div class='row'>
-					<div class="time">4.00</div>
+					<div class="time">4:00</div>
 					<div>良い</div>
 					<div>0.4</div>
 					<div>悪い</div>
