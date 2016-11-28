@@ -1,10 +1,12 @@
 <?php
 include '../Authentication.php';
 include '../DBManager.php';
+include '../python_analysis.php';
 session_start();
 
 $start = microtime(true);//処理開始時間
 set_time_limit(0);//処理制限時間を無期限に
+$move = true;
 
 //ユーザid
 $user_id = $_SESSION['id'];
@@ -41,11 +43,29 @@ for($count;$count<$limit_tweets;){
 		foreach( (array)$tweets as $key => $value ){
 			$id = $tweets[$key]['id_str'];//ツイートid
 			$text = $tweets[$key]['text'];//ツイート内容
-			$date = date('Y年m月d日H時i分s秒',  strtotime($tweets[$key]['created_at']));//ツイート日時
+			$date = date('Y年m月d日H時i分',  strtotime($tweets[$key]['created_at']));//ツイート日時
+			$year = date('Y',  strtotime($tweets[$key]['created_at']));//年
+			$month = date('m',  strtotime($tweets[$key]['created_at']));//月
+			$day = date('d',  strtotime($tweets[$key]['created_at']));//日
+			$dow = date('D',  strtotime($tweets[$key]['created_at']));//曜日
+			$hour = date('H',  strtotime($tweets[$key]['created_at']));//時
+			$minute = date('i',  strtotime($tweets[$key]['created_at']));//分
 			$max_id = $id;
 			if($count<$limit_tweets){
 				//tweetsdataにインサート
-				tweets_one_insert(array('_id'=>$id,'text'=>$text,'created_at'=>$date,'user_id'=>$user_id));
+				tweets_one_insert(array(
+						'_id'=>$id,
+						'text'=>$text,
+						'created_at'=>$date,
+						'year'=>$year,
+						'month'=>$month,
+						'day'=>$day,
+						'dow'=>$dow,
+						'hour'=>$hour,
+						'minute'=>$minute,
+						'user_id'=>(string)$user_id
+
+				));
 				$count++;
 			}
 			else{
@@ -55,29 +75,42 @@ for($count;$count<$limit_tweets;){
 	}catch (Exception $e){
 		break;
 	}
-
 }
-$end = microtime(true);//処理終了時間[
-$time = s2h($end - $start);//秒数を時分秒に変換
-echo '<h2>取得ツイート数：'.$count.'件</h2><bt />';
-echo "<h2>処理時間：".$time."</h2><br />";
+// //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
+// $tf = morpheme_emotion();
+$path = "analysis_mecab.py";  // 呼び出したいPythonへのパスを記述
+$caller = new PythonCaller($path);
+	$caller->call();//形態素解析
+// if($tf){//解析などが失敗の場合
+// 	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
+// 	$move = false;
+// }
+// else{
+// 	$end = microtime(true);//処理終了時間[
+// 	$time = s2h($end - $start);//秒数を時分秒に変換
+// 	echo '<h2>取得ツイート数：'.$count.'件</h2><br />';
+// 	echo '<h2>保存しているツイートの分析：成功!</h2><br />';
+// 	echo "<h2>処理時間：".$time."</h2><br />";
+// }
+// function s2h($seconds) {//秒数を時分秒へ変換
+// 	$hours = floor($seconds / 3600);//時
+// 	$minutes = floor(($seconds / 60) % 60);//分
+// 	$seconds = $seconds % 60;//秒
 
-function s2h($seconds) {//秒数を時分秒へ変換
-	$hours = floor($seconds / 3600);//時
-	$minutes = floor(($seconds / 60) % 60);//分
-	$seconds = $seconds % 60;//秒
+// 	$hms = sprintf("%02d時間%02d分%02d秒", $hours, $minutes, $seconds);
 
-	$hms = sprintf("%02d時間%02d分%02d秒", $hours, $minutes, $seconds);
+// 	return $hms;
 
-	return $hms;
+// }
 
-}
-
-//http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q12145747642
 ?>
 <script type="text/javascript">
-function move(){
-	window.location.href = 'http://localhost/twi_analysis/your_page/your_page.php';
+function move(move){
+	if(move){
+		window.location.href = '../your_page/your_page.php';
+	}else{
+		window.location.href = 'main.php';
+	}
 }
-setTimeout("move()", 3000);
+setTimeout("move(<?php echo $move;?>)", 3000);
 	</script>
