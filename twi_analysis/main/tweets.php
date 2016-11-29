@@ -76,32 +76,30 @@ for($count;$count<$limit_tweets;){
 		break;
 	}
 }
-// //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
-// $tf = morpheme_emotion();
-$path = "analysis_mecab.py";  // 呼び出したいPythonへのパスを記述
-$caller = new PythonCaller($path);
-	$caller->call();//形態素解析
-// if($tf){//解析などが失敗の場合
-// 	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
-// 	$move = false;
-// }
-// else{
-// 	$end = microtime(true);//処理終了時間[
-// 	$time = s2h($end - $start);//秒数を時分秒に変換
-// 	echo '<h2>取得ツイート数：'.$count.'件</h2><br />';
-// 	echo '<h2>保存しているツイートの分析：成功!</h2><br />';
-// 	echo "<h2>処理時間：".$time."</h2><br />";
-// }
-// function s2h($seconds) {//秒数を時分秒へ変換
-// 	$hours = floor($seconds / 3600);//時
-// 	$minutes = floor(($seconds / 60) % 60);//分
-// 	$seconds = $seconds % 60;//秒
+//DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
+$tf = morpheme_emotion();
+echo $tf;
+if($tf){//解析などが失敗の場合
+	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
+	$move = false;
+}
+else{
+	$end = microtime(true);//処理終了時間[
+	$time = s2h($end - $start);//秒数を時分秒に変換
+	echo '<h2>取得ツイート数：'.$count.'件</h2><br />';
+	echo '<h2>保存しているツイートの分析：成功!</h2><br />';
+	echo "<h2>処理時間：".$time."</h2><br />";
+}
+function s2h($seconds) {//秒数を時分秒へ変換
+	$hours = floor($seconds / 3600);//時
+	$minutes = floor(($seconds / 60) % 60);//分
+	$seconds = $seconds % 60;//秒
 
-// 	$hms = sprintf("%02d時間%02d分%02d秒", $hours, $minutes, $seconds);
+	$hms = sprintf("%02d時間%02d分%02d秒", $hours, $minutes, $seconds);
 
-// 	return $hms;
+	return $hms;
 
-// }
+}
 
 ?>
 <script type="text/javascript">
