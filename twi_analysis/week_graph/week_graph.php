@@ -63,7 +63,7 @@ include '../DBManager.php';
 // 	$week = '月曜日';
 // 	$next = '火曜日';
 	//単語
-	$word = '楽しい';
+//	$word = '楽しい';
 
 //echo $word;
 $year=date("Y");
@@ -98,20 +98,40 @@ switch ($youbi_select){
 		break;
 }
 
-//DB
-$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(1);
+//DBから取得し、ネガポジ判定
 $i=0;
+$k=0;
+$pozitive=array();
+$negative=array();
+
+
+
+$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(2);
 foreach ($select as $day =>$value) {
-	$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
+	$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>$value['noun']);
 	$i++;
+	foreach ($value['noun'] as $motoi =>$value2){
+		$word[$k]=$value['noun'];
+	}
+	$k++;
 }
-//print_r($retu_day);
+var_dump($retu_day);
+var_dump(array_values($word));
 
+foreach ($word as $motoi) {
+    if (array_values($word) > 0) {
+		array_push($pozitive, current($word));
+		echo "あいう";
+	}
+	else if(array_values($word) < 0){
+		array_push($negative, current($word));
+		echo "かきく";
+	}
+	next($word);
 
-
-
-
-
+}
+//var_dump($pozitive);
+//var_dump($negative);
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
