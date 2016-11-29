@@ -1,3 +1,29 @@
+<?php
+function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
+$text = <<<EOT
+	<div class='row'>
+		<div class="time" style="border-bottom-style: none;">{$time}</div>
+		<div>{$good}</div>
+		<div>{$good_value}</div>
+		<div>{$bad}</div>
+		<div>{$bad_value}</div>
+	</div>
+EOT;
+	return $text;
+}
+function cell2($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
+	$text = <<<EOT
+	<div class='row'>
+		<div class="time" style="border-top-style: none;border-bottom-style: none;">{$time}</div>
+		<div>{$good}</div>
+		<div>{$good_value}</div>
+		<div>{$bad}</div>
+		<div>{$bad_value}</div>
+	</div>
+EOT;
+	return $text;
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -47,9 +73,9 @@ echo $month;
 echo $date;
 
 try{
-$j = tweets_search(array("year"=>$year));
-foreach ($j as $val){
-	$hour = $val['hour'];
+// $j = tweets_search(array("year"=>$year));
+// foreach ($j as $val){
+// 	$hour = $val['hour'];
 
 // 	echo array_key($val);
 // 	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(1);
@@ -59,14 +85,15 @@ foreach ($j as $val){
 // 		$i++;
 // 	}
 
-	$select=tweets_search(array("year" =>$year,"month" =>$month,"day" =>$date));
+	$select=tweets_search(array("year" =>$year,"month" =>$month,"day" =>$date))->limit(10);
+	$hour=0;
 	$i=0;
-	foreach ($select as $day =>$value) {
-		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
+	foreach ($select as $day =>$value){
+		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>$value['noun']);
 		$i++;
 	}
+	print_r ($retu_day[0]['noun']);
  }
-}
 catch (Exception $e){
 	echo '捕捉した例外: ',  $e->getMessage(), "\n";
 }
@@ -95,31 +122,22 @@ catch (Exception $e){
 	<div id="ddd" style="display:none;">
 		<div onclick="obj=document.getElementById('01_p').style; obj.display=(obj.display=='none')?'block':'none';">
 			<a style="cursor:pointer;">
-			<div id="point" style='border:solid 1px #AAA'>
-				<div class="row">
-					<div class="time">時間</div>
-					<div class="posi">ポジティブ</div>
-					<div class="posi">値</div>
-					<div class="nega">ネガティブ</div>
-					<div class="nega">値</div>
-				</div>
+				<div id="point" style='border:solid 1px #AAA'>
+		<div class="row">
+			<div class="time">時間</div>
+			<div class="posi">ポジティブ</div>
+			<div class="posi">値</div>
+			<div class="nega">ネガティブ</div>
+			<div class="nega">値</div>
+		</div>
 
-				<div class='row'>
-					<div class="time">3.00</div>
-					<div>いいね</div>
-					<div>0.5</div>
-					<div>駄目ね</div>
-					<div>-0.7</div>
-				</div>
-
-				<div class='row'>
-					<div class="time">4.00</div>
-					<div>良い</div>
-					<div>0.4</div>
-					<div>悪い</div>
-					<div>-0.5</div>
-				</div>
-			</div>
+		<?php
+		for($i=0;$i<5;$i++){
+			echo cell('3:00','いいね','0.5','駄目','-0.7');
+			if($i%2 == 0){echo cell2(null,'d','0.5','s','-0.7');}
+		}
+		?>
+	</div>
 			</a>
 		</div>
 
