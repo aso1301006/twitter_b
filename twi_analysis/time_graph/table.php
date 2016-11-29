@@ -1,57 +1,90 @@
 <?php
 include '../DBManager.php';
-$y = '2018'; //検索する年
-$m = '07'; //検索する月
+$y = '2016'; //検索する年
+$m = '11'; //検索する月
+$d = '29'; //検索する日
 //2018年7月のツイートデータを日の昇順で取得
-$data = tweets_search();
 // $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
 // $data = tweets_search(array("year"=>$y,"month"=>$m),array("_id"=>1,"dow"=>1),array("day"=>1));
+$data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
 
-//配列初期値
-$sun = array();
-$mon = array();
-$tue = array();
-$wed = array();
-$thu = array();
-$fri = array();
-$sat = array();
+//----------------------------週配列--------------------------------------------------
+// //配列初期値
+// $sun = array();
+// $mon = array();
+// $tue = array();
+// $wed = array();
+// $thu = array();
+// $fri = array();
+// $sat = array();
 
-foreach ($data as $val){//曜日を見て、各週の配列にデータを追加
-	switch ($val['dow']){
-		case "Sun"://日
-			array_push($sun, $val);
-			break;
-		case "Mon"://月
-			array_push($mon, $val);
-			break;
-		case "Tue"://火
-			array_push($tue, $val);
-			break;
-		case "Wed"://水
-			array_push($wed, $val);
-			break;
-		case "Thu"://木
-			array_push($thu, $val);
-			break;
-		case "Fri"://金
-			array_push($fri, $val);
-			break;
-		case "Sat"://土
-			array_push($sat, $val);
-			break;
+// foreach ($data as $val){//曜日を見て、各週の配列にデータを追加
+// 	switch ($val['dow']){
+// 		case "Sun"://日
+// 			array_push($sun, $val);
+// 			break;
+// 		case "Mon"://月
+// 			array_push($mon, $val);
+// 			break;
+// 		case "Tue"://火
+// 			array_push($tue, $val);
+// 			break;
+// 		case "Wed"://水
+// 			array_push($wed, $val);
+// 			break;
+// 		case "Thu"://木
+// 			array_push($thu, $val);
+// 			break;
+// 		case "Fri"://金
+// 			array_push($fri, $val);
+// 			break;
+// 		case "Sat"://土
+// 			array_push($sat, $val);
+// 			break;
+// 	}
+// // echo $val['dow'];
+// }
+// echo '<pre>';
+// print_r($sun);
+// print_r($mon);
+// print_r($tue);
+// print_r($wed);
+// print_r($thu);
+// print_r($fri);
+// print_r($sat);
+// echo '</pre>';
+//------------------------------------週配列--------------------------------------
+//-------------------------------------日配列-------------------------------------
+$positive = array();
+$negative = array();
+foreach ($data as $key=>$val){//ポジティブ・ネガティブの配列を作成
+	$h = (int)$val['hour'];
+	if(isset($val['noun'])){//nounが存在する値
+		foreach ($val['noun'] as $key2=>$val2){//
+			if($val2 > 0){//ポジティブ[時][名詞] = ポジティブ値
+				$positive[$h][$key2] =$val2;
+			}elseif($val2 < 0){//ネガティブ[時][名詞] = ネガティブ値
+				$negative[$h][$key2] =$val2;
+			}
+		}
 	}
-// echo $val['dow'];
 }
-echo '<pre>';
-print_r($sun);
-print_r($mon);
-print_r($tue);
-print_r($wed);
-print_r($thu);
-print_r($fri);
-print_r($sat);
-echo '</pre>';
 
+// //ポジティブ名詞
+// foreach ($positive as $key=>$val){
+// // var_dump($val);
+// 	echo '時間：'.$key.'時'.'<br>';
+// 	foreach ($positive[$key] as $keys=>$value){
+// 		echo $keys.':'.$value.'<br>';
+// 	}
+// 	echo '<br>';
+// }
+
+// echo '<pre>';
+// echo 'ポジティブ';print_r($positive);
+// echo 'ネガティブ';print_r($negative);
+// echo '</pre>';
+//-------------------------------------日配列-------------------------------------
 // function page($id,$title_text){//折りたたみページを作成
 // $text = <<<EOT
 // 	<div onclick="show({$id})">
@@ -64,18 +97,18 @@ echo '</pre>';
 // 	return $text;
 // }
 
-// function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
-// $text = <<<EOT
-// 	<div class='row'>
-// 		<div class="time" style="border-bottom-style: none;">{$time}</div>
-// 		<div>{$good}</div>
-// 		<div>{$good_value}</div>
-// 		<div>{$bad}</div>
-// 		<div>{$bad_value}</div>
-// 	</div>
-// EOT;
-// 	return $text;
-// }
+function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
+$text = <<<EOT
+	<div class='row'>
+		<div class="time" style="border-bottom-style: none;">{$time}</div>
+		<div>{$good}</div>
+		<div>{$good_value}</div>
+		<div>{$bad}</div>
+		<div>{$bad_value}</div>
+	</div>
+EOT;
+	return $text;
+}
 // function cell2($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
 // 	$text = <<<EOT
 // 	<div class='row'>
@@ -105,7 +138,7 @@ function show(id){
 </head>
 <body>
 
-<!-- 	<div id="point" style='border:solid 1px #AAA'>
+	<div id="point" style='border:solid 1px #AAA'>
 		<div class="row">
 			<div class="time">時間</div>
 			<div class="posi">ポジティブ</div>
@@ -115,13 +148,22 @@ function show(id){
 		</div>
 
 		<?php
-// 		for($i=0;$i<5;$i++){
+		//ポジティブ名詞
+		foreach ($positive as $key=>$val){
+			foreach ($positive[$key] as $keys=>$value){
+				echo cell($key,$keys,$value,null,null);
+			}
+		}
+// 		if(count($positive) < count($negative)){
+// 			$count = count($positive);
+// 		}else{
+// 			$count = count($negative);
+// 		}
+// 		for($i=0;$i<$count;$i++){
 // 			echo cell('3:00','いいね','0.5','駄目','-0.7');
-// 			if($i%2 == 0){echo cell2(null,'d','0.5','s','-0.7');}
 // 		}
 		?>
 	</div>
-	 -->
 <?php
 // for($i=0;$i<3;$i++){
 // 	echo '<div align="center">';
