@@ -137,6 +137,28 @@ EOT;
 // }
 ?>
 
+		<?php
+		//ポジティブ名詞
+		foreach ($positive as $key=>$val){
+			foreach ($positive[$key] as $keys=>$value){
+				foreach($negative[$key] as $keys2 =>$value2){
+// 					if($key != null && $key2 != null){
+// 						$keys3 = array_shift($negative[$key]);
+// 						echo cell($key.":00",$keys,$value,$keys2,$value2);
+// 						break;
+// 					}
+				if($keys != null){
+					echo cell($key.":00",$keys,$value,$keys2,$value2);
+					$keys = array_shift($key);
+				}
+				else if($keys2 = null){
+					echo cell($key.":00",$keys,$value,$keys2,$value2);
+					break;
+				}
+			}
+		}
+	}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -173,6 +195,7 @@ function show(id){
 
 			echo cell($v,$max_name,$max_value,$min_name,$min_value);
 		}
+
 //------------------------------週---------------------------------------
 //---------------------------時間----------------------------------------
 		//ポジティブ名詞
