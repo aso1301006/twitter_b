@@ -1,29 +1,3 @@
-<?php
-function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
-$text = <<<EOT
-	<div class='row'>
-		<div class="time" style="border-bottom-style: none;">{$time}</div>
-		<div>{$good}</div>
-		<div>{$good_value}</div>
-		<div>{$bad}</div>
-		<div>{$bad_value}</div>
-	</div>
-EOT;
-	return $text;
-}
-function cell2($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
-	$text = <<<EOT
-	<div class='row'>
-		<div class="time" style="border-top-style: none;border-bottom-style: none;">{$time}</div>
-		<div>{$good}</div>
-		<div>{$good_value}</div>
-		<div>{$bad}</div>
-		<div>{$bad_value}</div>
-	</div>
-EOT;
-	return $text;
-}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -57,48 +31,30 @@ $(function(){
 include ('../header.php');
 include ('../DBManager.php');
 ?>
+<br/><br/>
+<?php
+//エラー無効
+error_reporting(0);
+//グラフに挿入するデータ
+include ('graph_data.php');
+include ('graph_data2.php');
+/* echo $negapozi14;
+echo $negapozi_Mon;
+echo $negapozi_Tue;
+echo $negapozi_Fri;
+echo $negapozi_Sun; */
+?>
+
+
 <?php
 //テスト用の値
-$year = date('Y');
-$month = date('m');
-$date = date('d');
+
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
 	//例：<img src="test.php?parameter1=aaa&parameter2=bbb" alt="テスト"/>
 ?>
-<?php
-echo $year;
-echo $month;
-echo $date;
-
-try{
-// $j = tweets_search(array("year"=>$year));
-// foreach ($j as $val){
-// 	$hour = $val['hour'];
-
-// 	echo array_key($val);
-// 	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"dow" =>$youbi_select))->limit(1);
-// 	$i=0;
-// 	foreach ($select as $day =>$value) {
-// 		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>array($value['noun']));
-// 		$i++;
-// 	}
-
-	$select=tweets_search(array("year" =>$year,"month" =>$month,"day" =>$date))->limit(10);
-	$hour=0;
-	$i=0;
-	foreach ($select as $day =>$value){
-		$retu_day[$i]=array("day"=>$value['day'],"hour"=>$value['hour'],"noun"=>$value['noun']);
-		$i++;
-	}
-	print_r ($retu_day[0]['noun']);
- }
-catch (Exception $e){
-	echo '捕捉した例外: ',  $e->getMessage(), "\n";
-}
-?>
-<div class="main">
+<div class="main" >
 <div id="header2">
 	<div class="general-button" onclick="frameClick();" style="float: left; margin: 10px;">
 		<div class="button-content">
@@ -122,22 +78,31 @@ catch (Exception $e){
 	<div id="ddd" style="display:none;">
 		<div onclick="obj=document.getElementById('01_p').style; obj.display=(obj.display=='none')?'block':'none';">
 			<a style="cursor:pointer;">
-				<div id="point" style='border:solid 1px #AAA'>
-		<div class="row">
-			<div class="time">時間</div>
-			<div class="posi">ポジティブ</div>
-			<div class="posi">値</div>
-			<div class="nega">ネガティブ</div>
-			<div class="nega">値</div>
-		</div>
+			<div id="point" style='border:solid 1px #AAA'>
+				<div class="row">
+					<div class="time">時間</div>
+					<div class="posi">ポジティブ</div>
+					<div class="posi">値</div>
+					<div class="nega">ネガティブ</div>
+					<div class="nega">値</div>
+				</div>
 
-		<?php
-		for($i=0;$i<5;$i++){
-			echo cell('3:00','いいね','0.5','駄目','-0.7');
-			if($i%2 == 0){echo cell2(null,'d','0.5','s','-0.7');}
-		}
-		?>
-	</div>
+				<div class='row'>
+					<div class="time">3.00</div>
+					<div>いいね</div>
+					<div>0.5</div>
+					<div>駄目ね</div>
+					<div>-0.7</div>
+				</div>
+
+				<div class='row'>
+					<div class="time">4.00</div>
+					<div>良い</div>
+					<div>0.4</div>
+					<div>悪い</div>
+					<div>-0.5</div>
+				</div>
+			</div>
 			</a>
 		</div>
 
@@ -187,10 +152,11 @@ catch (Exception $e){
 	<!--// 折りたたまれ -->
 </div><!-- Fin_table_second -->
 </div><!-- Fin table -->
-
 <div class="main-gallery">
-	<img src="line_graph.php" alt="折れ線グラフ" />
-	<img src="line_graph2.php" alt="折れ線グラフ" />
+
+	<img src="line_graph2.php?negapozi_Mon=<?=$negapozi_Mon?>&negapozi_Tue=<?=$negapozi_Tue?>&negapozi_Wed=<?=$negapozi_Wed?>&negapozi_Thu=<?=$negapozi_Thu?>&negapozi_Fri=<?=$negapozi_Fri?>&negapozi_Sat=<?=$negapozi_Sat?>&negapozi_Sun=<?=$negapozi_Sun?>" alt="折れ線グラフ" />
+
+	<img src="line_graph.php?negapozi0=<?=$negapozi0?>&negapozi1=<?=$negapozi1?>&negapozi2=<?=$negapozi2?>&negapozi3=<?=$negapozi3?>&negapozi4=<?=$negapozi4?>&negapozi5=<?=$negapozi5?>&negapozi6=<?=$negapozi6?>&negapozi7=<?=$negapozi7?>&negapozi8=<?=$negapozi8?>&negapozi9=<?=$negapozi9?>&negapozi10=<?=$negapozi10?>&negapozi11=<?=$negapozi11?>&negapozi12=<?=$negapozi12?>&negapozi13=<?=$negapozi13?>&negapozi14=<?=$negapozi14?>&negapozi15=<?=$negapozi15?>&negapozi16=<?=$negapozi16?>&negapozi17=<?=$negapozi17?>&negapozi18=<?=$negapozi18?>&negapozi19=<?=$negapozi19?>&negapozi20=<?=$negapozi20?>&negapozi21=<?=$negapozi21?>&negapozi22=<?=$negapozi22?>&negapozi23=<?=$negapozi23?>" alt="折れ線グラフ" />
 </div><!-- Fin_main_gallery -->
 </div><!-- Fin_main -->
 </body>

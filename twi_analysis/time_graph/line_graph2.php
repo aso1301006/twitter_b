@@ -2,17 +2,32 @@
 include ("/../jpgraph-4.0.1/src/jpgraph.php");
 include ("/../jpgraph-4.0.1/src/jpgraph_line.php");
 
-$ydata = array(11,3,8,12,5,1,9,13,5,7);
-$ydata2 = array(1,19,15,7,22,14,5,9,21,13);
+
+$ydata = array(1,3,8,5,1,5,7);
+$negapozi_Mon=$_GET['negapozi_Mon'];
+$negapozi_Tue=$_GET['negapozi_Tue'];
+$negapozi_Wed=$_GET['negapozi_Wed'];
+$negapozi_Thu=$_GET['negapozi_Thu'];
+$negapozi_Fri=$_GET['negapozi_Fri'];
+$negapozi_Sat=$_GET['negapozi_Sat'];
+$negapozi_Sun=$_GET['negapozi_Sun'];
+
+$ydata = array($negapozi_Mon,$negapozi_Tue,$negapozi_Wed,$negapozi_Thu,$negapozi_Fri,$negapozi_Sat,$negapozi_Sun);
 
 $timer = new JpgTimer();
 $timer->Push();
 
 // Create the graph. These two calls are always required
 $graph = new Graph(700,400);
-$graph->SetScale("textlin");
+//$graph->SetScale("textlin");
 
+$graph->SetScale("textint", -1, 1);
+$graph->yscale->ticks->Set(0.5,0.1);
 $graph->img->SetMargin(40,60,20,60);
+
+$graph->xaxis->SetFont(FF_GOTHIC);
+$week=array("月","火","水","木","金","土","日");
+$graph->xaxis->SetTickLabels($week);
 
 // $graph->title->Set("Timing a graph");
 // $graph->footer->right->Set('Timer (ms): ');
@@ -27,14 +42,8 @@ $lineplot=new LinePlot($ydata);
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
 
-
-$lineplot2=new LinePlot($ydata2);
-$lineplot2->SetColor("orange");
-$lineplot2->SetWeight(2);
-
 // Add the plot to the graph
 $graph->Add($lineplot);
-$graph->Add($lineplot2);
 
 // $graph->xaxis->title->Set("X-title");
 // $graph->yaxis->title->Set("Y-title");
