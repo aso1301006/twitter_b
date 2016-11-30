@@ -15,10 +15,10 @@ include '../DBManager.php';
 
 //今日の日付取得
 //$today = "2016年11月18日";
-$today = date("y年m月d日");
-$year = date("y");
+$today = date("Y年m月d日");
+$year = date("Y");
 $month = date("m");
-$day = date("d");
+ $day = date("d");
 
 
 $count=0;
@@ -32,14 +32,15 @@ $negapozi=0;
 		$sum=$sum + ($res['emotion_point']);
 		$count=$count + 1;
 	}
+//	var_dump($res);
 //今日のツイートがない場合
 if(!($count == null)){
 	$ave=$sum/$count;
 	$negapozi=round($ave,3);
 }
-//echo "合計".$sum;
-//echo "件数".$count;
-//echo "平均".$ave;
+// echo "合計".$sum;
+// echo "件数".$count;
+// echo "平均".$ave;
 ?>
 
 	<div class="main">
