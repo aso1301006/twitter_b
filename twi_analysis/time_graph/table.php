@@ -5,7 +5,7 @@ $m = '11'; //検索する月
 $d = '29'; //検索する日
 //2018年7月のツイートデータを日の昇順で取得
 // $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
-$data = tweets_search(array("year"=>$y,"month"=>$m),array("_id"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
+$data = tweets_search(array("year"=>$y,"month"=>$m),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
 // $data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
 
 //----------------------------週配列--------------------------------------------------
@@ -17,46 +17,59 @@ $wed = array();
 $thu = array();
 $fri = array();
 $sat = array();
+$week = array();
 
 foreach ($data as $val){//曜日を見て、各週の配列にデータを追加
-	switch ($val['dow']){
-		case "Sun"://日
-			array_push($sun, $val);
-			break;
-		case "Mon"://月
-			array_push($mon, $val);
-			break;
-		case "Tue"://火
-			array_push($tue, $val);
-			break;
-		case "Wed"://水
-			array_push($wed, $val);
-			break;
-		case "Thu"://木
-			array_push($thu, $val);
-			break;
-		case "Fri"://金
-			array_push($fri, $val);
-			break;
-		case "Sat"://土
-			array_push($sat, $val);
-			break;
-	}
-}
-
-$week = array();
-foreach ($data as $key => $value){//取得したデータ全体
-// 	var_dump($value);
-	if(isset($value['noun'])){//nounが存在する値
-		foreach ($value['noun'] as $key2 => $value2){//1ツイートの名詞の中
-			if(isset($value2)){
-				$week[$value['dow']][$key2] = $value2;
-			}
+	$day = (int)$val['day'];
+// 	var_dump($val);
+	if(isset($val['noun'])){//nounが存在する値
+		switch ($val['dow']){//週ごとに配列格納
+			case "Sun"://日
+// 				$sun[$day] = $val['noun'];
+				$week['Sun'][$day] = $val['noun'];
+				break;
+			case "Mon"://月
+				$week['Mon'][$day] = $val['noun'];
+				break;
+			case "Tue"://火
+				$week['Tue'][$day] = $val['noun'];
+				break;
+			case "Wed"://水
+				$week['Wed'][$day] = $val['noun'];
+				break;
+			case "Thu"://木
+				$week['Thu'][$day] = $val['noun'];
+				break;
+			case "Fri"://金
+				$week['Fri'][$day] = $val['noun'];
+				break;
+			case "Sat"://土
+				$week['Sat'][$day] = $val['noun'];
+				break;
 		}
 	}
 }
+$count = 0;
+$w = array();
+foreach ($week as $k => $v){
+	foreach ($v as $k2 => $v2){//1週め、2週めと配列分け $w[週目][曜日] = 名詞
+		$w[$count][$k] = $v2;
+		foreach ($v2 as $k3 =>$v3){
+			if(empty($v3)){unset($w[$count][$k][$k3]);}
+		}
+		if(empty($w[$count][$k])){unset($w[$count][$k]);}
+		$count++;
+	}
+	$count = 0;
+}
+foreach ($w as $key => $value){
+	foreach ($value as $key2 => $value2){//1週目の曜日の最大値・最小値
+		$w[$key][$key2] = array("max_name"=>max(array_keys($value2,max($value2))),"max_value"=>max($value2),"min_name"=>min(array_keys($value2,min($value2))),"min_value"=>min($value2));
+	}
+}
 echo '<pre>';
-// print_r($week['Mon']);
+print_r($w);
+print_r($week);
 // echo max(array_keys($week['Mon'],max($week['Mon']))).':'.max($week['Mon']);
 // echo min(array_keys($week['Mon'],min($week['Mon']))).':'.min($week['Mon']);
 // print_r($sun);
@@ -71,7 +84,8 @@ echo '</pre>';
 //-------------------------------------日配列-------------------------------------
 // $positive = array();
 // $negative = array();
-// foreach ($data as $key=>$val){//ポジティブ・ネガティブの配列を作成
+// $merge = array();
+// foreach ($data->limit(20) as $key=>$val){//ポジティブ・ネガティブの配列を作成
 // 	$h = (int)$val['hour'];
 // 	if(isset($val['noun'])){//nounが存在する値
 // 		foreach ($val['noun'] as $key2=>$val2){//
@@ -93,7 +107,6 @@ echo '</pre>';
 // 	}
 // 	echo '<br>';
 // }
-
 // echo '<pre>';
 // echo 'ポジティブ';print_r($positive);
 // echo 'ネガティブ';print_r($negative);
@@ -137,28 +150,6 @@ EOT;
 // }
 ?>
 
-		<?php
-		//ポジティブ名詞
-		foreach ($positive as $key=>$val){
-			foreach ($positive[$key] as $keys=>$value){
-				foreach($negative[$key] as $keys2 =>$value2){
-// 					if($key != null && $key2 != null){
-// 						$keys3 = array_shift($negative[$key]);
-// 						echo cell($key.":00",$keys,$value,$keys2,$value2);
-// 						break;
-// 					}
-				if($keys != null){
-					echo cell($key.":00",$keys,$value,$keys2,$value2);
-					$keys = array_shift($key);
-				}
-				else if($keys2 = null){
-					echo cell($key.":00",$keys,$value,$keys2,$value2);
-					break;
-				}
-			}
-		}
-	}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -186,16 +177,15 @@ function show(id){
 
 		<?php
 //------------------------------週---------------------------------------
-		$w = array("Mon","Tue","Wed","Thu","Fri","Sat","Sun");
-		foreach ($w as $v){
-			$max_name = max(array_keys($week[$v],max($week[$v])));
-			$max_value = max($week[$v]);
-			$min_name = min(array_keys($week[$v],min($week[$v])));
-			$min_value = min($week[$v]);
+// 		$w = array("Mon","Tue","Wed","Thu","Fri","Sat","Sun");
+// 		foreach ($w as $v){
+// 			$max_name = max(array_keys($week[$v],max($week[$v])));
+// 			$max_value = max($week[$v]);
+// 			$min_name = min(array_keys($week[$v],min($week[$v])));
+// 			$min_value = min($week[$v]);
 
-			echo cell($v,$max_name,$max_value,$min_name,$min_value);
-		}
-
+// 			echo cell($v,$max_name,$max_value,$min_name,$min_value);
+// 		}
 //------------------------------週---------------------------------------
 //---------------------------時間----------------------------------------
 		//ポジティブ名詞
@@ -204,6 +194,7 @@ function show(id){
 // 				echo cell($key,$keys,$value,null,null);
 // 			}
 // 		}
+
 // 		if(count($positive) < count($negative)){
 // 			$count = count($positive);
 // 		}else{
