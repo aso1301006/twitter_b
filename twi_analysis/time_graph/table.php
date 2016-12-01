@@ -1,39 +1,43 @@
 <?php
 include '../DBManager.php';
-$y = '2016'; //検索する年
-$m = '11'; //検索する月
-$d = '01'; //検索する日
+$y = '2018'; //検索する年
+$m = '07'; //検索する月
+$d = '08'; //検索する日
 
 $start =  date('Y-m-d', strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
 $end = date('Y-m-d', strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
-$sdays = first_week_date($start);//指定した日の週の日曜日の日付取得
-$edays = fin_week_date($end);//指定した日の週の土曜日の日付取得
+$start_day = first_week_date($start);//指定した日の週の日曜日の日付取得
+$end_day = fin_week_date($end);//指定した日の週の土曜日の日付取得
 
-$first = new MongoDate(strtotime($sdays));
-$fin = new MongoDate(strtotime($edays));
+$first = new MongoDate(strtotime($start_day));
+$fin = new MongoDate(strtotime($end_day));
 
-//2018年7月のツイートデータを日の昇順で取得
 // $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
-$data = tweets_search(array("created_at"=>array('$gt'=>$first, '$lte'=>$fin)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
+// $data = tweets_search(array("created_at"=>array('$gt'=>$first, '$lte'=>$fin)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
 // $data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
 
 //----------------------------週配列--------------------------------------------------
 $loop = 1;//週をカウント
-while($start < $end){//week[第何週目][日] = array();を作成
-	for($J=0;$J<7;$J++){//1週間
-		$date = date('Y-m-d', strtotime("$sdays +$J day"));
+while($start_day < $end_day){//week[第何週目][日] = array();を作成
+	for($J=0;$J<7;$J++){//1週間作成
+		$date = date('Y-m-d', strtotime("$start_day +$J day"));
 		$key = date("j",strtotime($date));
 		$week[$loop][$key] = array();
 	}
-	$start = date('Y-m-d', strtotime('+1 week' . $start));
-	$sdays = date('Y-m-d', strtotime('+1 week' . $sdays));
+	$sunday = first_week_date($start_day);
+	$saturday = fin_week_date($start_day);
+	echo $sunday.'<br>';
+	for($c=0;$c<count($week[$loop]);$c++){//上で作成した1週間にデータ挿入
+		$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
+		foreach ($data as $key =>$value){
+			echo 'aaaaaaaaa';
+// 			echo $value['day'];
+// 			$week[$loop][$value['day']] = 'a';
+		}
+	}
+	$start_day = date('Y-m-d', strtotime('+1 week' . $start_day));
 	$key = date('j', strtotime("$key +1 week"));
 	$loop++;
-}
-
-foreach ($data as $value){
-	echo $value['day'].'<br>';
-	var_dump($value);
 }
 
 // $count = 0;
