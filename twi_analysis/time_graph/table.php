@@ -2,86 +2,66 @@
 include '../DBManager.php';
 $y = '2016'; //検索する年
 $m = '11'; //検索する月
-$d = '29'; //検索する日
+$d = '01'; //検索する日
+
+$start =  date('Y-m-d', strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
+$end = date('Y-m-d', strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
+$sdays = first_week_date($start);//指定した日の週の日曜日の日付取得
+$edays = fin_week_date($end);//指定した日の週の土曜日の日付取得
+
+$first = new MongoDate(strtotime($sdays));
+$fin = new MongoDate(strtotime($edays));
+
 //2018年7月のツイートデータを日の昇順で取得
 // $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
-$data = tweets_search(array("year"=>$y,"month"=>$m),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
+$data = tweets_search(array("created_at"=>array('$gt'=>$first, '$lte'=>$fin)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
 // $data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
 
 //----------------------------週配列--------------------------------------------------
-$first =  date('Y-m-d', strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
-$days = get_beginning_week_date($first);//指定した日の週の日曜日の日付取得
-
-for($J=0;$J<7;$J++){//1週間
-	echo date("Y/m/d:D",strtotime("+$J day" ,strtotime($days))).'<br>';
-}
-
-//配列初期値
-$sun = array();
-$mon = array();
-$tue = array();
-$wed = array();
-$thu = array();
-$fri = array();
-$sat = array();
-$week = array();
-
-foreach ($data as $val){//曜日を見て、各週の配列にデータを追加
-	$day = (int)$val['day'];
-// 	var_dump($val);
-	if(isset($val['noun'])){//nounが存在する値
-		switch ($val['dow']){//週ごとに配列格納
-			case "Sun"://日
-// 				$sun[$day] = $val['noun'];
-				$week['Sun'][$day] = $val['noun'];
-				break;
-			case "Mon"://月
-				$week['Mon'][$day] = $val['noun'];
-				break;
-			case "Tue"://火
-				$week['Tue'][$day] = $val['noun'];
-				break;
-			case "Wed"://水
-				$week['Wed'][$day] = $val['noun'];
-				break;
-			case "Thu"://木
-				$week['Thu'][$day] = $val['noun'];
-				break;
-			case "Fri"://金
-				$week['Fri'][$day] = $val['noun'];
-				break;
-			case "Sat"://土
-				$week['Sat'][$day] = $val['noun'];
-				break;
-		}
+$loop = 1;//週をカウント
+while($start < $end){//week[第何週目][日] = array();を作成
+	for($J=0;$J<7;$J++){//1週間
+		$date = date('Y-m-d', strtotime("$sdays +$J day"));
+		$key = date("j",strtotime($date));
+		$week[$loop][$key] = array();
 	}
-}
-$count = 0;
-$w = array();
-foreach ($week as $k => $v){
-	foreach ($v as $k2 => $v2){//1週め、2週めと配列分け $w[週目][曜日] = 名詞
-		$v2['day'] = $k2;//日付追加
-		$w[$count][$k] = $v2;
-		foreach ($v2 as $k3 =>$v3){
-			if(empty($v3)){unset($w[$count][$k][$k3]);}
-		}
-		$count++;
-	}
-	$count = 0;
+	$start = date('Y-m-d', strtotime('+1 week' . $start));
+	$sdays = date('Y-m-d', strtotime('+1 week' . $sdays));
+	$key = date('j', strtotime("$key +1 week"));
+	$loop++;
 }
 
-foreach ($w as $key => $value){
-	foreach ($value as $key2 => $value2){//1週の曜日の最大値・最小値
-		$D = $value2['day'];
-		unset($value2['day']);
-		if(!empty($value2)){
-			$w[$key][$key2] = array("day"=>$D,"max_name"=>max(array_keys($value2,max($value2))),"max_value"=>max($value2),"min_name"=>min(array_keys($value2,min($value2))),"min_value"=>min($value2));
-		}
-	}
+foreach ($data as $value){
+	echo $value['day'].'<br>';
+	var_dump($value);
 }
+
+// $count = 0;
+// $w = array();
+// foreach ($week as $k => $v){
+// 	foreach ($v as $k2 => $v2){//1週め、2週めと配列分け $w[週目][曜日] = 名詞
+// 		$v2['day'] = $k2;//日付追加
+// 		$w[$count][$k] = $v2;
+// 		foreach ($v2 as $k3 =>$v3){
+// 			if(empty($v3)){unset($w[$count][$k][$k3]);}
+// 		}
+// 		$count++;
+// 	}
+// 	$count = 0;
+// }
+
+// foreach ($w as $key => $value){
+// 	foreach ($value as $key2 => $value2){//1週の曜日の最大値・最小値
+// 		$D = $value2['day'];
+// 		unset($value2['day']);
+// 		if(!empty($value2)){
+// 			$w[$key][$key2] = array("day"=>$D,"max_name"=>max(array_keys($value2,max($value2))),"max_value"=>max($value2),"min_name"=>min(array_keys($value2,min($value2))),"min_value"=>min($value2));
+// 		}
+// 	}
+// }
 echo '<pre>';
-print_r($w);
-// print_r($week);
+// print_r($w);
+print_r($week);
 // echo max(array_keys($week['Mon'],max($week['Mon']))).':'.max($week['Mon']);
 // echo min(array_keys($week['Mon'],min($week['Mon']))).':'.min($week['Mon']);
 // print_r($sun);
@@ -165,14 +145,19 @@ EOT;
 // 	return $text;
 // }
 
-function get_beginning_week_date($ymd) {//指定した日の週の週初めの日付を取得
-	# もし週始まりを月曜日にするなら、$w + 1　にすればいいはずです
+function first_week_date($ymd) {//指定した日の週の週初めの日付を取得
 	$w = date("w",strtotime($ymd));
-	$beginning_week_date =
-	date('Y-m-d', strtotime("-{$w} day", strtotime($ymd)));
-	return $beginning_week_date;
+	$date =
+	date('Y-m-d', strtotime("last sunday", strtotime($ymd)));
+	return $date;
 }
 
+function fin_week_date($ymd) {//指定した日の週の週終わりの日付を取得
+	$w = date("w",strtotime($ymd));
+	$date =
+	date('Y-m-d', strtotime("next saturday", strtotime($ymd)));
+	return $date;
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -202,17 +187,17 @@ $text = <<<EOT
 			<div class="nega">値</div>
 		</div>
 EOT;
-		foreach ($w as $k => $v){
-			$title_text = ($k+1).'週目';
-			echo page_start($k, $title_text);//折り畳みページ開始
-			echo $text;
-				foreach ($v as $k2 => $v2){//表作成
-					echo cell($k2,$v2['max_name'],$v2['max_value'],$v2['min_name'],$v2['min_value']);
-				}
-				echo '</div>';
-			echo page_fin();//折り畳みページ終了
+// 		foreach ($w as $k => $v){
+// 			$title_text = ($k+1).'週目';
+// 			echo page_start($k, $title_text);//折り畳みページ開始
+// 			echo $text;
+// 				foreach ($v as $k2 => $v2){//表作成
+// 					echo cell($k2,$v2['max_name'],$v2['max_value'],$v2['min_name'],$v2['min_value']);
+// 				}
+// 				echo '</div>';
+// 			echo page_fin();//折り畳みページ終了
 
-		}
+// 		}
 //------------------------------週---------------------------------------
 //---------------------------時間----------------------------------------
 		//ポジティブ名詞
