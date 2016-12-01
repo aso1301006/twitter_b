@@ -15,24 +15,21 @@ $fin = new MongoDate(strtotime($end_day));
 // $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
 // $data = tweets_search(array("created_at"=>array('$gt'=>$first, '$lte'=>$fin)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
 // $data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
-
 //----------------------------週配列--------------------------------------------------
 $loop = 1;//週をカウント
 while($start_day < $end_day){//week[第何週目][日] = array();を作成
 	for($J=0;$J<7;$J++){//1週間作成
 		$date = date('Y-m-d', strtotime("$start_day +$J day"));
 		$key = date("j",strtotime($date));
-		$week[$loop][$key] = array();
+		$week[$loop][$key] = '';
 	}
-	$sunday = first_week_date($start_day);
-	$saturday = fin_week_date($start_day);
-	echo $sunday.'<br>';
+	$sunday = new MongoDate(strtotime($start_day));
+	$saturday = new MongoDate(strtotime(fin_week_date($start_day)));
 	for($c=0;$c<count($week[$loop]);$c++){//上で作成した1週間にデータ挿入
 		$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
 		foreach ($data as $key =>$value){
-			echo 'aaaaaaaaa';
-// 			echo $value['day'];
-// 			$week[$loop][$value['day']] = 'a';
+// 			var_dump($value);
+			$week[0][$value['day']] = 'a';
 		}
 	}
 	$start_day = date('Y-m-d', strtotime('+1 week' . $start_day));
@@ -65,7 +62,7 @@ while($start_day < $end_day){//week[第何週目][日] = array();を作成
 // }
 echo '<pre>';
 // print_r($w);
-print_r($week);
+// print_r($week);
 // echo max(array_keys($week['Mon'],max($week['Mon']))).':'.max($week['Mon']);
 // echo min(array_keys($week['Mon'],min($week['Mon']))).':'.min($week['Mon']);
 // print_r($sun);
