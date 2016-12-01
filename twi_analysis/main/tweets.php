@@ -4,6 +4,11 @@ include '../DBManager.php';
 include '../python_analysis.php';
 session_start();
 
+function date_utc_to_jp($utc_date){
+	return date("Y-m-d H:i:s", strtotime($utc_date. " +9 hour"));
+}
+
+
 $start = microtime(true);//処理開始時間
 set_time_limit(0);//処理制限時間を無期限に
 $move = true;
@@ -40,10 +45,11 @@ for($count;$count<$limit_tweets;){
 		$tweets =  Authentication($request_url, $params_a);
 		//かぶっている値を取り除く
 		if(isset($max_id)){array_shift($tweets);}
-		foreach( (array)$tweets as $key => $value ){
+		foreach( $tweets as $key => $value ){
 			$id = $tweets[$key]['id_str'];//ツイートid
 			$text = $tweets[$key]['text'];//ツイート内容
-			$date = date('Y年m月d日H時i分',  strtotime($tweets[$key]['created_at']));//ツイート日時
+// 			$date = date('Y年m月d日H時i分',  strtotime($tweets[$key]['created_at']));//ツイート日時
+			$date = new MongoDate(strtotime(date_utc_to_jp($tweets[$key]['created_at'])));
 			$year = date('Y',  strtotime($tweets[$key]['created_at']));//年
 			$month = date('m',  strtotime($tweets[$key]['created_at']));//月
 			$day = date('d',  strtotime($tweets[$key]['created_at']));//日
@@ -78,7 +84,6 @@ for($count;$count<$limit_tweets;){
 }
 //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
 $tf = morpheme_emotion();
-echo $tf;
 if($tf){//解析などが失敗の場合
 	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
 	$move = false;
