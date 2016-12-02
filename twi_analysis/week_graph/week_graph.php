@@ -354,13 +354,13 @@ echo "<a id='week_select'><font size='4em'>　　　".$select_week."</font></a>"
 </div><!--  Fin_table -->
 
 <div class="main-gallery">
-	<img src="line_graph.php?con_mon_week1=<?=$con_mon_week1?>&&con_mon_week2=<?=$con_mon_week2?>&&con_mon_week3=<?=$con_mon_week3?>&&con_mon_week4=<?=$con_mon_week4?>" alt="月曜日" class="gallery-cell"/>
-	<img src="line_graph2.php?con_tue_week1=<?=$con_tue_week1?>&&con_tue_week2=<?=$con_tue_week2?>&&con_tue_week3=<?=$con_tue_week3?>&&con_tue_week4=<?=$con_tue_week4?>" alt="火曜日" class="gallery-cell"/>
-	<img src="line_graph3.php?con_wed_week1=<?=$con_wed_week1?>&&con_wed_week2=<?=$con_wed_week2?>&&con_wed_week3=<?=$con_wed_week3?>&&con_wed_week4=<?=$con_wed_week4?>" alt="水曜日" class="gallery-cell"/>
-	<img src="line_graph4.php?con_thu_week1=<?=$con_thu_week1?>&&con_thu_week2=<?=$con_thu_week2?>&&con_thu_week3=<?=$con_thu_week3?>&&con_thu_week4=<?=$con_thu_week4?>" alt="木曜日" class="gallery-cell"/>
-	<img src="line_graph5.php?con_fri_week1=<?=$con_fri_week1?>&&con_fri_week2=<?=$con_fri_week2?>&&con_fri_week3=<?=$con_fri_week3?>&&con_fri_week4=<?=$con_fri_week4?>" alt="金曜日" class="gallery-cell"/>
-	<img src="line_graph6.php?con_sat_week1=<?=$con_sat_week1?>&&con_sat_week2=<?=$con_sat_week2?>&&con_sat_week3=<?=$con_sat_week3?>&&con_sat_week4=<?=$con_sat_week4?>" alt="土曜日" class="gallery-cell"/>
-	<img src="line_graph7.php?con_sun_week1=<?=$con_sun_week1?>&&con_sun_week2=<?=$con_sun_week2?>&&con_sun_week3=<?=$con_sun_week3?>&&con_sun_week4=<?=$con_sun_week4?>" alt="日曜日" class="gallery-cell"/>
+	<img src="line_graph.php?con_mon_week1=<?=$con_mon_week1?>&&con_mon_week2=<?=$con_mon_week2?>&&con_mon_week3=<?=$con_mon_week3?>&&con_mon_week4=<?=$con_mon_week4?>&&con_mon_week5=<?=$con_mon_week5?>" alt="月曜日" class="gallery-cell"/>
+	<img src="line_graph2.php?con_tue_week1=<?=$con_tue_week1?>&&con_tue_week2=<?=$con_tue_week2?>&&con_tue_week3=<?=$con_tue_week3?>&&con_tue_week4=<?=$con_tue_week4?>&&con_tue_week5=<?=$con_tue_week5?>" alt="火曜日" class="gallery-cell"/>
+	<img src="line_graph3.php?con_wed_week1=<?=$con_wed_week1?>&&con_wed_week2=<?=$con_wed_week2?>&&con_wed_week3=<?=$con_wed_week3?>&&con_wed_week4=<?=$con_wed_week4?>&&con_wed_week5=<?=$con_wed_week5?>" alt="水曜日" class="gallery-cell"/>
+	<img src="line_graph4.php?con_thu_week1=<?=$con_thu_week1?>&&con_thu_week2=<?=$con_thu_week2?>&&con_thu_week3=<?=$con_thu_week3?>&&con_thu_week4=<?=$con_thu_week4?>&&con_thu_week5=<?=$con_thu_week5?>" alt="木曜日" class="gallery-cell"/>
+	<img src="line_graph5.php?con_fri_week1=<?=$con_fri_week1?>&&con_fri_week2=<?=$con_fri_week2?>&&con_fri_week3=<?=$con_fri_week3?>&&con_fri_week4=<?=$con_fri_week4?>&&con_fri_week5=<?=$con_fri_week5?>" alt="金曜日" class="gallery-cell"/>
+	<img src="line_graph6.php?con_sat_week1=<?=$con_sat_week1?>&&con_sat_week2=<?=$con_sat_week2?>&&con_sat_week3=<?=$con_sat_week3?>&&con_sat_week4=<?=$con_sat_week4?>&&con_sat_week5=<?=$con_sat_week5?>" alt="土曜日" class="gallery-cell"/>
+	<img src="line_graph7.php?con_sun_week1=<?=$con_sun_week1?>&&con_sun_week2=<?=$con_sun_week2?>&&con_sun_week3=<?=$con_sun_week3?>&&con_sun_week4=<?=$con_sun_week4?>&&con_sun_week5=<?=$con_sun_week5?>" alt="日曜日" class="gallery-cell"/>
 </div><!-- Fin_line_graph -->
 </div><!-- Fin_main -->
 </body>
