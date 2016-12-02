@@ -26,15 +26,10 @@ $params_a['count'] = '200';
 // 	ユーザー情報を除外するのか
 $params_a['trim_user'] = 'false';
 
-$j = tweets_search(array("user_id"=>$user_id),array("user_id"=>1));//tweetsdataDBにユーザidが入っているか検索
-foreach ($j as $val){$jud = $val['user_id'];}
-if(isset($jud)){//2回目以降は最大3,200件取得
-	$limit_tweets = 3200;
-}else{//1回目は1,000件取得
-	$limit_tweets = 1000;
-}
+$limit_tweets = 3200;
 
 $count = 0;//ツイート保存回数
+$zero = false;
 for($count;$count<$limit_tweets;){
 	//古いツイートidを取得している場合
 	if(isset($max_id)){
@@ -43,6 +38,10 @@ for($count;$count<$limit_tweets;){
 	try{
 		//ツイート取得
 		$tweets =  Authentication($request_url, $params_a);
+		if(count($tweets) == 0){
+			$zero = true;
+			break 2;
+		}
 		//かぶっている値を取り除く
 		if(isset($max_id)){array_shift($tweets);}
 		foreach( $tweets as $key => $value ){
@@ -84,7 +83,7 @@ for($count;$count<$limit_tweets;){
 }
 //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
 $tf = morpheme_emotion();
-if($tf){//解析などが失敗の場合
+if($tf or $zero){//解析などが失敗の場合
 	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
 	$move = false;
 }
