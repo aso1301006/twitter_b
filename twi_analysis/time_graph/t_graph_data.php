@@ -12,10 +12,13 @@ $acquisition = $collection->find();
 
 //現在日時を取得して検索条件に加える
 $toyear=date('Y');
-$month_ago=date('m');
+$month=date('m');
 $today=date('d');
-$day_ago=date("d",strtotime("-1 day")); //１日前
-$month_ago=date("m",strtotime("-1 day")); //1日前の月
+$day_ago=(String)date("d",strtotime("-2 day")); //１日前
+$month_ago=(String)date("m",strtotime("-2 day")); //1日前の月
+$toyear=(String)date("Y",strtotime("-2 day")); //１日前の年
+//$month_ago="11";
+//$day_ago="28";
 $count=0;
 $sum=0;
 $negapozi=0;
@@ -37,6 +40,7 @@ if(!$tweet_count==0){
 	$sum=0;
 }
 else{$negapozi0=0;}
+
 //折れ線(01時）
 //コレクションの選択
 $collection = $db->selectCollection("tweetdata");

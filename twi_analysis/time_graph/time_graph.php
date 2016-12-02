@@ -36,13 +36,14 @@ include ('../DBManager.php');
 //エラー無効
 error_reporting(0);
 //グラフに挿入するデータ
-include ('graph_data.php');
-include ('graph_data2.php');
+include ('t_graph_data.php');
+include ('t_graph_data2.php');
 /* echo $negapozi14;
 echo $negapozi_Mon;
 echo $negapozi_Tue;
 echo $negapozi_Fri;
 echo $negapozi_Sun; */
+
 ?>
 
 
@@ -153,11 +154,11 @@ echo $negapozi_Sun; */
 </div><!-- Fin_table_second -->
 </div><!-- Fin table -->
 <div class="main-gallery">
-
 	<img src="line_graph2.php?negapozi_Mon=<?=$negapozi_Mon?>&negapozi_Tue=<?=$negapozi_Tue?>&negapozi_Wed=<?=$negapozi_Wed?>&negapozi_Thu=<?=$negapozi_Thu?>&negapozi_Fri=<?=$negapozi_Fri?>&negapozi_Sat=<?=$negapozi_Sat?>&negapozi_Sun=<?=$negapozi_Sun?>" alt="折れ線グラフ" />
 
 	<img src="line_graph.php?negapozi0=<?=$negapozi0?>&negapozi1=<?=$negapozi1?>&negapozi2=<?=$negapozi2?>&negapozi3=<?=$negapozi3?>&negapozi4=<?=$negapozi4?>&negapozi5=<?=$negapozi5?>&negapozi6=<?=$negapozi6?>&negapozi7=<?=$negapozi7?>&negapozi8=<?=$negapozi8?>&negapozi9=<?=$negapozi9?>&negapozi10=<?=$negapozi10?>&negapozi11=<?=$negapozi11?>&negapozi12=<?=$negapozi12?>&negapozi13=<?=$negapozi13?>&negapozi14=<?=$negapozi14?>&negapozi15=<?=$negapozi15?>&negapozi16=<?=$negapozi16?>&negapozi17=<?=$negapozi17?>&negapozi18=<?=$negapozi18?>&negapozi19=<?=$negapozi19?>&negapozi20=<?=$negapozi20?>&negapozi21=<?=$negapozi21?>&negapozi22=<?=$negapozi22?>&negapozi23=<?=$negapozi23?>" alt="折れ線グラフ" />
 </div><!-- Fin_main_gallery -->
 </div><!-- Fin_main -->
+
 </body>
 </html>
