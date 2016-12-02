@@ -13,6 +13,7 @@ class PythonCaller{
 	}
 
 	public function setPath($path){
+		$path = dirname(__FILE__). "/". $path;
 		if(file_exists($path)){
 			$this->filePath = $path;	
 		}

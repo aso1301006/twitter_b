@@ -70,7 +70,8 @@ if __name__ == '__main__':
             tweetdata.update(
                 {'_id': db_id}, {'$set': {'emotion': True}})
     except Exception as e:
-        print "Exception:" + e.message
+        print "Exception"
+        print e.message
     except:
         print mysetting.RETURN_STRING_ERROR
     else:
