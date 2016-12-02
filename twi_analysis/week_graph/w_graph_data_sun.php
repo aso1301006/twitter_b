@@ -124,4 +124,43 @@ $sun_week4[]=$negapozi;
 $negapozi=0;
 }
 $con_sun_week4 = implode(",", $sun_week4);
+
+
+
+//day>28
+//先月の最終日を取得
+$last_day=date('d', mktime(0, 0, 0, date('m'), 0, date('Y')));
+
+$twenty_four_count=0;
+$n = 5; // 第n
+$w = "日"; // w曜日
+$serch_day=(String)funcDesignatedDay($n, $w);
+
+if($last_day>=funcDesignatedDay($n, $w)){
+	while($twenty_four_count<24){
+		$hour=num_to_str($twenty_four_count);
+		$week5=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+
+		$tweet_count=$week5->count();
+		if(!$tweet_count==0){
+			foreach ($week5 as $res) {
+				$sum=$sum + ($res['emotion_point']);
+				$count=$count + 1;
+			}
+
+			$ave=$sum/$count;
+			$negapozi=round($ave,3);
+			$count=0;
+			$sum=0;
+		}
+		else{$negapozi=0;}
+		$twenty_four_count++;
+		$sun_week5[]=$negapozi;
+	}
+	$con_sun_week5 = implode(",", $sun_week5);
+
+}
+else{$con_sun_week5="0";}
+
+
  ?>
