@@ -9,12 +9,20 @@ background:#F0FFFF;
 .main{
 background-color:#FFF;
 width:50%;
-hight:auto;
+height:auto;
 margin:auto;
 margin-top:5em;
 border-radius:15px;
 border:solid 1px #AAA;
 overflow:hidden;
+}
+
+.main2{
+	width:50%;
+	height:700px;
+	margin:auto;
+	margin-top:5em;
+	overflow:hidden;
 }
 
 .login_title{
@@ -97,6 +105,6 @@ a#nomal{
 	font-size:1em;
 	color:#222;
 	text-align: center;
-	margin:15px auto 15px auto;
+	margin:20px auto 15px auto;
 }
 
