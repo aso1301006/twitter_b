@@ -42,7 +42,7 @@ function reload(){
 <div class="main">
 
 	<div id="search" align="right">
-		<a href="user_get.php"><img src="../img/search_you.png" alt="分析" width="55%" height="100%"></img></a>
+		<a href="user_get.php"><img src="../img/search_you.png" alt="分析" class="search" width="55%" height="100%"></img></a>
 	</div>
 
 	<div id="relaod" align="right">
