@@ -9,7 +9,7 @@ background:#F0FFFF;
 .main{
 background-color:#FFF;
 width:50%;
-hight:auto;
+height:auto;
 margin:auto;
 margin-top:5em;
 border-radius:15px;
@@ -17,7 +17,15 @@ border:solid 1px #AAA;
 overflow:hidden;
 }
 
-#login_title{
+.main2{
+	width:50%;
+	height:700px;
+	margin:auto;
+	margin-top:5em;
+	overflow:hidden;
+}
+
+.login_title{
 	font-size:1.7em;
 	color:#777;
 	text-align: center;
@@ -71,7 +79,7 @@ input[type=password]{
 	text-align:center;
 }
 
-input[type=submit]{
+input[type=button]{
 	background:#1E90FF;
 	width:12em;
 	height:2em;
@@ -92,3 +100,11 @@ a#nomal{
 	font-size:1em;
 	color:#777;
 }
+
+#description {
+	font-size:1em;
+	color:#222;
+	text-align: center;
+	margin:20px auto 15px auto;
+}
+

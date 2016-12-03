@@ -1,13 +1,13 @@
 @CHARSET "UTF-8";
-body
-.row{
+
+/*.row{
 	display:table-row;
+	margin:5px;
+	padding:5px;
 }
-.row>div{
-	display:table-cell;
-	margin:15px;
-	padding:15px;
-            }
+/*.row>div{
+	float:left;
+}*/
 
 div
 #search{
@@ -27,6 +27,7 @@ div
 	margin: 0 auto;
 	border-radius:10px;
 	display:table;
+	height:auto;
 }
 
 img.button{
@@ -34,4 +35,24 @@ img.button{
 	border-style: inset;
 	border-radius: 40px;
 	padding:5px;
+}
+img.button:hover{
+	border:10px solid #9999FF;
+	border-style: inset;
+}
+img.search:hover{
+	padding:1px;
+}
+.profile_img{
+	margin:10px;
+	float:left;
+	width:8%;
+	height:auto;
+	display:block;
+
+}
+.text{
+	display:block;
+	width:80%;
+	margin:2% auto 2% 11%;
 }

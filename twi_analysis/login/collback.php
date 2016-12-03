@@ -37,26 +37,30 @@ if($_SESSION['oauth_token'] == $_GET['oauth_token'] and $_GET['oauth_verifier'])
 	$_SESSION['text'] = $text;
 	$_SESSION['profile_image_url_https'] = $profile_image_url_https;
 
-	//追加の記述
-	//PDOでDB接続
-	$pdo = new PDO('mysql:host=localhost;dbname=test1', 'root','');
-	//認証者のIDをDBに保存
-	$result = $pdo->prepare("INSERT INTO twi_test (id,name,screen_name)
-					VALUES (:id,:name,:screen_name)");
+//DBへユーザー情報追加----------------
+	$mongo = new MongoClient("35.162.58.174:27017");
+	$db = $mongo->selectDB("twi_analysis");
+	$collection = $db->selectCollection("user_data");
 
-	// 挿入する値を配列に格納する
-	$result->bindValue(":id", $id);
-	$result->bindValue(":name", $name);
-	$result->bindValue(":screen_name", $screen_name);
+//既に登録されているuser_idがあるか
+	$con = array('user_id' => $_SESSION['id']);
+	$select = $collection->find($con);
+	foreach ($select as $doc) {
+		$res=($doc);
+	}
+if($res == null){
 
-	// 挿入する値が入った変数をexecuteにセットしてSQLを実行
-	$result->execute();
+	//件数をidにする----
+	$auto_no = $collection->count();  //件数取得
+	//インサート
+	$collection->insert(array("user_id" => $_SESSION['id'], "user_name" => $_SESSION['name'], "screen_id" => $_SESSION['screen_name'], "profile_image" => $_SESSION['profile_image_url_https']));
+//DB追加終了
+}
 
-
-	header('Location: index.php');
+	header('Location: ../main/main.php');
 	exit();
 }else{
-	header('Location: index.php');
+	header('Location: ../main/main.php');
 	exit();
 }
 

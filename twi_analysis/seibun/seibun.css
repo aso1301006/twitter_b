@@ -12,20 +12,45 @@
 	float:left;
 }
 .seibun{
-	margin-top:10%;
 	position:relative;
-	left:10%;
-	top:20%;
-
+	left:27%;
+	top:10%;
+	margin-top:15%;
+	margin-bottom:8%;
 }
 #table{
-	left:5%;
-	tex-align:right;
+	left:25%;
 	border:solid 1px #555;
+	padding:5px;
+}
+#table  td{
+	padding:2px;
 }
 
 .advice{
-	clear:none;
-	top:10%;
-	bottom:5%;
+	clear:both;
+	margin-top:3%;
+	margin-bottom:2%;
+	border:solid 1px #ccc;
+	width:50%;
+	margin-left:20%;
+}
+#week{
+	color:#0c0;
+	font-size:1.2em;
+}
+
+#nega{
+	color:#00c;
+	font-size:1.2em;
+}
+
+#pozi{
+	color:#c00;
+	font-size:1.2em;
+}
+
+#lucky{
+	color:#888;
+	font-size:1.2em;
 }

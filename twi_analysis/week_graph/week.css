@@ -24,12 +24,37 @@ h2{
 	padding: 10px;
 }
 .table{
-	text-align: center;
-	width: 40%;
+	height: 100%
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 10px;
+
 }
-#main-gallery{
-	position:absolute;
+.main-gallery{
+	float:right;
+	width:75%;
+}
+#table{
+	float:left;
+	width: 25%;
+}
+#point{
+	width:98%;
+	margin: 0 auto;
+	display:table;
+}
+.row{
+	display:table-row;
+}
+.row>div{
+	display:table-cell;
+	border:0.1px solid;
+}
+.time{
+	background-color:gold;
+}
+.posi{
+	background-color:LightSalmon;
+}
+.nega{
+	background-color:CornFlowerBlue;
 }
