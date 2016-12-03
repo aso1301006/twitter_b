@@ -3,18 +3,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="seibun.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twitter_anarysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 <title>助言</title>
 </head>
 <body>
 <?php
-	include '../header.php';
+//session_start();
+include '../header.php';
+$tw_id= $_SESSION['id'];
+
+
+
+
+
+
+
+
+
+
+
+
 
 	$week_weak = "月";
 	$nega_time="2";
 	$pozi_time="17";
 	$lucky_word = array("宮下","本井","福田","原田");
-	var_dump($lucky_word);
 
 // 	for($i=0;$i > 5;$i++){
 
@@ -30,9 +43,8 @@
 	</div>
 
 	<div class="seibun">
-		構成成分表(1人当たり)
 			<table id="table">
-			<tr>
+			<tr>構成成分表(1人当たり)
 			<td>エネルギー</td><td>100Tcal</td>
 			</tr>
 			<tr>
@@ -41,10 +53,16 @@
 			<tr>
 				<td>くそ</td><td>38%</td>
 			</tr>
+			<tr>
+				<td>本井</td><td>30%</td>
+			</tr>
+			<tr>
+				<td>くさい</td><td>28%</td>
+			</tr>
 		</table>
 	</div>
 
-	<div clss="advice">
+	<div class="advice">
 		<div id="week">
 			<?php echo $week_weak;?>曜日は元気がなさそうです。
 		</div>
@@ -59,8 +77,8 @@
 
 		<div id="lucky">
 			ラッキーワードは<?php
-			for($k =0;$k>count($lucky_word);$k++){
-				echo $lucky_word[$k];
+			foreach($lucky_word as $value){
+				echo "、".$value;
 			}
 			?>
 		</div>

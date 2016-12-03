@@ -2,20 +2,21 @@
 
 #page_title{
 	float:left;
-	margin-left:40%;
-	margin-right:20%;
+	margin-left:35%;
+	margin-right:10%;
 	color:#555;
+	width:30%;
 }
 
 #today{
 	font-size:1.4em;
 	padding:5px;
-	margin:25px 10px auto auto;
+	margin:4% auto auto 15%;
 }
 
 #comment{
-	margin-left:4em;
-	margin-top:-28em;
+	margin-left:6%;
+	margin-top:-42%;
 	position: relative;
 	float:left;
 }
@@ -23,8 +24,8 @@
 #comment_text{
 	font-size:1.3em;
 	float:left;
-	top:35px;
-	left:42px;
+	top:32%;
+	left:4%;
 	position: absolute;
 }
 
@@ -43,24 +44,48 @@
 
 #history_button{
 	left:15%;
-	top:80%;
+	top:77%;
 	position: absolute;
+	width:20%;
 }
 
 #word_button{
-	right:0%;
-	top:35%;
+	left:73%;
+	top:30%;
 	position: absolute;
 }
 
 #week_button{
-	right:4%;
-	top:65%;
+	left:63%;
+	top:50%;
 	position: absolute;
 }
 
 #advice_button{
 	left:77%;
-	top:75%;
+	top:73%;
 	position: absolute;
+}
+
+@keyframes moveimg {
+	0% { left: 0px; top: 0px;}
+	10% { left: 0px; top: 3px;}
+	20% { left: 0px; top: 6px;}
+	30% { left: 0px; top: 9px;}
+	40% { left: 0px; top: 12px;}
+	50% { left: 0px; top: 15px;}
+	60% { left: 0px; top: 12px;}
+	70% { left: 0px; top: 9px;}
+	80% { left: 0px; top: 6px; }
+	90% { left: 0px; top: 3px;}
+	100% { left: 0px; top: 0px; }
+}
+
+.float1{
+	animation: moveimg 2s infinite;
+	position: relative;
+}
+.float2{
+	animation: moveimg 3s infinite;
+	position: relative;
 }
