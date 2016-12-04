@@ -1,166 +1,108 @@
 <?php
 include '../DBManager.php';
+set_time_limit(0);//処理制限時間を無期限に
 $y = '2018'; //検索する年
 $m = '07'; //検索する月
 $d = '08'; //検索する日
-
-$start =  date('Y-m-d', strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
-$end = date('Y-m-d', strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
+$start =  date("Y-m-d H:i:s", strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
+$end = date("Y-m-d H:i:s", strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
 $start_day = first_week_date($start);//指定した日の週の日曜日の日付取得
 $end_day = fin_week_date($end);//指定した日の週の土曜日の日付取得
-
-$first = new MongoDate(strtotime($start_day));
-$fin = new MongoDate(strtotime($end_day));
-
-// $data = tweets_search(array("year"=>$y,"month"=>$m),null,array("day"=>1));//where,sortを指定
-// $data = tweets_search(array("created_at"=>array('$gt'=>$first, '$lte'=>$fin)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
-// $data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("hour"=>1));
 //----------------------------週配列--------------------------------------------------
 $loop = 1;//週をカウント
-while($start_day < $end_day){//week[第何週目][日] = array();を作成
-	for($J=0;$J<7;$J++){//1週間作成
-		$date = date('Y-m-d', strtotime("$start_day +$J day"));
-		$key = date("j",strtotime($date));
-		$week[$loop][$key] = '';
-	}
-	$sunday = new MongoDate(strtotime($start_day));
-	$saturday = new MongoDate(strtotime(fin_week_date($start_day)));
-	for($c=0;$c<count($week[$loop]);$c++){//上で作成した1週間にデータ挿入
-		$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),array("_id"=>1,"day"=>1,"dow"=>1,"noun"=>1),array("day"=>1));
-		foreach ($data as $key =>$value){
-// 			var_dump($value);
-			$week[0][$value['day']] = 'a';
-		}
+while($start_day < $end_day){//week[第何週目][曜日] = 名詞+形容詞+時間
+	$sunday = new MongoDate(strtotime(date_utc_to_jp($start_day)));
+	$saturday = next_first_week_date($start_day);
+	$saturday = new MongoDate(strtotime(date_utc_to_jp($saturday)));
+	$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),null,array("month"=>1,"day"=>1));
+	foreach ($data as $key =>$value){
+			if(isset($value['noun']) && isset($value['adjective'])){
+				$week[$loop][$value['dow']][$value['hour']] = (array)$value['noun'];
+				$week[$loop][$value['dow']][$value['hour']] += (array)$value['adjective'];
+			}
+			elseif(isset($value['noun'])){
+				$week[$loop][$value['dow']][$value['hour']] = (array)$value['noun'];
+			}
+			elseif(isset($value['adjective'])){
+				$week[$loop][$value['dow']][$value['hour']] = (array)$value['adjective'];
+			}
 	}
 	$start_day = date('Y-m-d', strtotime('+1 week' . $start_day));
-	$key = date('j', strtotime("$key +1 week"));
 	$loop++;
 }
+foreach ($week as $key =>$value){//配列weekにあるnullを取り除く
+	foreach ($value as $key2 =>$value2){
+		if(is_array($value2)){
+			foreach ($value2 as $key3 =>$value3){
+				foreach ($value3 as $key4 =>$value4){
+					if(empty($value4)){unset($week[$key][$key2][$key3][$key4]);}
+				}
+			}
+		}
+	}
+}
+foreach ($week as $key =>$value){//配列weekの値を表の一列に変換
+	foreach ($value as $key2 =>$value2){//曜日ごと
+		if(is_array($value2)){
+			foreach ($value2 as $key3 =>$value3){
+				$week_time[$key][$key2][$key3] = array();//入れる箱作り
 
-// $count = 0;
-// $w = array();
-// foreach ($week as $k => $v){
-// 	foreach ($v as $k2 => $v2){//1週め、2週めと配列分け $w[週目][曜日] = 名詞
-// 		$v2['day'] = $k2;//日付追加
-// 		$w[$count][$k] = $v2;
-// 		foreach ($v2 as $k3 =>$v3){
-// 			if(empty($v3)){unset($w[$count][$k][$k3]);}
-// 		}
-// 		$count++;
-// 	}
-// 	$count = 0;
-// }
+				foreach ($value3 as $key4 =>$value4){//時ごと
+					if(!empty($week[$key][$key2][$key3])){//値が入っている場合
+						$p_name = max(array_keys($week[$key][$key2][$key3],max($week[$key][$key2][$key3])));
+						$p_value = max($week[$key][$key2][$key3]);
+						$n_name = min(array_keys($week[$key][$key2][$key3],min($week[$key][$key2][$key3])));
+						$n_value = min($week[$key][$key2][$key3]);
+						if($p_value <= 0){//ポジティブワードの値がマイナスの場合、削除
+							$p_name = '';
+							$p_value = '';
+							unset($week[$key][$key2][$key3][$n_name]);
+						}
+						elseif($n_value >= 0){//ネガティブワードの値がプラスの場合、削除
+							$n_name = '';
+							$n_value = '';
+							unset($week[$key][$key2][$key3][$p_name]);
+						}else{//使用済みの値を取り出す
+							unset($week[$key][$key2][$key3][$p_name]);
+							unset($week[$key][$key2][$key3][$n_name]);
+						}
+						//week_time[週][曜日][時][個数] = ポジティブワード、値、ネガティブワード、値、を挿入
+						array_push($week_time[$key][$key2][$key3], array("p_name"=>$p_name, "p_value"=>$p_value, "n_name"=>$n_name, "n_value"=>$n_value));
+					}
+					ksort($week_time[$key][$key2]);
 
-// foreach ($w as $key => $value){
-// 	foreach ($value as $key2 => $value2){//1週の曜日の最大値・最小値
-// 		$D = $value2['day'];
-// 		unset($value2['day']);
-// 		if(!empty($value2)){
-// 			$w[$key][$key2] = array("day"=>$D,"max_name"=>max(array_keys($value2,max($value2))),"max_value"=>max($value2),"min_name"=>min(array_keys($value2,min($value2))),"min_value"=>min($value2));
-// 		}
-// 	}
-// }
-echo '<pre>';
-// print_r($w);
-// print_r($week);
-// echo max(array_keys($week['Mon'],max($week['Mon']))).':'.max($week['Mon']);
-// echo min(array_keys($week['Mon'],min($week['Mon']))).':'.min($week['Mon']);
-// print_r($sun);
-// print_r($mon);
-// print_r($tue);
-// print_r($wed);
-// print_r($thu);
-// print_r($fri);
-// print_r($sat);
-echo '</pre>';
-//------------------------------------週配列--------------------------------------
-//-------------------------------------日配列-------------------------------------
-// $positive = array();
-// $negative = array();
-// $merge = array();
-// foreach ($data->limit(20) as $key=>$val){//ポジティブ・ネガティブの配列を作成
-// 	$h = (int)$val['hour'];
-// 	if(isset($val['noun'])){//nounが存在する値
-// 		foreach ($val['noun'] as $key2=>$val2){//
-// 			if($val2 > 0){//ポジティブ[時][名詞] = ポジティブ値
-// 				$positive[$h][$key2] =$val2;
-// 			}elseif($val2 < 0){//ネガティブ[時][名詞] = ネガティブ値
-// 				$negative[$h][$key2] =$val2;
-// 			}
-// 		}
-// 	}
-// }
-
-// //ポジティブ名詞
-// foreach ($positive as $key=>$val){
-// // var_dump($val);
-// 	echo '時間：'.$key.'時'.'<br>';
-// 	foreach ($positive[$key] as $keys=>$value){
-// 		echo $keys.':'.$value.'<br>';
-// 	}
-// 	echo '<br>';
-// }
-// echo '<pre>';
-// echo 'ポジティブ';print_r($positive);
-// echo 'ネガティブ';print_r($negative);
-// echo '</pre>';
-//-------------------------------------日配列-------------------------------------
-function page_start($id,$title_text){//折りたたみページを作成
-$text = <<<EOT
-	<div onclick="show({$id})">
-		<a style="cursor:pointer;">{$title_text}</a>
-	</div>
-	<div id="{$id}" style="display:none;clear:both;">
-
-EOT;
-	return $text;
+				}
+			}
+		}
+	}
 }
 
-function page_fin(){
-$text = '</div>';
-return $text;
-}
-
-function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
-$text = <<<EOT
-	<div class='row'>
-		<div class="time" style="border-bottom-style: none;">{$time}</div>
-		<div>{$good}</div>
-		<div>{$good_value}</div>
-		<div>{$bad}</div>
-		<div>{$bad_value}</div>
-	</div>
-EOT;
-	return $text;
-}
-// function cell2($time,$good,$good_value,$bad,$bad_value){//折りたたみページ内のテーブル作成
-// 	$text = <<<EOT
-// 	<div class='row'>
-// 		<div class="time" style="border-top-style: none;border-bottom-style: none;">{$time}</div>
-// 		<div>{$good}</div>
-// 		<div>{$good_value}</div>
-// 		<div>{$bad}</div>
-// 		<div>{$bad_value}</div>
-// 	</div>
-// EOT;
-// 	return $text;
-// }
+//javascriptに配列を送るために変換
+$array = json_encode($week_time);
 
 function first_week_date($ymd) {//指定した日の週の週初めの日付を取得
-	$w = date("w",strtotime($ymd));
 	$date =
-	date('Y-m-d', strtotime("last sunday", strtotime($ymd)));
+	date("Y-m-d H:i:s", strtotime("last sunday", strtotime($ymd)));
 	return $date;
 }
 
 function fin_week_date($ymd) {//指定した日の週の週終わりの日付を取得
-	$w = date("w",strtotime($ymd));
 	$date =
-	date('Y-m-d', strtotime("next saturday", strtotime($ymd)));
+	date("Y-m-d H:i:s", strtotime("next saturday", strtotime($ymd)));
 	return $date;
 }
-?>
 
+function next_first_week_date($ymd) {//指定した日の次の週初めの日付を取得
+	$date =
+	date("Y-m-d H:i:s", strtotime("next sunday", strtotime($ymd)));
+	return $date;
+}
+
+function date_utc_to_jp($utc_date){//日付を東京のタイムゾーンへ変更
+	return date("Y-m-d H:i:s", strtotime($utc_date. " +9 hour"));
+}
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
 <head>
@@ -168,63 +110,151 @@ function fin_week_date($ymd) {//指定した日の週の週終わりの日付を
 <link rel="stylesheet" type="text/css" href="time.css"></link>
 <link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 <script type="text/javascript">
-function show(id){
-	var obj = document.getElementById(id).style;
-	var r = obj.display=(obj.display=='none')?'block':'none';
-	return r;
+var week = JSON.parse('<?php echo  $array; ?>');
+
+function hyo_sel(){//insert:表を挿入するdivID,
+	selected = document.hyo.sel.value;//<select>で指定された値を取得
+	var Re = document.getElementById("cell");//表を挿入するdivを取得
+	Re.textContent = null;
+
+	for(key in week){
+		folding(Re,  key);
+		var div_point = document.createElement("div");
+		div_point.id = "point";
+		div_point.style = "border:solid 1px #AAA";
+		var id = document.getElementById(key);
+		cell_title(id, div_point, "時間", "ポジティブワード", "数値", "ネガティブワード", "数値");
+		keys = Object.keys(week[key][selected]);
+		len = keys.length;
+		keys.sort();
+		for (i = 0; i < len; i++) {
+			key2 = keys[i];
+			for(key3 in week[key][selected][key2]){
+				var time = key2;
+				var pName = week[key][selected][key2][key3]['p_name'];
+				var pValue = week[key][selected][key2][key3]['p_value'];
+				var nName = week[key][selected][key2][key3]['n_name'];
+				var nValue = week[key][selected][key2][key3]['n_value'];
+
+				if(key3 <= 0){
+					cell_value(true, div_point, time, pName, pValue, nName, nValue);
+				}else{
+					cell_value(false, div_point, "", pName, pValue, nName, nValue);
+				}
+			}
+		}
+	}
+
 }
+
+//Re:挿入先, id:何週目,
+function folding(Re, id){//折り畳みページを挿入
+	//折りたたみ展開ポインタ
+// 	var Re = document.getElementById("cell");//表を挿入するdivを取得
+	var div_title = document.createElement("div");
+	div_title.onclick = function (){
+		obj=document.getElementById(id).style;
+		obj.display=(obj.display=='none')?'block':'none';
+	}
+	div_title.innerHTML = "<a style='cursor:pointer;'>"+id+"週目</a>";
+
+	//折りたたまれ部分
+	var div_contents = document.createElement("div");
+	div_contents.id = id;
+	div_contents.style = "display:none;clear:both;";
+
+	Re.appendChild(div_title);
+	Re.appendChild(div_contents);
+}
+
+function cell_title(Re, div_point, time, pName, pValue, nName, nValue){//Re:複製する1行の挿入先
+
+	div_row = document.createElement("div");
+	div_row.className = "row";
+
+	div_time = document.createElement("div");
+	div_time.className = "time";
+	div_time.innerHTML = time;
+
+	div_pName = document.createElement("div");
+	div_pName.className = "posi";
+	div_pName.innerHTML = pName;
+	div_pValue = document.createElement("div");
+	div_pValue.className = "posi";
+	div_pValue.innerHTML = pValue;
+
+	div_nName = document.createElement("div");
+	div_nName.className = "nega";
+	div_nName.innerHTML = nName;
+	div_nValue = document.createElement("div");
+	div_nValue.className = "nega";
+	div_nValue.innerHTML = nValue;
+
+	Re.appendChild(div_point);
+	div_point.appendChild(div_row);
+	div_row.appendChild(div_time);
+	div_row.appendChild(div_pName);
+	div_row.appendChild(div_pValue);
+	div_row.appendChild(div_nName);
+	div_row.appendChild(div_nValue);
+}
+
+function cell_value(jud, div_point, time, pName, pValue, nName, nValue){//Re:複製する1行の挿入先
+	div_row = document.createElement("div");
+	div_row.className = "row";
+
+	div_time = document.createElement("div");
+	div_time.className = "time";
+	div_time.innerHTML = time;
+	if(jud){
+		div_time.style = "border-bottom-style: none;";
+	}else{
+		div_time.style = "border-top-style: none;border-bottom-style: none;";
+	}
+
+	div_pName = document.createElement("div");
+	div_pName.className = "posi";
+	div_pName.innerHTML = pName;
+	div_pValue = document.createElement("div");
+	div_pValue.className = "posi";
+	div_pValue.innerHTML = pValue;
+
+	div_nName = document.createElement("div");
+	div_nName.className = "nega";
+	div_nName.innerHTML = nName;
+	div_nValue = document.createElement("div");
+	div_nValue.className = "nega";
+	div_nValue.innerHTML = nValue;
+
+	div_row.appendChild(div_time);
+	div_row.appendChild(div_pName);
+	div_row.appendChild(div_pValue);
+	div_row.appendChild(div_nName);
+	div_row.appendChild(div_nValue);
+	var element2 = div_row.cloneNode(true); // 要素を複製
+	div_point.appendChild(element2);
+
+}
+
+window.onload = hyo_sel;
+// window.onload = tes;
+// window.onload = folding;
 </script>
 </head>
 <body>
-<?php
-//------------------------------週---------------------------------------
-$text = <<<EOT
-<div id="point" style='border:solid 1px #AAA'>
-		<div class="row">
-			<div class="time">曜日</div>
-			<div class="posi">ポジティブ</div>
-			<div class="posi">値</div>
-			<div class="nega">ネガティブ</div>
-			<div class="nega">値</div>
-		</div>
-EOT;
-// 		foreach ($w as $k => $v){
-// 			$title_text = ($k+1).'週目';
-// 			echo page_start($k, $title_text);//折り畳みページ開始
-// 			echo $text;
-// 				foreach ($v as $k2 => $v2){//表作成
-// 					echo cell($k2,$v2['max_name'],$v2['max_value'],$v2['min_name'],$v2['min_value']);
-// 				}
-// 				echo '</div>';
-// 			echo page_fin();//折り畳みページ終了
-
-// 		}
-//------------------------------週---------------------------------------
-//---------------------------時間----------------------------------------
-		//ポジティブ名詞
-// 		foreach ($positive as $key=>$val){
-// 			foreach ($positive[$key] as $keys=>$value){
-// 				echo cell($key,$keys,$value,null,null);
-// 			}
-// 		}
-
-// 		if(count($positive) < count($negative)){
-// 			$count = count($positive);
-// 		}else{
-// 			$count = count($negative);
-// 		}
-// 		for($i=0;$i<$count;$i++){
-// 			echo cell('3:00','いいね','0.5','駄目','-0.7');
-// 		}
-//---------------------------時間-----------------------------------------
-
-// for($i=0;$i<3;$i++){
-// 	echo '<div align="center">';
-// 	echo page($i,"テスト用に作成しています_No.".$i);
-// 	echo '</div>';
-// }
-
-
-?>
+<form name="hyo">
+<div>
+	<select name="sel" onchange="hyo_sel()">
+		<option value="Sun" selected="selected">日曜日</option>
+		<option value="Mon">月曜日</option>
+		<option value="Tue">火曜日</option>
+		<option value="Wed">水曜日</option>
+		<option value="Thu">木曜日</option>
+		<option value="Fri">金曜日</option>
+		<option value="Sat">土曜日</option>
+	</select>
+</div>
+</form>
+<div id="cell"></div>
 </body>
 </html>
