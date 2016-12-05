@@ -161,6 +161,9 @@ foreach ($word as $motoi) {
 	<div class="clear" />
 </div><!-- Fin_header2 -->
 
+<div class="note">
+	<p>選択した曜日の、各時間ごとの<br/>全ツイートを表示しています。</p>
+</div>
 <div id="table">
 <form action="week_graph.php" method="post" name="youbi">
 	<select name="youbi_select" onChange="this.form.submit()">
