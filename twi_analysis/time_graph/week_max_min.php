@@ -87,7 +87,7 @@ function page_start($id,$title_text){//折りたたみページを作成
 	<div onclick="show({$id})">
 		<a style="cursor:pointer;">{$title_text}</a>
 	</div>
-	<div id="{$id}" style="display:none;clear:both;">
+	<div id="{$id}" style="display: block; clear: both;">
 
 EOT;
 	return $text;
