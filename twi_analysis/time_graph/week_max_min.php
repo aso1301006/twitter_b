@@ -102,10 +102,10 @@ function cell($time,$good,$good_value,$bad,$bad_value){//折りたたみペー�
 	$text = <<<EOT
 	<div class='row'>
 		<div class="time" style="border-bottom-style: none;">{$time}</div>
-		<div>{$good}</div>
-		<div>{$good_value}</div>
-		<div>{$bad}</div>
-		<div>{$bad_value}</div>
+		<div class="posi">{$good}</div>
+		<div class="posi">{$good_value}</div>
+		<div class="nega">{$bad}</div>
+		<div class="nega">{$bad_value}</div>
 	</div>
 EOT;
 	return $text;
