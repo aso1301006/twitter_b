@@ -14,16 +14,23 @@ include '../DBManager.php';
 
 
 //今日の日付取得
-//$today = "2016年11月18日";
+
+$year = "2018";
+$month = "06";
+$day = "01";
+
+
+
 $today = date("Y年m月d日");
-$year = date("Y");
-$month = date("m");
- $day = date("d");
+// $year = date("Y");
+// $month = date("m");
+// $day = date("d");
 
 
 $count=0;
 $sum=0;
 $negapozi=0;
+
 
 //ネガポジ値計算
 	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"day" =>$day));
