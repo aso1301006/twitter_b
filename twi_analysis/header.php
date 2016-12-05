@@ -48,4 +48,4 @@ if(!isset($_SESSION['access_token'])){
 
 		<div class="border" style="margin-top:6%;"></div>
 </div>
-<Span Style="Font-Size:5em"><br/></Span>
+<Span Style="Font-Size:4em"><br/></Span>
