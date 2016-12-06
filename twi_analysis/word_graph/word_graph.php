@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <link rel="stylesheet" type="text/css" href="word.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/back_button.css"></link>
-<link rel="stylesheet" type="text/css" href="http://localhost/twi_analysis/css/css.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/back_button.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 
 <script type="text/javascript"src="prototype.js"></script>
 <script type="text/javascript"src="check_line.js"></script>
@@ -14,39 +14,69 @@
 </head>
 <body>
 <?php
-// include ('../header.php'); ヘッダー
+include ('../header.php'); ヘッダー
+
 ?>
 
 
 <?php
-
-//テスト用の値
-	//週
-	$week = '2016/10/2～2016/11/2';
-	//単語
-	$word = '楽しい';
+//先月の年
+$to_year=date('Y/m/d', strtotime(date('Y-m-1') . '-1 month'));
+//
+$last_date=date('Y/m/t', mktime(0,0,0, date('m'), 0, date('Y')));
 
 //グラフに値を送信する方法
 	//<img>内のsrcに呼び出すグラフの.php後にGet送信のように値を書き込み
 	//例：<img src="test.php?parameter1=aaa&parameter2=bbb" alt="テスト"/>
+//------------------Python処理----------------------
+
+		require_once('../cgi/CounterCaller.php');
+		try{
+			$caller = new CounterCaller();
+			$user_id = "791505177299726336";
+			$from_date_str = "2016/11/1 0:0:0";  // 年-月-日 時:分:秒で指定する
+			$to_date_str = "2016/12/1 0:0:0";    // 開始日時 ≦ Ｘ < 終了日時 で検索される
+			$caller->setArgs($user_id, $from_date_str, $to_date_str);
+
+			$count_arr = $caller->call(PIE_CHAR);  // どのグラフの処理をするか定数で指定
+			if($count_arr == null){  // 失敗した時や見つからない時はnullが帰ってくる
+				print "見つかりませんでした";
+			}
+			else{
+				$word = $count_arr['word'];
+			}
+
+			$count_arr = $caller->call(BAR_GRAPH);  // どのグラフの処理をするか定数で指定
+			if($count_arr == null){  // 失敗した時や見つからない時はnullが帰ってくる
+				print "見つかりませんでした";
+			}
+			else{
+				var_dump($count_arr);
+			}
+		}
+		catch(InvalidArgumentException $e){
+			print "InvalidArgumentException：". $e->getMessage();
+		}
+		catch(FileNotFoundException $e){
+			print "FileNotFoundException：". $e->getMessage();
+		}
+		catch(ExecuteException $e){
+			print "ExecuteException：". $e->getMessage();
+		}
+		catch(Exception $e){
+			print "Exception：". $e->getMessage();
+		}
+//------------------Python処理----------------------
+
+
+		//テスト用の値
+		//週
+		$week =(string)$to_year."～".$last_date;
+		//単語
+		//$word = '楽しい';
+
 ?>
-<div class="main"> <!-- テスト用に作成。ページ完成後はincludeを適用して削除する -->
-	<div id="home_button">
-		<a href="http://localhost/twi_analysis/main/main.php"><img src="http://localhost/twi_analysis/img/home_icon.png." alt="home" width="45px" height="45px" /></a>
-	</div>
-	<div id="system_name">
-		<img src="http://localhost/twi_analysis/img/twi析.png" alt="システム名" width="100px" height="45px"></img>
-	</div>
-	<div id="user_info">
-		<div class="icon">
-			<img src="http://localhost/twi_analysis/img/motoi.png" alt="user_icon" width="50px" height="50px"	style="border:solid 1px #AAA;"></img>
-		</div>
-		<div class="info">
-			<a>@test_twitter</a><br/><a><font size="5em">John Doe</font></a>
-		</div>
-	</div>
-	<div class="border" style="margin-top:5.5%;" />
-</div>
+
 
 <div class="main">
 <div id="header2">
@@ -78,11 +108,11 @@
 </div>
 
 <form id="form1">
-	<input type="checkbox" id="check1" value=""checked="checked"onclick="checked1()"/>青
-	<input type="checkbox" id="check2" value=""checked="checked"onclick="checked1()"/>黄
-	<input type="checkbox" id="check3" value=""checked="checked"onclick="checked1()"/>緑
-	<input type="checkbox" id="check4" value=""checked="checked"onclick="checked1()"/>赤
-	<input type="checkbox" id="check5" value=""checked="checked"onclick="checked1()"/>黒
+	<input type="checkbox" id="check1" value=""checked="checked"onclick="checked1()"/><FONT color="blue">単語1</FONT>
+	<input type="checkbox" id="check2" value=""checked="checked"onclick="checked1()"/><FONT color="yellow">単語2</FONT>
+	<input type="checkbox" id="check3" value=""checked="checked"onclick="checked1()"/><FONT color="green">単語3</FONT>
+	<input type="checkbox" id="check4" value=""checked="checked"onclick="checked1()"/><FONT color="red">単語4</FONT>
+	<input type="checkbox" id="check5" value=""checked="checked"onclick="checked1()"/><FONT color="black">単語5</FONT>
 </form>
 </div><!-- Fin_line_graph -->
 </div><!-- Fin_main -->

@@ -1,17 +1,27 @@
 <?php
-include ("/../jpgraph-4.0.1/src/jpgraph.php");
-include ("/../jpgraph-4.0.1/src/jpgraph_line.php");
+include ("jpgraph/jpgraph.php");
+include ("jpgraph/jpgraph_line.php");
 
 
 
 //折れ線グラフのデータ
-$ydata =  array(11,3,8,12,5,1,9,13,5,7);
-$ydata2 = array(1,19,15,7,22,14,5,9,21,13);
-$ydata3 = array(6,8,4,9,10,14,1,6,0,12);
-$ydata4 = array(9,10,11,12,13,14,15,16,17,18);
-$ydata5 = array(3,3,5,5,14,10,1,6,3,1);
+$ydata =  array(3,2,0,0,0,0,0,2,2,4,2,5,0,6,3,6,4,6,4,2,1,1,1,1);
+$ydata2 = array(4,6,0,0,0,0,0,1,1,0,2,4,5,5,3,1,0,0,2,3,2,3,2,1);
+$ydata3 = array(1,1,0,0,0,0,0,2,3,0,1,1,0,1,0,2,4,7,7,2,4,6,3,3);
+$ydata4 = array(2,1,0,0,0,0,0,0,2,1,2,0,3,0,3,2,2,0,0,2,3,1,0,0);
+$ydata5 = array(2,0,0,0,0,0,0,5,2,0,0,0,0,2,3,0,0,0,3,2,1,3,7,7);
 //線の太さ0かつデータなしのダミーデータ
 $ydata6 = array(0,0,0,0,0,0,0,0,0,0);
+
+//データ受け取り
+/*
+foreach($word as $key =>$value){
+	foreach($word as $key =>$value){
+	$ydata[]=$value;
+	$text_data[]=$word;
+	}
+}
+*/
 
 $timer = new JpgTimer();
 $timer->Push();
@@ -20,13 +30,12 @@ $timer->Push();
 $graph = new Graph(400,300);
 $graph->SetScale("textlin");
 
-$graph->SetMargin(40,20,20,60);
 
 //グラフのタイトル
-$graph->title->Set("Timing a graph");
-$graph->footer->right->Set('Timer (ms): ');
-$graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
-$graph->footer->SetTimer($timer);
+//$graph->title->Set("Timing a graph");
+//$graph->footer->right->Set('Timer (ms): ');
+//$graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
+//$graph->footer->SetTimer($timer);
 
 // Create the linear plot
 $lineplot=new LinePlot($ydata);
@@ -58,15 +67,19 @@ $graph->yaxis->title->Set("ツイート数");
 //$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
 //$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 
-$graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
-$graph->title->Set(mb_convert_encoding('単語比較', 'UTF-8', 'auto'));
+//$graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
+//$graph->title->Set(mb_convert_encoding('単語比較', 'UTF-8', 'auto'));
 
-//X軸（下側）に表示する文字の設定→時間が表示されるように書き換えて
-//$labels = array('単語①', '単語②', '単語3', '単語4', '単語5');
+
+//テストデータ
+$text_data=  array('単語①', '単語②', '単語3', '単語4', '単語5');
+//本番用
+//$text_data = array($word_arr[0],$word_arr[1],$word_arr[2],$word_arr[3],$word_arr[4]);
+$labels = $text_data;
 //$graph->xaxis->SetFont(FF_GOTHIC);
 //$graph->xaxis->SetTickLabels($labels);
 
-
+/*
 //線のマーカーを追加
 $lineplot->mark->SetType(MARK_CIRCLE);
 $lineplot2->mark->SetType(MARK_CIRCLE);
@@ -79,7 +92,7 @@ $lineplot2->mark->SetColor("orange");
 $lineplot3->mark->SetColor("green");
 $lineplot4->mark->SetColor("red");
 $lineplot5->mark->SetColor(array(55, 55,55));
-
+ */
 //折れ線の色設定
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
@@ -100,7 +113,7 @@ $lineplot5->SetWeight(2);
 $lineplot6->SetWeight(0);
 
 //縦（Y軸）の色を設定
-$graph->yaxis->SetColor("red");
+$graph->yaxis->SetColor("black");
 $graph->yaxis->SetWeight(2);
 $graph->SetShadow();
 
