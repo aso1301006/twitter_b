@@ -1,11 +1,13 @@
 <?php
+session_start();
 include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
 $y = (string)date("Y"); //検索する年
 $m = (string)date("m"); //検索する月
 $d = (string)date("d"); //検索する日
+$user_id = (string)$_SESSION['id'];
 //データ検索
-$data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("month"=>1,"day"=>1));
+$data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d,"user_id"=>$user_id),null,array("month"=>1,"day"=>1));
 foreach ($data as $key =>$value){
 	if(isset($value['noun']) && isset($value['adjective'])){
 		$day[$value['hour']] = (array)$value['noun'];
@@ -62,10 +64,6 @@ foreach ($day as $key =>$value){
 //javascriptに配列を送るために変換
 $array = json_encode($day_time);
 
-// echo '<pre>';
-// // print_r($day);
-// print_r($day_time);
-// echo '</pre>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
@@ -79,7 +77,7 @@ var day = JSON.parse('<?php echo  $array; ?>');
 function hyo_sel(){//insert:表を挿入するdivID,
 	var Re = document.getElementById("cell");//表を挿入するdivを取得
 	Re.textContent = null;
-	folding(Re, "day_01", "今日のデータ");
+	folding(Re, "day_01", "今日のデータ", true);
 
 	var div_point = document.createElement("div");
 	div_point.id = "point";
@@ -109,7 +107,7 @@ function hyo_sel(){//insert:表を挿入するdivID,
 }
 
 //Re:挿入先, id:何週目,
-function folding(Re, id, text){//折り畳みページを挿入
+function folding(Re, id, text, jud){//折り畳みページを挿入
 	//折りたたみ展開ポインタ
 	var div_title = document.createElement("div");
 	div_title.onclick = function (){
@@ -121,7 +119,11 @@ function folding(Re, id, text){//折り畳みページを挿入
 	//折りたたまれ部分
 	var div_contents = document.createElement("div");
 	div_contents.id = id;
-	div_contents.style = "display:none;clear:both;";
+	if(jud){//展開済みにするのか判定
+		div_contents.style="display: block; clear: both;";
+	}else{
+		div_contents.style = "display:none;clear:both;";
+	}
 
 	Re.appendChild(div_title);
 	Re.appendChild(div_contents);

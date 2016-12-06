@@ -1,9 +1,11 @@
 <?php
+session_start();
 include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
-$y = '2018'; //検索する年
-$m = '07'; //検索する月
-$d = '08'; //検索する日
+$y = (string)date("Y"); //検索する年
+$m = (string)date("m"); //検索する月
+$d = (string)date("d"); //検索する日
+$user_id = (string)$_SESSION['id'];
 $start =  date("Y-m-d H:i:s", strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
 $end = date("Y-m-d H:i:s", strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
 $start_day = first_week_date($start);//指定した日の週の日曜日の日付取得
@@ -14,7 +16,7 @@ while($start_day < $end_day){//week[第何週目][曜日] = 名詞+形容詞+時
 	$sunday = new MongoDate(strtotime(date_utc_to_jp($start_day)));
 	$saturday = next_first_week_date($start_day);
 	$saturday = new MongoDate(strtotime(date_utc_to_jp($saturday)));
-	$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),null,array("month"=>1,"day"=>1));
+	$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday),"user_id"=>$user_id),null,array("month"=>1,"day"=>1));
 	foreach ($data as $key =>$value){
 			if(isset($value['noun']) && isset($value['adjective'])){
 				$week[$loop][$value['dow']][$value['hour']] = (array)$value['noun'];
@@ -161,7 +163,11 @@ function folding(Re, id){//折り畳みページを挿入
 	//折りたたまれ部分
 	var div_contents = document.createElement("div");
 	div_contents.id = id;
-	div_contents.style = "display:none;clear:both;";
+	if(key == 1){
+		div_contents.style="display: block; clear: both;";
+	}else{
+		div_contents.style = "display:none;clear:both;";
+	}
 
 	Re.appendChild(div_title);
 	Re.appendChild(div_contents);
