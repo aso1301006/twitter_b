@@ -9,8 +9,8 @@
 include '../DBManager.php';
 session_start();
 
-$y = "2018";//指定された年
-$m = "07";//指定された月
+$y = "2016";//指定された年
+$m = "12";//指定された月
 $user_id = (string)$_SESSION['id'];
 
 //DBから値取得_月
@@ -43,7 +43,6 @@ foreach ($month as $key=>$value){//配列からネガポジ値がnullを削除
 			if(empty($value3)){unset($month[$key][$key2][$key3]);}
 		}
 	}
-	$month[$key] = array_filter($month[$key]);
 }
 
 /**
@@ -51,7 +50,7 @@ foreach ($month as $key=>$value){//配列からネガポジ値がnullを削除
  * 上の処理で作成した配列を日ごとの平均値を算出して配列に格納
  * 例：$month[日] = 「日」のネガポジ平均値
  */
-foreach ($month as $key=>$value){//配列からネガポジ値がnullを削除
+foreach ($month as $key=>$value){
 	$total_sum = 0;
 	$total_count = 0;
 	foreach ($value as $key2=>$value2){
@@ -61,6 +60,15 @@ foreach ($month as $key=>$value){//配列からネガポジ値がnullを削除
 	$emotion = round($total_sum/$total_count, 2);
 	$month[$key] = array("emotion"=>$emotion);
 }
+//ないデータを追加
+$start_day = date("Y-m-d", strtotime('first day of ' . $y.$m));//検索する月の初めを取得
+$end_day = date("Y-m-d", strtotime('last day of ' . $y.$m));//検索する月の終わりを取得
+while($start_day<=$end_day){
+	$day = (string)date("d", strtotime($start_day));
+	if(!array_key_exists($day, $month)){$month[$day] = array("emotion"=>0);}
+	$start_day = date('Y-m-d', strtotime("$start_day +1 day"));
+}
+ksort($month);
 
 /**
  * ・年グラフ
@@ -114,9 +122,18 @@ foreach ($year as $key=>$value){//配列からネガポジ値がnullを削除
 	$emotion = round($total_sum/$total_count, 2);
 	$year[$key] = array("emotion"=>$emotion);
 }
+//ないデータを追加
+$start_day = date("Y-m-d", strtotime($y.'-01-01'));//年の初めを取得
+$end_day = date("Y-m-d", strtotime($y.'-12-01'));//年の終わりを取得
+while($start_day<=$end_day){
+	$month = (string)date("m", strtotime($start_day));
+	if(!array_key_exists($month, $year)){$year[$month] = array("emotion"=>0);}
+	$start_day = date("Y-m-d", strtotime("$start_day +1 month"));
+}
+ksort($year);
 
 //取得した値を出力
-echo '<pre>';
-print_r($month);
-print_r($year);
-echo '</pre>';
+// echo '<pre>';
+// print_r($month);
+// print_r($year);
+// echo '</pre>';
