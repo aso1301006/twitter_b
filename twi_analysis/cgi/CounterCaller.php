@@ -19,21 +19,24 @@ class CounterCaller{
 		if(self::$caller == null){
 			self::$caller = new PythonCaller('Count_DB.py');
 		}
-		$this->setArgs(array());
+		$this->args = array();
 		$this->count_arr = array();
 	}
 
-	public function setArgs($args){
-		if(is_array($args)){
-			// 受け取った配列を分解して対応するキーの変数に代入
-			foreach ($args as $key => $value) {
-				$this->$key = $value;
-			}
-			// 変数を連想配列にまとめる
-			$this->args = compact("user_id", "from_date_str", "to_date_str", "word");
+	public function setArgs($user_id, $from_date_str, $to_date_str){
+		$this->$user_id = $this->checkString($user_id);
+		$this->$from_date_str = $this->checkString($from_date_str);
+		$this->$to_date_str = $this->checkString($to_date_str);
+		// 変数を連想配列にまとめる
+		$this->args = compact("user_id", "from_date_str", "to_date_str");
+	}
+
+	public function checkString($str){
+		if(is_string($str)){
+			return $str;
 		}
 		else{
-			throw new InvalidArgumentException("引数が配列ではありません");
+			throw new InvalidArgumentException("引数が不正です");
 		}
 	}
 
@@ -44,19 +47,40 @@ class CounterCaller{
 			if($add_arg != array()){
 				$args += $add_arg;
 			}
-			self::$caller->setArgs(args);
+			self::$caller->setArgs($args);
 			$isExcec = self::$caller->call();
 
 			if($isExcec){
-				$query = array('count_result' => array('$exsits' => 1));
+				$query = array('count_result' => array('$exists' => 1));
 				$field = array('_id' => 0, 'count_result' => 1);
-				$result = tweets_search($query, $field);
+				$cursor = tweets_search($query, $field);
 				$count_arr = array();
 
-				foreach ($result['count_result'] as $key => $value) {
-					$count_arr[$key] = $value;
+				foreach ($cursor as $data) {
+					foreach ($data['count_result'] as $key => $value) {
+						$temp[$key] = $value;
+					}
+					$count_arr = $temp;
+				}
+
+				// カウント対象が見つからなかった時
+				if($count_arr == array()){
+					return false;
 				}
 				arsort($count_arr);
+
+				foreach ($count_arr as $key => $value) {
+					$word_arr[] = $key;
+					$point_arr[] = $value;
+				}
+				$count_arr = array('word_arr' => $word_arr, 'point_arr' => $point_arr);
+
+				var_dump($count_arr);
+
+				// 使用したドキュメントは削除する
+				global $db;
+				$db->selectCollection("tweetdata")
+					->remove(array('count_result' => array('$exists' => 1)));
 
 				return $count_arr;
 			}
@@ -67,8 +91,6 @@ class CounterCaller{
 		else{
 			throw new InvalidArgumentException("配列が空です");
 		}
-
-
 	}
 
 	public function call($selecter){
@@ -77,21 +99,31 @@ class CounterCaller{
 			case PIE_CHAR:
 			case BAR_GRAPH:
 			case LINE_GRAPH:
+				// すでに検索が為されている時は再利用する
 				if($this->count_arr != array()){
 					$count_arr = $this->count_arr;
 				}
 				else{
 					// 再頻出単語の検索
-					$count_arr = $this->getCount();
+					if(!$count_arr = $this->getCount()){
+						// 検索が失敗した時（０件だった時など）
+						return null;
+					}
 					$this->count_arr = $count_arr;
 				}
 
 				// PIE_CHAR なら追加処理
 				if($selecter == PIE_CHAR){
-					$max_word = array_shift($count_arr);
+					// 最初のキーを取得（再頻出の単語）
+					$max_word = array('word' => array_shift($count_arr['word_arr']));
 
 					// 再頻出単語を含むツイートのみを対象に頻出単語の検索
-					$count_arr = $this->getCount(array('word' => $max_word));
+					if(!$temp_arr = $this->getCount($max_word)){
+						// 検索が失敗した時（０件だった時など）
+						return null;
+					}
+
+					$count_arr += $max_word;
 				}
 
 				return $count_arr;

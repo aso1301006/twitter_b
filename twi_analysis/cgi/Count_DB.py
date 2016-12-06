@@ -14,7 +14,7 @@ tweetdata = mysetting.tweetdata
 
 def str_to_date_jp(str_date):
     if str_date is not None:
-        return datetime.datetime.strptime(str_date, '%Y-%m-%d %H:%M:%S')
+        return datetime.datetime.strptime(str_date, '%Y/%m/%d %H:%M:%S')
     else:
         return None
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     else:
         if argc == 5:
             stop_word = argvs[3].decode('utf-8')  # コマンドライン引数はマルチバイトのためデコード
-            c_vec = CountVectorizer(stop_word)  # stop_word の単語は数え上げに含めない
+            c_vec = CountVectorizer(stop_words=[stop_word])
         else:
             c_vec = CountVectorizer()
         c_vec.fit(tw_list)

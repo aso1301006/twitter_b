@@ -18,7 +18,7 @@ class PythonCaller{
 			$this->filePath = $path;	
 		}
 		else{
-			throw new FileNotFoundException("ファイルが存在しません：". $path);
+			throw new FileNotFoundException("指定されたファイルが存在しません：". $path);
 		}
 	}
 
@@ -83,8 +83,8 @@ class PythonCaller{
 		}
 	    $fullPath = 'python '. $this->filePath;
 	    if($this->args != array()){
-	    	$p = implode(" ", $this->args);
-	    	$fullPath .= " ". $p;
+	    	$p = implode("' '", $this->args);
+	    	$fullPath .= " '". $p. "'";
 	    }
 	    $fullPath .= ' 2>&1';  // エラー出力を標準出力にすることで $outPara に代入できる
 
