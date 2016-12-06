@@ -37,13 +37,19 @@ h2{
 	vertical-align: top;
 
 }
+.table2{
+	height: 100%
+	display: inline-block;
+	vertical-align: top;
+
+}
 .main-gallery{
 	float:right;
-	width:75%;
+	width:65%;
 }
 #table{
 	float:left;
-	width: 25%;
+	width: 35%;
 }
 #point{
 	width:98%;

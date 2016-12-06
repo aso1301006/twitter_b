@@ -1,6 +1,6 @@
 <?php
-include ("/../jpgraph-4.0.1/src/jpgraph.php");
-include ("/../jpgraph-4.0.1/src/jpgraph_line.php");
+include ("jpgraph/jpgraph.php");
+include ("jpgraph/jpgraph_line.php");
 
 
 $ydata = array(1,3,8,5,1,5,7);
@@ -58,9 +58,10 @@ $graph->xaxis->title->SetFont(FF_MINCHO);
 
 $graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
 
-$graph->yaxis->SetColor("red");
-$graph->yaxis->SetWeight(2);
+//$graph->yaxis->SetColor("red");
+//$graph->yaxis->SetWeight(2);
 $graph->SetShadow();
 
 // Display the graph
 $graph->Stroke();
+?>

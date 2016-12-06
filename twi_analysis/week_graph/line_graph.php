@@ -1,6 +1,8 @@
 <?php
-include ("/../jpgraph-4.0.1/src/jpgraph.php");
-include ("/../jpgraph-4.0.1/src/jpgraph_line.php");
+require_once ('jpgraph/jpgraph.php');
+include ('jpgraph/jpgraph_line.php');
+ini_set("display_errors", On);
+error_reporting(E_ALL);
 
 
 function funcDesignatedDay($n, $w){
@@ -14,7 +16,6 @@ function funcDesignatedDay($n, $w){
 			$w_no = $i;
 		}
 	}
-
 	// 曜日番号を取得(0:日曜日～6:土曜日)
 	$week_no = date('w',strtotime("$year_val/$month_val/1"));
 
@@ -84,6 +85,8 @@ $mon_week4 =explode(",", $_GET['con_mon_week4']);
  $lineplot5->SetColor("black");
  $lineplot5->SetWeight(2);
  }
+
+
  $timer = new JpgTimer();
  $timer->Push();
 
@@ -148,8 +151,8 @@ $graph->Add($lineplot2);
 
  $graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
 
- $graph->yaxis->SetColor("red");
- $graph->yaxis->SetWeight(2);
+ //$graph->yaxis->SetColor("red");
+ //$graph->yaxis->SetWeight(2);
  $graph->SetShadow();
 
  // Display the graph

@@ -61,12 +61,12 @@ $year=date('Y');
 $tomonth=date('m');
 $today=date('d');
 $day_ago=date("d",strtotime("-1 day")); //１日前
-$month_ago=date("m",strtotime("-1 month")); //先月
-$year_ago=date("Y",strtotime("-1 month")); //先月の年
+$month_ago=(String)date("m",strtotime("-1 month")); //先月
+$year_ago=(String)date("Y",strtotime("-1 month")); //先月の年
 $count=0;
 $sum=0;
 $negapozi=0;
-
+$name=(String)$_SESSION['id'];//stringに変換
 
 //特定月、前月、月曜,最初の週の24時間ネガポジ平均
 //day<=7,7<day<=14,14<day<=21,21<day<=28,28<day
@@ -88,11 +88,11 @@ $negapozi=0;
 $twenty_four_count=0;
 $n = 1; // 第n
 $w = "月"; // w曜日
-$serch_day=(String)funcDesignatedDay($n, $w);
+$search_day=(String)funcDesignatedDay($n, $w);
 
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week1=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+	$week1=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week1->count();
 	if(!$tweet_count==0){
@@ -117,10 +117,10 @@ $con_mon_week1 = implode(",", $mon_week1);
 $twenty_four_count=0;
 $n = 2; // 第n
 $w = "月"; // w曜日
-$serch_day=(String)funcDesignatedDay($n, $w);
+$search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week2=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+	$week2=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week2->count();
 	if(!$tweet_count==0){
@@ -145,10 +145,10 @@ $con_mon_week2 = implode(",", $mon_week2);
 $twenty_four_count=0;
 $n = 3; // 第n
 $w = "月"; // w曜日
-$serch_day=(String)funcDesignatedDay($n, $w);
+$search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week3=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+	$week3=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week3->count();
 	if(!$tweet_count==0){
@@ -173,10 +173,10 @@ $con_mon_week3 = implode(",", $mon_week3);
 $twenty_four_count=0;
 $n = 4; // 第n
 $w = "月"; // w曜日
-$serch_day=(String)funcDesignatedDay($n, $w);
+$search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week4=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+	$week4=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 $tweet_count=$week4->count();
 
@@ -205,12 +205,12 @@ $last_day=date('d', mktime(0, 0, 0, date('m'), 0, date('Y')));
 $twenty_four_count=0;
 $n = 5; // 第n
 $w = "火"; // w曜日
-$serch_day=(String)funcDesignatedDay($n, $w);
+$search_day=(String)funcDesignatedDay($n, $w);
 
 if($last_day>=funcDesignatedDay($n, $w)){
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week5=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago,"day" => $serch_day,"hour"=>$hour));
+	$week5=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week5->count();
 	if(!$tweet_count==0){

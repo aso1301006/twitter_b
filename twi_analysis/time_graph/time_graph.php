@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../css/back_button.css"></link>
 <link rel="stylesheet" type="text/css" href="../css/css.css"></link>
 <link rel="stylesheet" href="flickity.min.css"></link>
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="flickity.pkgd.min.js"></script>
 <script src="vanilla.js"></script>
@@ -22,31 +23,24 @@ $(function(){
 		pageDots: true, // falseで下のドットを非表示にします。
 		prevNextButtons: true,
 	});
-	});
+	}); 
 </script>
 <title>時間比較グラフ</title>
 </head>
 <body>
 <?php
+//ini_set("display_errors", On);
+//error_reporting(E_ALL);
 include ('../header.php');
 include ('../DBManager.php');
+include_once ('day_array.php');
+include_once  ('week_max_min.php');
 ?>
-<br/><br/>
 <?php
-//エラー無効
-error_reporting(0);
 //グラフに挿入するデータ
 include ('t_graph_data.php');
 include ('t_graph_data2.php');
-/* echo $negapozi14;
-echo $negapozi_Mon;
-echo $negapozi_Tue;
-echo $negapozi_Fri;
-echo $negapozi_Sun; */
-
 ?>
-
-
 <?php
 //テスト用の値
 
@@ -66,97 +60,38 @@ echo $negapozi_Sun; */
 	<div class="clear" />
 	<div class="clear" />
 </div><!-- Fin_header2 -->
-
 <div id="table">
-<div id="table_first" class="table" style="border: medium solid #ff0000;">
-	<!-- 折りたたみ -->
-	<div onclick="obj=document.getElementById('ddd').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">一日の比較ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
-	</div>
-	<!--// 折りたたみ -->
-
-	<!-- 折りたたまれ -->
-	<div id="ddd" style="display:none;">
-		<div onclick="obj=document.getElementById('01_p').style; obj.display=(obj.display=='none')?'block':'none';">
-			<a style="cursor:pointer;">
-			<div id="point" style='border:solid 1px #AAA'>
-				<div class="row">
-					<div class="time">時間</div>
-					<div class="posi">ポジティブ</div>
-					<div class="posi">値</div>
-					<div class="nega">ネガティブ</div>
-					<div class="nega">値</div>
-				</div>
-
-				<div class='row'>
-					<div class="time">3.00</div>
-					<div>いいね</div>
-					<div>0.5</div>
-					<div>駄目ね</div>
-					<div>-0.7</div>
-				</div>
-
-				<div class='row'>
-					<div class="time">4.00</div>
-					<div>良い</div>
-					<div>0.4</div>
-					<div>悪い</div>
-					<div>-0.5</div>
-				</div>
-			</div>
-			</a>
+<div id="cell"></div>
+<?php
+//------------------------------週---------------------------------------
+$text = <<<EOT
+<div id="point" style='border:solid 1px #AAA'>
+		<div class="row">
+			<div class="time">曜日</div>
+			<div class="posi">ポジティブ</div>
+			<div class="posi">値</div>
+			<div class="nega">ネガティブ</div>
+			<div class="nega">値</div>
 		</div>
+EOT;
 
-	</div>
-	<!--// 折りたたまれ -->
-</div><!-- Fin_table_first -->
-
-<div id="table_second" class="table" style="border: medium solid #0080ff;">
-	<!-- 折りたたみ -->
-	<div onclick="obj=document.getElementById('www').style; obj.display=(obj.display=='none')?'block':'none';">
-		<a style="cursor:pointer;">一週間の比較ㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
-	</div>
-	<!--// 折りたたみ -->
-
-	<!-- 折りたたまれ -->
-	<div id="www" style="display:none;">
-		<div onclick="obj=document.getElementById('01_n').style; obj.display=(obj.display=='none')?'block':'none';">
-			<a style="cursor:pointer;">
-			<div id="point" style='border:solid 1px #AAA'>
-				<div class="row">
-					<div class="day">曜日</div>
-					<div class="posi">ポジティブ</div>
-					<div class="posi">値</div>
-					<div class="nega">ネガティブ</div>
-					<div class="nega">値</div>
-				</div>
-
-				<div class='row'>
-					<div class="day">月</div>
-					<div>楽しい</div>
-					<div>0.9</div>
-					<div>疲れた</div>
-					<div>-0.3</div>
-				</div>
-
-				<div class='row'>
-					<div class="day">火</div>
-					<div>面白い</div>
-					<div>0.6</div>
-					<div>つらい</div>
-					<div>-0.8</div>
-				</div>
-			</div>
-			</a>
-		</div>
-	</div>
-	<!--// 折りたたまれ -->
-</div><!-- Fin_table_second -->
-</div><!-- Fin table -->
+$title_text = '先週';
+echo page_start(01, $title_text);//折り畳みページ開始
+echo $text;
+foreach ($week_day as $k => $v){
+	echo cell($v['date'].' '.$k,$v['max_name'],$v['max_value'],$v['min_name'],$v['min_value']);
+}
+echo '</div>';
+echo page_fin();//折り畳みページ終了
+//------------------------------週---------------------------------------
+?>
+</div>
 <div class="main-gallery">
+
 	<img src="line_graph2.php?negapozi_Mon=<?=$negapozi_Mon?>&negapozi_Tue=<?=$negapozi_Tue?>&negapozi_Wed=<?=$negapozi_Wed?>&negapozi_Thu=<?=$negapozi_Thu?>&negapozi_Fri=<?=$negapozi_Fri?>&negapozi_Sat=<?=$negapozi_Sat?>&negapozi_Sun=<?=$negapozi_Sun?>" alt="折れ線グラフ" />
 
 	<img src="line_graph.php?negapozi0=<?=$negapozi0?>&negapozi1=<?=$negapozi1?>&negapozi2=<?=$negapozi2?>&negapozi3=<?=$negapozi3?>&negapozi4=<?=$negapozi4?>&negapozi5=<?=$negapozi5?>&negapozi6=<?=$negapozi6?>&negapozi7=<?=$negapozi7?>&negapozi8=<?=$negapozi8?>&negapozi9=<?=$negapozi9?>&negapozi10=<?=$negapozi10?>&negapozi11=<?=$negapozi11?>&negapozi12=<?=$negapozi12?>&negapozi13=<?=$negapozi13?>&negapozi14=<?=$negapozi14?>&negapozi15=<?=$negapozi15?>&negapozi16=<?=$negapozi16?>&negapozi17=<?=$negapozi17?>&negapozi18=<?=$negapozi18?>&negapozi19=<?=$negapozi19?>&negapozi20=<?=$negapozi20?>&negapozi21=<?=$negapozi21?>&negapozi22=<?=$negapozi22?>&negapozi23=<?=$negapozi23?>" alt="折れ線グラフ" />
+
 </div><!-- Fin_main_gallery -->
 </div><!-- Fin_main -->
 

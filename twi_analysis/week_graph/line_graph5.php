@@ -1,6 +1,6 @@
 <?php
-include ("/../jpgraph-4.0.1/src/jpgraph.php");
-include ("/../jpgraph-4.0.1/src/jpgraph_line.php");
+require_once ('jpgraph/jpgraph.php');
+include ('jpgraph/jpgraph_line.php');
 
 function funcDesignatedDay($n, $w){
 	$year_val = date("Y",strtotime("-1 month")); // 年を取得
@@ -133,8 +133,8 @@ $fri_week4 =explode(",", $_GET['con_fri_week4']);
  $lineplot4->SetWeight(2);
 
 // Add the plot to the graph
-$graph->Add($lineplot);
-$graph->Add($lineplot2);
+ $graph->Add($lineplot);
+ $graph->Add($lineplot2);
  $graph->Add($lineplot3);
  $graph->Add($lineplot4);
 
@@ -156,8 +156,8 @@ $graph->Add($lineplot2);
 
  $graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
 
- $graph->yaxis->SetColor("red");
- $graph->yaxis->SetWeight(2);
+ //$graph->yaxis->SetColor("red");
+ //$graph->yaxis->SetWeight(2);
  $graph->SetShadow();
 
  // Display the graph
