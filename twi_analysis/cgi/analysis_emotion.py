@@ -16,19 +16,21 @@ def db_in_dict():
     return temp_dict
 
 
-# 受け取った key で data を検索してみて、存在したらその値を返す
-def isexist_and_get_data(data, key):
-    return data[key] if key in data else None
+np_dict = db_in_dict()
+
+
+# 受け取った key で np_dict を検索してみて、存在したらその値を返す
+def isexist_and_get_data(key):
+    return np_dict[key] if key in np_dict else None
 
 
 # -1 〜 1の範囲で与えられた文章（単語リスト）に対する感情値を返す。(1: 最もポジ、-1:最もネガ)
 def get_emotion(word_list):
     val_list = {}
-    np_dict = db_in_dict()
     for key, line in word_list.items():
         temp_list = {}
         for word in line:
-            temp_list[word] = isexist_and_get_data(np_dict, word)
+            temp_list[word] = isexist_and_get_data(word)
         val_list[key] = temp_list
     return val_list
 
@@ -64,16 +66,17 @@ if __name__ == '__main__':
                 tweetdata.update({'_id': db_id}, {'$set': {k: v}})
             # 感情値を算出したというフラグを追加
             tweetdata.update(
-                {'_id': db_id}, {'$set': {'emotion': True}})
-            tweetdata.update(
                 {'_id': db_id}, {'$set': {'emotion_point': total_score}})
+            tweetdata.update(
+                {'_id': db_id}, {'$set': {'emotion': True}})
     except Exception as e:
-        print "Exception:" + e.message
+        print "Exception"
+        print e.message
     except:
         print mysetting.RETURN_STRING_ERROR
     else:
         print mysetting.RETURN_STRING_SUCCESS
 
-print mysetting.RETURN_STRING_FINISH
-elapsed_time = time.time() - start
-print "elapsed_time:{0}".format(elapsed_time) + "[sec]"
+    print mysetting.RETURN_STRING_FINISH
+    elapsed_time = time.time() - start
+    print "elapsed_time:{0}".format(elapsed_time) + "[sec]"

@@ -15,6 +15,11 @@ from pymongo import MongoClient
 RETURN_STRING_SUCCESS = "Success"
 RETURN_STRING_ERROR = "Error"
 RETURN_STRING_FINISH = "Finish"
+RETURN_STRING_EXCEPTION = "Exception"
+RETURN_STRING_RUNTIME_ERROR = "RuntimeError"
+
+HOST_NAME = "35.162.58.174"  # "localhost"
+PORT = 27017
 
 # twitter = None
 connect = None
@@ -29,7 +34,7 @@ def initialize():  # twitter接続情報や、mongoDBへの接続処理等initia
     # 使わないのでとりあえずコメントアウト
     # twitter = OAuth1Session(KEYS['consumer_key'], KEYS['consumer_secret'],
     #                         KEYS['access_token'], KEYS['access_secret'])
-    connect = MongoClient('localhost', 27017)
+    connect = MongoClient(HOST_NAME, PORT)
     db = connect.twi_analysis
     tweetdata = db.tweetdata
     nega_pogi = db.nega_pogi

@@ -19,14 +19,14 @@ def mecab_analysis(sentence):
     for i in range(140):  # ツイートなのでMAX140文字
         if node.surface != "":  # ヘッダとフッタを除外
             word_type = node.feature.split(",")[0]
-            # if word_type in ["名詞", "形容詞", "動詞", "副詞"]:
             if word_type not in ["名詞", "形容詞", "動詞", "副詞"]:
                 word_type = "その他"
             plain_word = node.feature.split(",")[6]
             if plain_word != "*":
                 key = word_type.decode('utf-8')
                 value = plain_word.decode('utf-8')
-                result_dict[key].append(value)
+                if value not in result_dict[key]:  # まだ代入されていないものだけ代入
+                    result_dict[key].append(value)
         node = node.next
         if node is None:
             break
@@ -73,14 +73,16 @@ if __name__ == '__main__':
             tweetdata.update({'_id': d['_id']}, {'$set': {'mecabed': True}})
     # RuntimeError は mecab 処理中に発生したエラー
     except RuntimeError as e:
-        print "RuntimeError:" + e.message
+        print mysetting.RETURN_STRING_RUNTIME_ERROR
+        print e.message
     except Exception as e:
-        print "Exception:" + e.message
+        print mysetting.RETURN_STRING_EXCEPTION
+        print e.message
     except:
         print mysetting.RETURN_STRING_ERROR
     else:
         print mysetting.RETURN_STRING_SUCCESS
 
-print mysetting.RETURN_STRING_FINISH
-elapsed_time = time.time() - start
-print "elapsed_time:{0}".format(elapsed_time) + "[sec]"
+    print mysetting.RETURN_STRING_FINISH
+    elapsed_time = time.time() - start
+    print "elapsed_time:{0}".format(elapsed_time) + "[sec]"
