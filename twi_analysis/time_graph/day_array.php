@@ -1,6 +1,5 @@
 <?php
 session_start();
-include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
 $y = (string)date("Y"); //検索する年
 $m = (string)date("m"); //検索する月
@@ -114,7 +113,7 @@ function folding(Re, id, text, jud){//折り畳みページを挿入
 		obj=document.getElementById(id).style;
 		obj.display=(obj.display=='none')?'block':'none';
 	}
-	div_title.innerHTML = "<a style='cursor:pointer;'>"+text+"</a>";
+	div_title.innerHTML = "<a style='cursor:pointer; border: medium solid #0080ff;'>"+text+"ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>";
 
 	//折りたたまれ部分
 	var div_contents = document.createElement("div");
@@ -200,8 +199,3 @@ function cell_value(jud, div_point, time, pName, pValue, nName, nValue){//Re:複
 
 window.onload = hyo_sel;
 </script>
-</head>
-<body>
-<div id="cell"></div>
-</body>
-</html>

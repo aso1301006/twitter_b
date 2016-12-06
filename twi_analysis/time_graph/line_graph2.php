@@ -2,8 +2,6 @@
 include ("jpgraph/jpgraph.php");
 include ("jpgraph/jpgraph_line.php");
 
-
-$ydata = array(1,3,8,5,1,5,7);
 $negapozi_Mon=$_GET['negapozi_Mon'];
 $negapozi_Tue=$_GET['negapozi_Tue'];
 $negapozi_Wed=$_GET['negapozi_Wed'];

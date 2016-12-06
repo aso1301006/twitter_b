@@ -1,6 +1,5 @@
 <?php
 session_start();
-include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
 $y = (string)date("Y"); //検索する年
 $m = (string)date("m"); //検索する月
@@ -87,7 +86,7 @@ function date_utc_to_jp($utc_date){//日付を東京のタイムゾーンへ変�
 function page_start($id,$title_text){//折りたたみページを作成
 	$text = <<<EOT
 	<div onclick="show({$id})">
-		<a style="cursor:pointer;">{$title_text}</a>
+		<a style="cursor:pointer; border: medium solid #ff0000;">{$title_text}ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ▼</a>
 	</div>
 	<div id="{$id}" style="display: block; clear: both;">
 
@@ -126,30 +125,3 @@ function show(id){
 	return r;
 }
 </script>
-</head>
-<body>
-<?php
-//------------------------------週---------------------------------------
-$text = <<<EOT
-<div id="point" style='border:solid 1px #AAA'>
-		<div class="row">
-			<div class="time">曜日</div>
-			<div class="posi">ポジティブ</div>
-			<div class="posi">値</div>
-			<div class="nega">ネガティブ</div>
-			<div class="nega">値</div>
-		</div>
-EOT;
-
-$title_text = '先週';
-echo page_start(01, $title_text);//折り畳みページ開始
-echo $text;
-foreach ($week_day as $k => $v){
-	echo cell($v['date'].' '.$k,$v['max_name'],$v['max_value'],$v['min_name'],$v['min_value']);
-}
-echo '</div>';
-echo page_fin();//折り畳みページ終了
-//------------------------------週---------------------------------------
-?>
-</body>
-</html>
