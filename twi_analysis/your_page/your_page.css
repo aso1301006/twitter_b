@@ -15,56 +15,70 @@
 }
 
 #comment{
-	margin-left:6%;
-	margin-top:-42%;
 	position: relative;
+	left:8%;
+	margin-top:-30%;
 	float:left;
+	width:30%;
 }
 
 #comment_text{
-	font-size:1.3em;
+	font-size:1.8vw;
 	float:left;
 	top:32%;
-	left:4%;
+	left:9%;
 	position: absolute;
+}
+
+#time_button{
+	position: relative;
+	left:20%;
+	top:0%;
+	width:15%;
+/*	float:left;*/
+}
+
+#history_button{
+	position: relative;
+	left:7%;
+	margin-top:5%;
+	width:10%;
+/*	float:left;*/
 }
 
 #people{
 	text-align:center;
 	margin-top:15px;
 	margin-bottom:10px;
-	margin-left:10px;
+	margin-right:35%;
+	width:30%;
+	float:right;
 }
 
-#time_button{
-	left:20%;
-	top:50%;
-	position: absolute;
-}
 
-#history_button{
-	left:15%;
-	top:77%;
-	position: absolute;
-	width:20%;
-}
 
 #word_button{
-	left:73%;
-	top:30%;
-	position: absolute;
+	position: relative;
+	left:75%;
+	top:10%;
+	width:15%;
+	height:0%;
 }
 
 #week_button{
-	left:63%;
-	top:50%;
-	position: absolute;
+	position: relative;
+	left:45%;
+	top:10%;
+	width:15%;
+	height:15%;
+	float:right;
 }
 
 #advice_button{
-	left:77%;
-	top:73%;
-	position: absolute;
+	position: relative;
+	left:0%;
+	top:0%;
+	width:15%;
 }
 
 @keyframes moveimg {

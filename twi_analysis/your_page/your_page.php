@@ -14,23 +14,16 @@ include '../DBManager.php';
 
 
 //今日の日付取得
-
-$year = "2018";
-$month = "06";
-$day = "01";
-
-
-
+//$today = "2016年11月18日";
 $today = date("Y年m月d日");
-// $year = date("Y");
-// $month = date("m");
-// $day = date("d");
+$year = date("Y");
+$month = date("m");
+ $day = date("d");
 
 
 $count=0;
 $sum=0;
 $negapozi=0;
-
 
 //ネガポジ値計算
 	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"day" =>$day));
@@ -59,15 +52,15 @@ if(!($count == null)){
 		<div id="people">
 		<?php
 			if($negapozi == 0){
-				echo "<img src='../img/人_黒.png' alt='people' width='30%' height='30%'></img>";
+				echo "<img src='../img/人_黒.png' alt='people' width='100%' height='100%'></img>";
 				$kind="平常";
 //				$color="#F00";
 			}elseif ($negapozi > 0){
-				echo "<img src='../img/人_赤.png' alt='people' width='30%' height='30%'></img>";
+				echo "<img src='../img/人_赤.png' alt='people' width='100%' height='100%'></img>";
 				$kind="ポジティブ";
 //				$color="#F00";
 			}else {
-				echo "<img src='../img/人_青.png' alt='people' width='30%' height='30%'></img>";
+				echo "<img src='../img/人_青.png' alt='people' width='100%' height='100%'></img>";
 				$kind="ネガティブ";
 //				$color="#00F";
 			}
@@ -75,20 +68,14 @@ if(!($count == null)){
 		</div>
 <!-- ------------------- -->
 
-<!-- ネガポジ表示部分 -->
-		<div id="comment">
-			<img src="../img/hukidasi.png" alt="comment" width="28%" height="25%"></img>
-			<a id="comment_text"><?php echo $kind;?>です！<br/>ネガポジ度：<?php echo $negapozi;?></a>
-		</div>
-<!-- ---------------  -->
 
 <!-- 右配置のボタンたち -->
 		<div id="word_button">
-			<a href="../word_graph/word_graph.php"><img src="../img/word_button.png" alt="word_link" width="40%" height="40%" class="float2"></img></a>
+			<a href="../word_graph/word_graph.php"><img src="../img/word_button.png" alt="word_link" width="100%" height="100%" class="float2"></img></a>
 		</div>
 
 		<div id="week_button">
-			<a href="../week_graph/week_graph.php"><img src="../img/week_button.png" alt="word_link" width="39%" height="39%" class="float1"></img></a>
+			<a href="../week_graph/week_graph.php"><img src="../img/week_button.png" alt="word_link" width="100%" height="100%" class="float1"></img></a>
 		</div>
 
 		<div id="advice_button">
@@ -97,12 +84,20 @@ if(!($count == null)){
 <!-- ---------- -->
 
 <!-- 左配置のボタンたち -->
+
+<!-- ネガポジ表示部分 -->
+		<div id="comment">
+			<img src="../img/hukidasi.png" alt="comment" width="80%"></img>
+			<a id="comment_text"><?php echo $kind;?>です！<br/>ネガポジ度：<?php echo $negapozi;?></a>
+		</div>
+<!-- ---------------  -->
+
 		<div id="time_button">
-			<a href="../time_graph/time_graph.php"><img src="../img/time_button.png" alt="word_link" width="40%" height="40%" class="float1"></img></a>
+			<a href="../time_graph/time_graph.php"><img src="../img/time_button.png" alt="word_link" width="100%" height="100%" class="float1"></img></a>
 		</div>
 
 		<div id="history_button">
-			<a href="../history/history_top.php"><img src="../img/走る.png" alt="word_link" width="50%" height="12%"></img>
+			<a href="../history/history_top.php"><img src="../img/走る.png" alt="word_link" width="100%"></img>
 			</a>
 		</div>
 <!-- ---------- -->
