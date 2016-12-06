@@ -120,6 +120,9 @@ class CounterCaller{
 						return null;
 					}
 
+					array_pop($count_arr['word_arr']);
+					array_pop($count_arr['point_arr']);
+
 					$count_arr += $max_word;
 				}
 
