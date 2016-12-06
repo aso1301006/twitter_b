@@ -47,7 +47,6 @@ for($count;$count<$limit_tweets;){
 		foreach( $tweets as $key => $value ){
 			$id = $tweets[$key]['id_str'];//ツイートid
 			$text = $tweets[$key]['text'];//ツイート内容
-// 			$date = date('Y年m月d日H時i分',  strtotime($tweets[$key]['created_at']));//ツイート日時
 			$date = new MongoDate(strtotime(date_utc_to_jp($tweets[$key]['created_at'])));
 			$year = date('Y',  strtotime($tweets[$key]['created_at']));//年
 			$month = date('m',  strtotime($tweets[$key]['created_at']));//月

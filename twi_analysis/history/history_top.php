@@ -12,7 +12,7 @@
 <script type="text/javascript">
 
     function frameClick() {
-      document.location.href = "../your_page/yourpage.php";
+      document.location.href = "../your_page/your_page.php";
     }
 
     		include ('search_month.php');
