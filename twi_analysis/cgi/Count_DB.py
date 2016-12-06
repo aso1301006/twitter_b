@@ -7,8 +7,8 @@ import datetime
 import numpy
 import mysetting
 import sys
-# import codecs
-# sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+import codecs
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 tweetdata = mysetting.tweetdata
 
 
@@ -87,7 +87,7 @@ if __name__ == '__main__':
         del argvs[0]  # 0番目にはモジュール名が入っているため
         tw_list = get_mecabed_strings(*argvs)
     else:
-        sys.exit("引数が必要以上に指定されています")
+        sys.exit(u"引数が不正です")
 
     if tw_list == []:
         print mysetting.RETURN_STRING_SUCCESS
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     else:
         if argc == 5:
             stop_word = argvs[3].decode('utf-8')  # コマンドライン引数はマルチバイトのためデコード
-            c_vec = CountVectorizer(stop_word)
+            c_vec = CountVectorizer(stop_word)  # stop_word の単語は数え上げに含めない
         else:
             c_vec = CountVectorizer()
         c_vec.fit(tw_list)

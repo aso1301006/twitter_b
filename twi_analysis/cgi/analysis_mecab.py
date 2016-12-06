@@ -37,10 +37,10 @@ if __name__ == '__main__':
     try:
         start = time.time()
         # mecabedがtrueのものはすでに分解されているので除外する
-        for d in tweetdata.find({'mecabed': {'$ne': True}}, {
-            '_id': 1, 'id': 1, 'text': 1,
-            # 'noun': 1, 'verb': 1, 'adjective': 1, 'adverb': 1
-        }):
+        for d in tweetdata.find(
+            {'mecabed': {'$ne': True}, 'text': {'$exists': 1}},
+            {'_id': 1, 'id': 1, 'text': 1}
+        ):
             # 半角カナを全角カナに
             twitter_text = unicodedata.normalize('NFKC', d['text'])
             res = mecab_analysis(twitter_text)
