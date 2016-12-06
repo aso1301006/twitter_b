@@ -1,11 +1,13 @@
 <?php
+session_start();
 include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
 $y = (string)date("Y"); //検索する年
 $m = (string)date("m"); //検索する月
 $d = (string)date("d"); //検索する日
+$user_id = (string)$_SESSION['id'];
 //データ検索
-$data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d),null,array("month"=>1,"day"=>1));
+$data = tweets_search(array("year"=>$y,"month"=>$m,"day"=>$d,"user_id"=>$user_id),null,array("month"=>1,"day"=>1));
 foreach ($data as $key =>$value){
 	if(isset($value['noun']) && isset($value['adjective'])){
 		$day[$value['hour']] = (array)$value['noun'];

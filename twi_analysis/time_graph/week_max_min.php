@@ -1,9 +1,11 @@
 <?php
+session_start();
 include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
 $y = (string)date("Y"); //検索する年
 $m = (string)date("m"); //検索する月
 $d = (string)date("d"); //検索する日
+$user_id = (string)$_SESSION['id'];
 $D = $y.$m.$d;
 $week_ago = date("Y-m-d H:i:s",strtotime("$D -1 week"));
 $start_day = first_week_date($week_ago);//指定した日の週の日曜日の日付取得
@@ -17,7 +19,7 @@ for($J=0;$J<7;$J++){//1週間作成
 $sunday = new MongoDate(strtotime(date_utc_to_jp($start_day)));
 $saturday = next_first_week_date($start_day);
 $saturday = new MongoDate(strtotime(date_utc_to_jp($saturday)));
-$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday)),null,array("month"=>1,"day"=>1));
+$data = tweets_search(array("created_at"=>array('$gt'=>$sunday, '$lte'=>$saturday),"user_id"=>$user_id),null,array("month"=>1,"day"=>1));
 foreach ($data as $key =>$value){
 	if(isset($value['noun'])){$week[$value['dow']] = $value['noun'];}
 	if(isset($value['adjective'])){$week[$value['dow']] += $value['adjective'];}
