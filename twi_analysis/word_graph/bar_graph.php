@@ -2,21 +2,8 @@
 include ("jpgraph/jpgraph.php");
 include ("jpgraph/jpgraph_bar.php");
 
-//棒グラフ
-//$data = array(0.1235,0.4567,0.67,0.45,0.832);
-//テスト用のデータ
-$data = array(53,32,30,15,13);
-/*
-//データ受け取り
-foreach($word as $key =>$value){
-	foreach($word as $key =>$value){
-	$data[]=$value;
-	$text_data[]=$word;
-	}
-}
-//データ挿入
-$data = $ydata[]=$value;
-*/
+$data = $_GET['point_arr'];
+
 // Callback function
 // Get called with the actual value and should return the
 // value to be displayed as a string
@@ -36,11 +23,8 @@ $bar1 = new BarPlot($data);
 //$bar1->value->SetFormatCallback("cbFmtPercentage");
 //$bar1->value->Show();
 
-
-//テストデータ（あとでコメントアウトする
-$text_data= array('楽しい', 'つらい', '笑', '悲しい', '眠い');
+$text_data= $_GET['word_arr'];
 //本番用
-//$text_data = array($word_arr[0],$word_arr[1],$word_arr[2],$word_arr[3],$word_arr[4]);
 $labels = $text_data;
 $graph->xaxis->SetFont(FF_GOTHIC);
 $graph->xaxis->SetTickLabels($labels);

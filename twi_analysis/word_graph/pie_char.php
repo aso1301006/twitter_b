@@ -2,21 +2,7 @@
 include ("jpgraph/jpgraph.php");
 include ("jpgraph/jpgraph_pie.php");
 
-//テスト用データ
-$data = array(40,60,21,33);
-/*
-
-//データ受け取り
-foreach($word as $key =>$value){
-	foreach($word as $key =>$value){
-	$data[]=$value;
-	$text_data[]=$word;
-	}
-}
-
-*/
-
-//$data=array($deta[0],$deta[1],$deta[2],$deta[3]);
+$data = $_GET['point_arr'];
 
 $graph = new PieGraph(400,300);
 
@@ -31,8 +17,7 @@ $p1 = new PiePlot($data);
 //凡例のフォント設定
 $graph->legend->SetFont(FF_GOTHIC,FS_NORMAL);
 
-$text_data=array("単語2", "単語3", "単語4", "単語5");
-//$label=array("単語2", "単語3", "単語4", "単語5");
+$text_data=$_GET['word_arr'];
 $p1->SetLegends($text_data);
 
 
