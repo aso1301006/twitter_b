@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 月グラフ
  * 指定された年、月のネガポジ平均値(emotion_point)を取得して、日ごとの平均値を算出する
@@ -133,7 +134,7 @@ while($start_day<=$end_day){
 ksort($year);
 
 //取得した値を出力
-// echo '<pre>';
-// print_r($month);
-// print_r($year);
-// echo '</pre>';
+echo '<pre>';
+print_r($month);
+print_r($year);
+echo '</pre>';

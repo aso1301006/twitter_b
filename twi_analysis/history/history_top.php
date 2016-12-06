@@ -99,7 +99,7 @@ $year=$_POST["rireki"];
 <?php $year=substr($year, 0, 4); $a=$year."01";$b=$year."02";$c=$year."03";$d=$year."04";$e=$year."05";$f=$year."06";$g=$year."07";$h=$year."08";$ii=$year."09";$j=$year."10";$k=$year."11";$l=$year."12";$m="0";?>
 					<!--左半分  -->
 <div class="left">
-<?php for($i=0;$countyearmonth>$i;$i++){if($a == $a){ ?>
+<?php for($i=0;$countyearmonth>$i;$i++){if($a ==  $array_yearmonth[$i]){ ?>
 <div class="button_right">
 <form action="history_month.php" method="post">
 <p>

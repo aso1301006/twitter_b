@@ -1,5 +1,5 @@
 <?php
-include 'DBManager.php';
+include '../DBManager.php';
 
 error_reporting(0);
 
