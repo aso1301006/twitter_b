@@ -6,11 +6,14 @@ function morpheme_emotion(){//形態素解析・感情値算出
 	$caller = new PythonCaller($path);
 
 	try{//形態素解析・感情値算出
-		$caller->call();//形態素解析
+		$i = $caller->call();//形態素解析
 		$path = "analysis_emotion.py";
 		$caller->setPath($path);//パスの切り替え
 		$caller->call();//感情値算出
-	}catch(Exception $e){return true;}
+	}catch(Exception $e){
+		//return true;
+		return $e;
+	}
 
 	return false;
 }
