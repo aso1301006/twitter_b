@@ -68,14 +68,11 @@ class CounterCaller{
 					return false;
 				}
 				arsort($count_arr);
-
 				foreach ($count_arr as $key => $value) {
 					$word_arr[] = $key;
 					$point_arr[] = $value;
 				}
 				$count_arr = array('word_arr' => $word_arr, 'point_arr' => $point_arr);
-
-				var_dump($count_arr);
 
 				// 使用したドキュメントは削除する
 				global $db;
@@ -118,7 +115,7 @@ class CounterCaller{
 					$max_word = array('word' => array_shift($count_arr['word_arr']));
 
 					// 再頻出単語を含むツイートのみを対象に頻出単語の検索
-					if(!$temp_arr = $this->getCount($max_word)){
+					if(!$count_arr = $this->getCount($max_word)){
 						// 検索が失敗した時（０件だった時など）
 						return null;
 					}
