@@ -3,9 +3,9 @@ include ('../header.php');
 include ('../body.html');
 include '../DBManager.php';
 set_time_limit(0);//処理制限時間を無期限に
-$y = (string)date("Y"); //検索する年
-$m = (string)date("m"); //検索する月
-$d = (string)date("d"); //検索する日
+$y = (string)date("Y", strtotime('-1 month')); //検索する年
+$m = (string)date("m", strtotime('-1 month')); //検索する月
+$d = (string)date("d", strtotime('-1 month')); //検索する日
 $user_id = (string)$_SESSION['id'];
 $start =  date("Y-m-d H:i:s", strtotime('first day of ' . $y.$m.$d));//検索する月の初めを取得
 $end = date("Y-m-d H:i:s", strtotime('last day of ' . $y.$m.$d));//検索する月の終わりを取得
