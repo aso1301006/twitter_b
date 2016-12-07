@@ -27,6 +27,9 @@ $graph->xaxis->SetFont(FF_GOTHIC);
 $week=array("月","火","水","木","金","土","日");
 $graph->xaxis->SetTickLabels($week);
 
+//凡例のフォント設定
+ $graph->legend->SetFont(FF_GOTHIC,FS_NORMAL);
+
 // $graph->title->Set("Timing a graph");
 // $graph->footer->right->Set('Timer (ms): ');
 // $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
@@ -39,6 +42,7 @@ $graph->title->SetFont(FF_MINCHO);
 $lineplot=new LinePlot($ydata);
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
+$lineplot->SetLegend("先週一週間のネガポジ平均"); 
 
 // Add the plot to the graph
 $graph->Add($lineplot);

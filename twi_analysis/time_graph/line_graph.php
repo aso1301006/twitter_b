@@ -48,11 +48,14 @@ $title = mb_convert_encoding("一日の比較", "UTF-8", "auto");
 $graph->title->Set($title);
 $graph->title->SetFont(FF_MINCHO);
 
+//凡例のフォント設定
+ $graph->legend->SetFont(FF_GOTHIC,FS_NORMAL);
+
 // Create the linear plot
 $lineplot=new LinePlot($ydata);
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
-
+$lineplot->SetLegend("今日のネガポジ平均"); 
 
 // Add the plot to the graph
 $graph->Add($lineplot);
