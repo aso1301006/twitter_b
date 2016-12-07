@@ -332,6 +332,9 @@ include ('w_graph_data_sun.php');
 </div><!-- Fin_header2 -->
 
 <div id="table">
+<div class="note">
+	<p>選択した曜日の、各時間ごとの<br/>全ツイートを表示しています。</p>
+</div>
 <form name="hyo">
 <div>
 	<select name="sel" onchange="hyo_sel()">

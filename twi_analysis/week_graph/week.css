@@ -58,3 +58,32 @@ h2{
 .nega{
 	background-color:CornFlowerBlue;
 }
+
+/*---ï\ê‡ñæÇÃòg---*/
+.note {
+  position: relative;
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  padding:0px;
+  background-color:#FFF;
+  width:23%;
+  margin-bottom:2%;
+  text-align:center;
+}
+.note::before,
+.note::after {
+  position: absolute;
+  bottom:-45%;
+  left: 10%;
+  content: '';
+  height: 0;
+  width: 0;
+  border: 12px solid transparent;
+}
+.note::before {
+  border-top: 16px solid #ccc;
+}
+.note::after {
+  border-top: 16px solid #fff;
+  margin-bottom: 6px;
+}
