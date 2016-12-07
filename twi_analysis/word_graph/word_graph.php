@@ -17,7 +17,6 @@
 include ('../header.php'); ヘッダー
 
 ?>
-<br><br><br><br>
 
 <?php
 //先月の年
@@ -39,9 +38,6 @@ $week = $to_date."～".$last_date;
 			$user_id = (string)$_SESSION['id'];
 			$from_date_str = (string)$to_date. " 0:0:0";  // 年-月-日 時:分:秒で指定する
 			$to_date_str = (string)date('Y/m/d', strtotime($last_date. '+1 day')). " 0:0:0";
-			print $user_id;
-			print $from_date_str;
-			print $to_date_str;
 			$caller->setArgs($user_id, $from_date_str, $to_date_str);
 
 			$count_arr = $caller->call(PIE_CHAR);  // どのグラフの処理をするか定数で指定
@@ -76,10 +72,11 @@ $week = $to_date."～".$last_date;
 				$line_point_arr = "";
 			}
 			else{
-				// $line_word_arr = $count_arr['word_arr'];
+
+				$line_word_arr = $count_arr['word_arr'];
 				// $line_point_arr = implode(" ", $count_arr['point_arr']);
 				// $line_arg = "point=". $line_point_arr;
-				$line_arg = http_build_query($count_arr);
+				$line_arg = http_build_query($count_arr['point_arr']);
 			}
 		}
 		catch(InvalidArgumentException $e){

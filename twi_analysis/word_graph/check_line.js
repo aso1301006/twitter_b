@@ -2,11 +2,11 @@
 
 
 function checked1(){
-	var checker1 = document.forms.form1.check1.checked;
-	var checker2 = document.forms.form1.check2.checked;
-	var checker3 = document.forms.form1.check3.checked;
-	var checker4 = document.forms.form1.check4.checked;
-	var checker5 = document.forms.form1.check5.checked;
+	var checker1 = document.forms.form1.check0.checked;
+	var checker2 = document.forms.form1.check1.checked;
+	var checker3 = document.forms.form1.check2.checked;
+	var checker4 = document.forms.form1.check3.checked;
+	var checker5 = document.forms.form1.check4.checked;
 	var item = $('graph');
 
 if (checker1 == false) {//1=F
