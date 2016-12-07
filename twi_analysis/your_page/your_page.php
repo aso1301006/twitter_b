@@ -26,7 +26,7 @@ $sum=0;
 $negapozi=0;
 
 //ネガポジ値計算
-	$select=tweets_search(array("user_id"=>$_SESSION['id'],"year" =>$year,"month" =>$month,"day" =>$day));
+	$select=tweets_search(array("user_id"=>(string)$_SESSION['id'],"year" =>$year,"month" =>$month,"day" =>$day));
 
 	foreach ($select as $res) {
 		$sum=$sum + ($res['emotion_point']);
