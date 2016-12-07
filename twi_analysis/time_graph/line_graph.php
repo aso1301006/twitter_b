@@ -31,19 +31,18 @@ $ydata = array($negapozi0,$negapozi1,$negapozi2,$negapozi3,$negapozi4,$negapozi5
 $timer = new JpgTimer();
 $timer->Push();
 
-// Create the graph. These two calls are always required
+//グラフのサイズ指定
 $graph = new Graph(700,400);
-//$graph->SetScale("textlin");
+$graph->SetScale("textlin");
 
+//グラフの範囲指定
 $graph->SetScale("textint", -1, 1);
 $graph->yscale->ticks->Set(0.5,0.1);
 
+//マージンの指定
 $graph->img->SetMargin(40,60,20,60);
 
-// $graph->title->Set("Timing a graph");
-// $graph->footer->right->Set('Timer (ms): ');
-// $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
-// $graph->footer->SetTimer($timer);
+//グラフのタイトル指定
 $title = mb_convert_encoding("一日の比較", "UTF-8", "auto");
 $graph->title->Set($title);
 $graph->title->SetFont(FF_MINCHO);
@@ -51,32 +50,24 @@ $graph->title->SetFont(FF_MINCHO);
 //凡例のフォント設定
  $graph->legend->SetFont(FF_GOTHIC,FS_NORMAL);
 
-// Create the linear plot
+//グラフの描画
 $lineplot=new LinePlot($ydata);
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
 $lineplot->SetLegend("今日のネガポジ平均"); 
 
-// Add the plot to the graph
+//グラフの追加
 $graph->Add($lineplot);
 
-
-// $graph->xaxis->title->Set("X-title");
-// $graph->yaxis->title->Set("Y-title");
+//XY軸の名前
 $graph->xaxis->title->Set(mb_convert_encoding("時間", "UTF-8", "auto"));
 $graph->yaxis->title->Set(mb_convert_encoding("ネガポジ値", "UTF-8", "auto"));
-
-// $graph->title->SetFont(FF_FONT1,FS_BOLD);
-// $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-// $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_MINCHO);
 $graph->xaxis->title->SetFont(FF_MINCHO);
-
 $graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
 
-//$graph->yaxis->SetColor("red");
-$graph->yaxis->SetWeight(2);
+//グラフの影の追加
 $graph->SetShadow();
 
-// Display the graph
+//グラフの表示
 $graph->Stroke();
