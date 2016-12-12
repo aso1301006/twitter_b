@@ -1,18 +1,18 @@
 <?php
-session_start();
 include ('../header.php');
 include '../Authentication.php';
 include '../DBManager.php';
 
 //処理制限時間を無期限に
 set_time_limit(0);
-
+//ユーザid
+$user_id = $_SESSION['id'];
 // エンドポイント(ユーザーのタイムラインを取得する)
 $request_url = 'https://api.twitter.com/1.1/statuses/user_timeline.json' ;
 // 	パラメータA (オプション)ユーザタイムライン用
 $params_a = array();
-	// 	スクリーンネーム (どちらか必須)
-	$params_a['screen_name'] = $screen_name;
+	// 	ユーザーid
+	$params_a['user_id'] = $user_id;
 	// 	取得件数 1から199まで
 	$params_a['count'] = '10';
 	// 	ユーザー情報を除外するのか
@@ -42,7 +42,7 @@ function reload(){
 <div class="main">
 
 	<div id="search" align="right">
-		<a href="user_get.php"><img src="../img/search_you.png" alt="分析" class="search" width="55%" height="100%"></img></a>
+		<a href="user_get.php"><img src="../img/search_you.png" alt="分析" width="55%" height="100%"></img></a>
 	</div>
 
 	<div id="relaod" align="right">
