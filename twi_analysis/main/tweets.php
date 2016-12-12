@@ -42,7 +42,7 @@ for($count;$count<$limit_tweets;){
 		if(isset($max_id)){array_shift($tweets);}
 
 		if(count($tweets) == 0){
-			break 2;
+			break;
 		}
 
 		foreach( $tweets as $key => $value ){
