@@ -11,10 +11,9 @@ function morpheme_emotion(){//形態素解析・感情値算出
 		$caller->setPath($path);//パスの切り替え
 		$caller->call();//感情値算出
 	}catch(Exception $e){
-		//return true;
-		return $e;
+		return true;
+// 		return $e;
 	}
-
 	return false;
 }
 ?>

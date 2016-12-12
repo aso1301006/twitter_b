@@ -1,9 +1,4 @@
 <?php
-//エラー無効
-//error_reporting(0);
-ini_set("max_execution_time",180);
-set_time_limit(180);
-
 //現在日時を取得して検索条件に加える
 $today=date('d');
 $day_ago=date("Ymd",strtotime("-1 day")); //１日前
@@ -19,7 +14,7 @@ $w = "土"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week1=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week1=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week1->count();
 	if(!$tweet_count==0){
@@ -47,7 +42,7 @@ $w = "土"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week2=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week2=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week2->count();
 	if(!$tweet_count==0){
@@ -75,7 +70,7 @@ $w = "土"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week3=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week3=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week3->count();
 	if(!$tweet_count==0){
@@ -102,7 +97,7 @@ $w = "土"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week4=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week4=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week4->count();
 if(!$tweet_count==0){
@@ -135,7 +130,7 @@ $search_day=(String)funcDesignatedDay($n, $w);
 if($last_day>=funcDesignatedDay($n, $w)){
 	while($twenty_four_count<24){
 		$hour=num_to_str($twenty_four_count);
-		$week5=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+		$week5=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 		$tweet_count=$week5->count();
 		if(!$tweet_count==0){

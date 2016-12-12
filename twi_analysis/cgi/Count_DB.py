@@ -10,6 +10,7 @@ import sys
 import codecs
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 tweetdata = mysetting.tweetdata
+LINE_GRAPH = 13  # CounterCaller から呼び出される時に識別する際の数字
 
 
 def str_to_date_jp(str_date):
@@ -21,7 +22,8 @@ def str_to_date_jp(str_date):
 
 # 形態素分解および感情値算出が終わったものを抽出
 def get_mecabed_strings(
-    user_id=None, from_date_str=None, to_date_str=None, word=None, *etc
+    user_id=None, from_date_str=None, to_date_str=None,
+    word=None, selecter=None, *etc
 ):
     tweet_list = []
 
@@ -44,7 +46,7 @@ def get_mecabed_strings(
         query['user_id'] = user_id
 
     # 指定された単語を含むツイートを検索
-    if word is not None:
+    if word not in [None, '']:
         word = word.decode('utf-8')
         query['$or'] = [  # 与えられた単語が辞書のキーに存在するか
             {'noun.' + word: {'$exists': 1}},
@@ -55,25 +57,32 @@ def get_mecabed_strings(
     query['mecabed'] = True
     query['emotion'] = True
 
-    # 指定した条件のツイートを取得
-    for d in tweetdata.find(query, {
-        'noun': 1,
-        # 'verb': 1,
-        'adjective': 1
-        # 'adverb': 1,
-    }):
-        tweet = ""
-        # Mecabで分割済みの単語をのリストを作成
-        if 'noun' in d:
-            for word, point in d['noun'].items():
-                if point is not None:
-                    tweet += word + " "
-        if 'adjective' in d:
-            for word, point in d['adjective'].items():
-                if point is not None:
-                    tweet += word + " "
-        tweet_list.append(tweet)
-    return tweet_list
+    if selecter is None:
+        # 指定した条件のツイートを取得
+        for d in tweetdata.find(query, {
+            'noun': 1,
+            # 'verb': 1,
+            'adjective': 1
+            # 'adverb': 1,
+        }):
+            tweet = ""
+            # Mecabで分割済みの単語をのリストを作成
+            if 'noun' in d:
+                for word, point in d['noun'].items():
+                    if point is not None:
+                        tweet += word + " "
+            if 'adjective' in d:
+                for word, point in d['adjective'].items():
+                    if point is not None:
+                        tweet += word + " "
+            tweet_list.append(tweet)
+        return tweet_list
+    elif int(selecter) is LINE_GRAPH:
+        for d in tweetdata.find(query, {'hour': 1}):
+            tweet_list.append(d['hour'])
+        return tweet_list
+    else:
+        return sys.exit(u"引数が不正です")
 
 
 if __name__ == '__main__':
@@ -83,7 +92,7 @@ if __name__ == '__main__':
     argc = len(argvs)
     if argc == 1:  # コマンドライン引数が指定されていない場合
         tw_list = get_mecabed_strings()
-    elif 2 <= argc & argc <= 5:
+    elif 2 <= argc & argc <= 6:
         del argvs[0]  # 0番目にはモジュール名が入っているため
         tw_list = get_mecabed_strings(*argvs)
     else:
@@ -98,17 +107,23 @@ if __name__ == '__main__':
             c_vec = CountVectorizer(stop_words=[stop_word])
         else:
             c_vec = CountVectorizer()
+
+        count_result = {}
         c_vec.fit(tw_list)
         c_terms = c_vec.get_feature_names()
         c_tran = c_vec.transform([" ".join(tw_list)])
         c_tranarr = c_tran.toarray()
-        arg_ind = numpy.argsort(c_tranarr)[0][::-1][:5]
-
-        count_result = {}
-        for i in arg_ind:
-            key = c_terms[i]
-            value = c_tranarr[0][i]
-            count_result[key] = value
+        if argc == 6:
+            for i in range(24):
+                key = c_terms[i]
+                value = c_tranarr[0][i]
+                count_result[key] = value
+        else:
+            arg_ind = numpy.argsort(c_tranarr)[0][::-1][:5]
+            for i in arg_ind:
+                key = c_terms[i]
+                value = c_tranarr[0][i]
+                count_result[key] = value
 
         # count_result が存在すれば更新、なければ挿入する
         tweetdata.update({}, {'count_result': count_result}, upsert=True)

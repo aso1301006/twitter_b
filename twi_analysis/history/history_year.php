@@ -20,9 +20,12 @@
 <?php
 $name = $_POST["year"];
 ?>
-<div class="main">
+
 <?php
 include '../header.php';
+?><div class="main">
+<?php
+include '../body.html';
 ?>
 
 <span style="font-size:2em"><br/></span>
@@ -45,7 +48,7 @@ include '../header.php';
 <?php
 $year = substr($name,0,4);
 ?>
-<p><?php echo$year;?></p>
+
 <!--  -->
 <div class="center">
 	<img src="h_year_line_graph.php?year=<?=$year?>" alt="1年" class="gallery-cell"/>

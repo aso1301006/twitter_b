@@ -10,16 +10,14 @@
 <script type="text/javascript" src="check_line.js"></script>
 
 <title>単語比較グラフ</title>
-<script type="text/javascript">
-function frameClick() {
-    document.location.href = "../your_page/your_page.php";
-  }
-</script>
+
 </head>
 <body>
 <?php
-include ('../header.php'); //ヘッダー
-include '../body.html';
+include ('../header.php');
+include ('../body.html');
+
+
 ?>
 
 <?php
@@ -102,7 +100,7 @@ $week = $to_date."～".$last_date;
 
 <div class="main">
 <div id="header2">
-	<div class="general-button" onclick="frameClick();" style="float: left; margin: 10px;">
+	<div class="general-button" style="float: left; margin: 10px;">
 		<div class="button-content">
 			<span class="button-text">戻る</span>
 		</div>

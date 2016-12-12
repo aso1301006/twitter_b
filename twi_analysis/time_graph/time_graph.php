@@ -32,6 +32,7 @@ $(function(){
 //ini_set("display_errors", On);
 //error_reporting(E_ALL);
 include ('../header.php');
+include ('../body.html');
 include ('../DBManager.php');
 include_once ('day_array.php');
 include_once  ('week_max_min.php');

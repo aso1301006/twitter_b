@@ -41,10 +41,14 @@
 
 <body>
 
-<div class="main">
+
 <?php
 include ('../header.php');
+?><div class="main">
+<?php
 include ('search_month.php');
+include ('../body.html');
+
 
 if(isset($array_year)){
 	$countyear=count($array_year);
@@ -65,7 +69,7 @@ $year=$_POST["rireki"];
 <div class="site">
 <div class="center">
 <form action="history_year.php" method="post">
-<input type="submit"  value="<?php if(isset($year)){echo $year;}else{echo "2016年";}?>" name="year" style="width:30%; height:34%; font-size:45%;">
+<input type="submit"  value="<?php if(isset($year)){echo $year;}else{echo "2016年";}?>" name="year" style="width:30%; height:34%; font-size:45%; margin-top:1%;">
 </form>
 </div>
 
@@ -98,7 +102,7 @@ $year=$_POST["rireki"];
 
 <?php $year=substr($year, 0, 4); $a=$year."01";$b=$year."02";$c=$year."03";$d=$year."04";$e=$year."05";$f=$year."06";$g=$year."07";$h=$year."08";$ii=$year."09";$j=$year."10";$k=$year."11";$l=$year."12";$m="0";?>
 					<!--左半分  -->
-<div class="left">
+<div class="left" style="margin-top:-5%;">
 <?php for($i=0;$countyearmonth>$i;$i++){if($a ==  $array_yearmonth[$i]){ ?>
 <div class="button_right">
 <form action="history_month.php" method="post">
@@ -207,7 +211,7 @@ $year=$_POST["rireki"];
 </div>
 					<!--左半分  -->
 					<!--右半分  -->
-<div class="right">
+<div class="right" style="margin-top:-5%;">
 <?php for($i=0;$countyearmonth>$i;$i++){if($g == $array_yearmonth[$i]){ ?>
 <div class="button_right">
 <form action="history_month.php" method="post">

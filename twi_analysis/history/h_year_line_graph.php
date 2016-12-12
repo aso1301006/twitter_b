@@ -1,8 +1,7 @@
 <?php
 include ("jpgraph/jpgraph.php");
 include ("jpgraph/jpgraph_line.php");
-//例
-//$ydata = array(0.1,0.3,0.8,0.12,0.5,0.1,0.9,0.13,0.5,0.7,0.11,0.3);
+
 include '../DBManager.php';
 session_start();
 $y=$_GET['year'];
@@ -80,55 +79,47 @@ foreach($year as $value){
 $timer = new JpgTimer();
 $timer->Push();
 
-// Create the graph. These two calls are always required
+//グラフのサイズ指定
 $graph = new Graph(700,400);
 //$graph->SetScale("textlin");
 
+//グラフの上限下限指定
 $graph->SetScale("textint", -1, 1);
 $graph->yscale->ticks->Set(0.2,0.1);
 
+//凡例のフォント設定
+ $graph->legend->SetFont(FF_GOTHIC,FS_NORMAL);
+
+//マージンの指定
 $graph->img->SetMargin(40,60,20,60);
 
+//X軸の目盛指定
 $graph->xaxis->SetFont(FF_GOTHIC);
 $year=array("1","2","3","4","5","6","7","8","9","10","11","12");
 $graph->xaxis->SetTickLabels($year);
 
-// $graph->title->Set("Timing a graph");
-// $graph->footer->right->Set('Timer (ms): ');
-// $graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
-// $graph->footer->SetTimer($timer);
-/* $title = mb_convert_encoding("一日の比較", "UTF-8", "auto");
-$graph->title->Set($title);
-$graph->title->SetFont(FF_MINCHO); */
-
-// Create the linear plot
+//グラフの描画
 $lineplot=new LinePlot($ydata);
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
+$lineplot->SetLegend("1年のネガポジ平均");
 
-
-// Add the plot to the graph
+//グラフの追加
 $graph->Add($lineplot);
 
-
-// $graph->xaxis->title->Set("X-title");
-// $graph->yaxis->title->Set("Y-title");
+//XY軸の名前
 $graph->xaxis->title->Set(mb_convert_encoding("月", "UTF-8", "auto"));
 $graph->yaxis->title->Set(mb_convert_encoding("ネガポジ値", "UTF-8", "auto"));
-
-// $graph->title->SetFont(FF_FONT1,FS_BOLD);
-// $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-// $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 $graph->yaxis->title->SetFont(FF_MINCHO);
 $graph->xaxis->title->SetFont(FF_MINCHO);
 
 $graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
 
-//$graph->yaxis->SetColor("red");
+//グラフの影を追加
 $graph->yaxis->SetWeight(2);
 $graph->SetShadow();
 
-// Display the graph
+//グラフの表示
 $graph->Stroke();
 
 ?>

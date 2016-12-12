@@ -1,4 +1,5 @@
 <?php
+//数字を2ケタのString型に変換
 function num_to_str($num){
 	if(0 <= $num && $num <= 9){
 		return "0". (string)$num;
@@ -41,20 +42,6 @@ function funcDesignatedDay($n, $w){
 	return $day;
 }
 
-//エラー無効
-//error_reporting(0);
-
-// 24時間分のネガティブポジティブの平均値を1時間ごとに取得する
-//mongoDBから必要な値を取得
-//MongoDBクライアントの作成
-$mongo = new MongoClient("35.162.58.174:27017");
-//データベースの選択
-$db = $mongo->selectDB("twi_analysis");
-//コレクションの選択
-$collection = $db->selectCollection("tweetdata");
-//データ取得
-$acquisition = $collection->find();
-
 
 //現在日時を取得して検索条件に加える
 $year=date('Y');
@@ -68,22 +55,6 @@ $sum=0;
 $negapozi=0;
 $name=(String)$_SESSION['id'];//stringに変換
 
-//特定月、前月、月曜,最初の週の24時間ネガポジ平均
-//day<=7,7<day<=14,14<day<=21,21<day<=28,28<day
-//day<7の0時
-//$week1_00=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago, "dow"=>"Mon","day" => array('$lte' => "7"),"hour"=>"00"));
-//7<=day<14
-//$week2=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago, "dow"=>"Mon","day" => array('$lte' => "14"),"day" => array('$gt' => "7")));
-//14<=day<21
-//$week3=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago, "dow"=>"Mon","day" => array('$lte' => "21"),"day" => array('$gt' => "14")));
-//21<=day<28
-//$week4=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago, "dow"=>"Mon","day" => array('$lte' => "28"),"day" => array('$gt' => "21")));
-//28<day
-//$week5=$collection->find(array("user_id" =>$_SESSION['id'], "year" => $year_ago, "month" => $month_ago, "dow"=>"Mon","day" => array('$gt' => "28")));
-
-
-
-
 //day<=7
 $twenty_four_count=0;
 $n = 1; // 第n
@@ -92,8 +63,7 @@ $search_day=(String)funcDesignatedDay($n, $w);
 
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week1=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
-
+	$week1=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => "0".$search_day,"hour"=>$hour));
 	$tweet_count=$week1->count();
 	if(!$tweet_count==0){
 		foreach ($week1 as $res) {
@@ -120,7 +90,8 @@ $w = "月"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week2=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week2=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+
 
 	$tweet_count=$week2->count();
 	if(!$tweet_count==0){
@@ -148,7 +119,7 @@ $w = "月"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week3=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week3=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 	$tweet_count=$week3->count();
 	if(!$tweet_count==0){
@@ -176,7 +147,7 @@ $w = "月"; // w曜日
 $search_day=(String)funcDesignatedDay($n, $w);
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week4=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week4=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
 
 $tweet_count=$week4->count();
 
@@ -210,7 +181,8 @@ $search_day=(String)funcDesignatedDay($n, $w);
 if($last_day>=funcDesignatedDay($n, $w)){
 while($twenty_four_count<24){
 	$hour=num_to_str($twenty_four_count);
-	$week5=$collection->find(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+	$week5=tweets_search(array("user_id" =>$name, "year" => $year_ago, "month" => $month_ago,"day" => $search_day,"hour"=>$hour));
+
 
 	$tweet_count=$week5->count();
 	if(!$tweet_count==0){

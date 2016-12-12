@@ -8,11 +8,12 @@ function date_utc_to_jp($utc_date){
 	return date("Y-m-d H:i:s", strtotime($utc_date. " +9 hour"));
 }
 
-$start =  date("Y-m-d", strtotime('first day of ' . '2010-01-01'));//検索する月の初めを取得
-$end = date("Y-m-d", strtotime('last day of ' . '2018-12-01'));//検索する月の終わりを取得
+$start =  date("Y-m-d", strtotime('first day of ' . '2016-12-01'));//検索する月の初めを取得
+$end = date("Y-m-d", strtotime('last day of ' . '2016-12-01'));//検索する月の終わりを取得
 $user_id = '791505177299726336';
 while($start < $end){//week[第何週目][曜日] = 名詞+形容詞+時間
 	$count = tweets_count();
+	$count += 10;
 	$f = mt_rand(64, 1024);
 	for($i=0;$i<$f;$i++){
 		$count++;
@@ -30,7 +31,7 @@ while($start < $end){//week[第何週目][曜日] = 名詞+形容詞+時間
 		$seconds = date("s",strtotime("$start $h:$I:$s"));
 		$dow = date("D",strtotime("$start $h:$I:$s"));
 		tweets_one_insert(array(
-			'_id'=>'testdata2_'.$count,
+			'_id'=>'testdata_'.$count,
 			'text'=>$text[$rand],
 			'created_at'=>$date,
 			'year'=>$year,
