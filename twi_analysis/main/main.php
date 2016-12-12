@@ -2,6 +2,7 @@
 include ('../header.php');
 include '../Authentication.php';
 include '../DBManager.php';
+include '../body.html';
 
 //処理制限時間を無期限に
 set_time_limit(0);
