@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+
+#page_title{
+	float:left;
+	margin-left:35%;
+	margin-right:10%;
+	color:#555;
+	width:30%;
+}
+
+#today{
+	font-size:1.4em;
+	padding:5px;
+	margin:4% auto auto 15%;
+}
+
+#comment{
+	position: relative;
+	left:8%;
+	margin-top:-30%;
+	float:left;
+	width:30%;
+}
+
+#comment_text{
+	font-size:1.8vw;
+	float:left;
+	top:32%;
+	left:9%;
+	position: absolute;
+}
+
+#time_button{
+	position: relative;
+	left:20%;
+	top:0%;
+	width:15%;
+/*	float:left;*/
+}
+
+#history_button{
+	position: relative;
+	left:7%;
+	margin-top:5%;
+	width:10%;
+/*	float:left;*/
+}
+
+#people{
+	text-align:center;
+	margin-top:15px;
+	margin-bottom:10px;
+	margin-right:35%;
+	width:30%;
+	float:right;
+}
+
+
+
+#word_button{
+	position: relative;
+	left:75%;
+	top:10%;
+	width:15%;
+	height:0%;
+}
+
+#week_button{
+	position: relative;
+	left:45%;
+	top:10%;
+	width:15%;
+	height:15%;
+	float:right;
+}
+
+#advice_button{
+	position: relative;
+	left:0%;
+	top:0%;
+	width:15%;
+}
+
+@keyframes moveimg {
+	0% { left: 0px; top: 0px;}
+	10% { left: 0px; top: 3px;}
+	20% { left: 0px; top: 6px;}
+	30% { left: 0px; top: 9px;}
+	40% { left: 0px; top: 12px;}
+	50% { left: 0px; top: 15px;}
+	60% { left: 0px; top: 12px;}
+	70% { left: 0px; top: 9px;}
+	80% { left: 0px; top: 6px; }
+	90% { left: 0px; top: 3px;}
+	100% { left: 0px; top: 0px; }
+}
+
+.float1{
+	animation: moveimg 2s infinite;
+	position: relative;
+}
+.float2{
+	animation: moveimg 3s infinite;
+	position: relative;
+}
