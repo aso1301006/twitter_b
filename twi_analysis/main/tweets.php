@@ -12,7 +12,6 @@ function date_utc_to_jp($utc_date){
 $start = microtime(true);//処理開始時間
 set_time_limit(0);//処理制限時間を無期限に
 $move = true;
-
 //ユーザid
 $user_id = $_SESSION['id'];
 // エンドポイント(ユーザーのタイムラインを取得する)
@@ -29,7 +28,7 @@ $params_a['trim_user'] = 'false';
 $limit_tweets = 3200;
 
 $count = 0;//ツイート保存回数
-$zero = false;
+$tf = false;
 for($count;$count<$limit_tweets;){
 	//古いツイートidを取得している場合
 	if(isset($max_id)){
@@ -38,12 +37,14 @@ for($count;$count<$limit_tweets;){
 	try{
 		//ツイート取得
 		$tweets =  Authentication($request_url, $params_a);
-		if(count($tweets) == 0){
-			$zero = true;
-			break 2;
-		}
+
 		//かぶっている値を取り除く
 		if(isset($max_id)){array_shift($tweets);}
+
+		if(count($tweets) == 0){
+			break 2;
+		}
+
 		foreach( $tweets as $key => $value ){
 			$id = $tweets[$key]['id_str'];//ツイートid
 			$text = $tweets[$key]['text'];//ツイート内容
@@ -82,8 +83,11 @@ for($count;$count<$limit_tweets;){
 }
 //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
 $tf = morpheme_emotion();
-if($tf or $zero){//解析などが失敗の場合
-	echo '<h2>ツイート分析を失敗しました。もう一度分析してください。</h2><br />';
+if($tf or empty($tf)){//解析などが失敗の場合
+	echo '<h2>ツイート分析を失敗しました。前のページに戻ります。</h2><br />';
+
+	echo '値：'.$tf;
+
 	$move = false;
 }
 else{
