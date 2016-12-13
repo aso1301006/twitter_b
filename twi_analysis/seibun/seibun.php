@@ -10,6 +10,7 @@
 <?php
 //session_start();
 include '../header.php';
+include '../body.html';
 $tw_id= $_SESSION['id'];
 
 

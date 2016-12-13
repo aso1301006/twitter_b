@@ -19,10 +19,13 @@
 <?php
 $name = $_POST['1'];
 ?>
-<div class="main">
+
 <?php
 include '../header.php';
-//include ('month_acquisition.php');
+?>
+<div class="main">
+<?php
+include '../body.html';
 ?>
 
 <span style="font-size:2em"><br/></span>
@@ -47,13 +50,11 @@ $year = substr($name,0,4);
 $month = substr($name,4,2);
 $test=$year.$month;
 ?>
-<p><?php echo$test;?></p>
-<!--  -->
+
 <div class="center">
 	<img src="h_month_line_graph.php?year=<?=$year?>&month=<?=$month?>" alt="1カ月" class="gallery-cell"/>
 
 </div>
-<!--  -->
 
 </div>
 </body>

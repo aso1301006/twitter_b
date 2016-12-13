@@ -28,7 +28,7 @@ $params_a['trim_user'] = 'false';
 $limit_tweets = 3200;
 
 $count = 0;//ツイート保存回数
-$tf = false;
+
 for($count;$count<$limit_tweets;){
 	//古いツイートidを取得している場合
 	if(isset($max_id)){
@@ -83,7 +83,8 @@ for($count;$count<$limit_tweets;){
 }
 //DBに保存さえれているツイートデータに対して形態素解析・感情値算出を行う
 $tf = morpheme_emotion();
-if($tf or empty($tf)){//解析などが失敗の場合
+
+if($tf){//解析などが失敗の場合
 	echo '<h2>ツイート分析を失敗しました。前のページに戻ります。</h2><br />';
 
 	echo '値：'.$tf;

@@ -18,7 +18,7 @@ RETURN_STRING_FINISH = "Finish"
 RETURN_STRING_EXCEPTION = "Exception"
 RETURN_STRING_RUNTIME_ERROR = "RuntimeError"
 
-HOST_NAME = "35.162.58.174"  # "localhost"
+HOST_NAME = "localhost"
 PORT = 27017
 
 # twitter = None

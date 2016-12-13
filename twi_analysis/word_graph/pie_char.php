@@ -8,10 +8,6 @@ $graph = new PieGraph(400,300);
 
 $graph->SetShadow();
 
-//フォントの設定
-//$graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
-//$graph->title->Set(mb_convert_encoding('円グラフ', 'UTF-8', 'auto'));
-
 $p1 = new PiePlot($data);
 
 //凡例のフォント設定

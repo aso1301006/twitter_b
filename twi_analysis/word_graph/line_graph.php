@@ -13,16 +13,12 @@ $ydata5 = array(2,0,0,0,0,0,0,5,2,0,0,0,0,2,3,0,0,0,3,2,1,3,7,7);
 //線の太さ0かつデータなしのダミーデータ
 $ydata6 = array(0,0,0,0,0,0,0,0,0,0);
 
-//データ受け取り
-/*
-foreach($word as $key =>$value){
-	foreach($word as $key =>$value){
-	$ydata[]=$value;
-	$text_data[]=$word;
-	}
-}
-*/
+// $count_arr = $_GET[''];
+// 
+// //線の太さ0かつデータなしのダミーデータ
+// $ydata6 = array(0,0,0,0,0,0,0,0,0,0);
 
+//グラフの生成
 $timer = new JpgTimer();
 $timer->Push();
 
@@ -30,14 +26,7 @@ $timer->Push();
 $graph = new Graph(400,300);
 $graph->SetScale("textlin");
 
-
-//グラフのタイトル
-//$graph->title->Set("Timing a graph");
-//$graph->footer->right->Set('Timer (ms): ');
-//$graph->footer->right->SetFont(FF_COURIER,FS_ITALIC);
-//$graph->footer->SetTimer($timer);
-
-// Create the linear plot
+//グラフの描画
 $lineplot=new LinePlot($ydata);
 $lineplot2=new LinePlot($ydata2);
 $lineplot3=new LinePlot($ydata3);
@@ -46,7 +35,6 @@ $lineplot5=new LinePlot($ydata5);
 $lineplot6=new LinePlot($ydata6);
 
 //グラフの追加
-
 if(!isset($_GET['data1'])){$graph->Add($lineplot);}
 if(!isset($_GET['data2'])){$graph->Add($lineplot2);}
 if(!isset($_GET['data3'])){$graph->Add($lineplot3);}
@@ -63,36 +51,6 @@ $graph->xaxis->title->Set("時間");
 $graph->yaxis->title->SetFont(FF_MINCHO,FS_NORMAL,10);
 $graph->yaxis->title->Set("ツイート数");
 
-//$graph->title->SetFont(FF_FONT1,FS_BOLD);
-//$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD);
-//$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
-
-//$graph->title->SetFont(FF_MINCHO,FS_NORMAL,20);
-//$graph->title->Set(mb_convert_encoding('単語比較', 'UTF-8', 'auto'));
-
-
-//テストデータ
-$text_data=  array('単語①', '単語②', '単語3', '単語4', '単語5');
-//本番用
-//$text_data = array($word_arr[0],$word_arr[1],$word_arr[2],$word_arr[3],$word_arr[4]);
-$labels = $text_data;
-//$graph->xaxis->SetFont(FF_GOTHIC);
-//$graph->xaxis->SetTickLabels($labels);
-
-/*
-//線のマーカーを追加
-$lineplot->mark->SetType(MARK_CIRCLE);
-$lineplot2->mark->SetType(MARK_CIRCLE);
-$lineplot3->mark->SetType(MARK_CIRCLE);
-$lineplot4->mark->SetType(MARK_CIRCLE);
-$lineplot5->mark->SetType(MARK_CIRCLE);
-//マーカーの色
-$lineplot->mark->SetColor("blue");
-$lineplot2->mark->SetColor("orange");
-$lineplot3->mark->SetColor("green");
-$lineplot4->mark->SetColor("red");
-$lineplot5->mark->SetColor(array(55, 55,55));
- */
 //折れ線の色設定
 $lineplot->SetColor("blue");
 $lineplot->SetWeight(2);
@@ -117,6 +75,6 @@ $graph->yaxis->SetColor("black");
 $graph->yaxis->SetWeight(2);
 $graph->SetShadow();
 
-// Display the graph
+//グラフ表示
 $graph->Stroke();
 ?>

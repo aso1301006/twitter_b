@@ -10,6 +10,7 @@
 <?php
 //session_start();
 include '../header.php';
+include '../body.html';
 include '../DBManager.php';
 
 
@@ -19,7 +20,6 @@ $today = date("Y年m月d日");
 $year = date("Y");
 $month = date("m");
 $day = date("d");
-
 
 $count=0;
 $sum=0;
