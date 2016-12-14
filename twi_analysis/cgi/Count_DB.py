@@ -22,7 +22,6 @@ def str_to_date_jp(str_date):
 
 # 形態素分解および感情値算出が終わったものを抽出
 def get_mecabed_strings(
-    user_id=None, from_date_str=None, to_date_str=None, word=None, *etc
     user_id=None, from_date_str=None, to_date_str=None,
     word=None, selecter=None, *etc
 ):
